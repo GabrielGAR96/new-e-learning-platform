@@ -1,0 +1,449 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXListView?>
+<?import com.jfoenix.controls.JFXTabPane?>
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.controls.JFXToggleButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.effect.Bloom?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="900.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.PainelCadastrarController">
+   <center>
+      <JFXTabPane stylesheets="@style.css" BorderPane.alignment="CENTER">
+         <tabs>
+            <Tab id="alunoTab" fx:id="alunoTab" text="Aluno">
+               <content>
+                  <GridPane>
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <JFXTextField fx:id="matriculaAlunoField" focusColor="#8e24aa" labelFloat="true" prefHeight="25.0" prefWidth="426.0" promptText="Matrícula">
+                           <GridPane.margin>
+                              <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
+                           </GridPane.margin>
+                           <font>
+                              <Font name="Georgia" size="12.0" />
+                           </font>
+                        </JFXTextField>
+                        <JFXTextField fx:id="nomeAlunoField" focusColor="#8e24aa" labelFloat="true" promptText="Nome completo" GridPane.columnIndex="1">
+                           <GridPane.margin>
+                              <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
+                           </GridPane.margin>
+                           <font>
+                              <Font name="Georgia" size="12.0" />
+                           </font>
+                        </JFXTextField>
+                        <Label text="Disciplinas que deseja cursar:" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                           <GridPane.margin>
+                              <Insets />
+                           </GridPane.margin>
+                        </Label>
+                        <JFXListView fx:id="disciplinasDisponiveisAlunoList" prefHeight="126.0" prefWidth="440.0" GridPane.rowIndex="2" GridPane.rowSpan="2">
+                           <GridPane.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </GridPane.margin>
+                        </JFXListView>
+                        <JFXListView fx:id="disciplinasSelecionadasAlunoList" prefHeight="91.0" prefWidth="436.0" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.rowSpan="2">
+                           <GridPane.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </GridPane.margin>
+                        </JFXListView>
+                        <Label text="Disponiveis:" GridPane.rowIndex="1">
+                           <GridPane.margin>
+                              <Insets left="200.0" top="30.0" />
+                           </GridPane.margin>
+                        </Label>
+                        <Label text="Selecionadas:" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                           <GridPane.margin>
+                              <Insets left="200.0" top="30.0" />
+                           </GridPane.margin>
+                        </Label>
+                     </children>
+                  </GridPane>
+               </content>
+            </Tab>
+            <Tab fx:id="facilitadorTab" text="Facilitador">
+               <content>
+                  <GridPane>
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                     <children>
+                        <JFXTextField fx:id="matriculaFacilitadorField" focusColor="#8e24aa" labelFloat="true" prefHeight="25.0" prefWidth="426.0" promptText="Matrícula">
+                           <GridPane.margin>
+                              <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
+                           </GridPane.margin>
+                        </JFXTextField>
+                        <JFXTextField fx:id="nomeFacilitadorField" focusColor="#8e24aa" labelFloat="true" promptText="Nome completo" GridPane.columnIndex="1">
+                           <GridPane.margin>
+                              <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
+                           </GridPane.margin>
+                        </JFXTextField>
+                        <Label text="Disciplinas em que está apto a atuar:" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                           <GridPane.margin>
+                              <Insets />
+                           </GridPane.margin>
+                        </Label>
+                        <JFXListView fx:id="disciplinasDisponiveisFacilitadorField" prefHeight="126.0" prefWidth="440.0" GridPane.rowIndex="2" GridPane.rowSpan="2">
+                           <GridPane.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </GridPane.margin>
+                        </JFXListView>
+                        <JFXListView fx:id="disciplinasSelecionadasFacilitadorField" prefHeight="91.0" prefWidth="436.0" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.rowSpan="2">
+                           <GridPane.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </GridPane.margin>
+                        </JFXListView>
+                        <Label text="Disponiveis:" GridPane.rowIndex="1">
+                           <GridPane.margin>
+                              <Insets left="200.0" top="30.0" />
+                           </GridPane.margin>
+                        </Label>
+                        <Label text="Selecionadas:" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                           <GridPane.margin>
+                              <Insets left="200.0" top="30.0" />
+                           </GridPane.margin>
+                        </Label>
+                     </children>
+                  </GridPane>
+               </content>
+            </Tab>
+            <Tab fx:id="disciplinaTab" text="Disciplina">
+               <content>
+                  <GridPane>
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                     <children>
+                        <JFXTextField fx:id="nomeDisciplinaField" focusColor="#8e24aa" labelFloat="true" prefHeight="25.0" prefWidth="426.0" promptText="Disciplina">
+                           <GridPane.margin>
+                              <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
+                           </GridPane.margin>
+                        </JFXTextField>
+                        <JFXTextField fx:id="valorDisciplinaField" focusColor="#8e24aa" labelFloat="true" promptText="Valor" GridPane.columnIndex="1">
+                           <GridPane.margin>
+                              <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
+                           </GridPane.margin>
+                        </JFXTextField>
+                        <Label text="Facilitadores da disciplina:" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                           <GridPane.margin>
+                              <Insets />
+                           </GridPane.margin>
+                        </Label>
+                        <JFXListView fx:id="facilitadoresDisponiveisDisciplinaField" prefHeight="126.0" prefWidth="440.0" GridPane.rowIndex="3">
+                           <GridPane.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </GridPane.margin>
+                        </JFXListView>
+                        <JFXListView fx:id="facilitadoresSelecionadosDisciplinaField" prefHeight="91.0" prefWidth="436.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                           <GridPane.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </GridPane.margin>
+                        </JFXListView>
+                        <Label text="Disponiveis:" GridPane.rowIndex="2">
+                           <GridPane.margin>
+                              <Insets left="200.0" top="30.0" />
+                           </GridPane.margin>
+                        </Label>
+                        <Label text="Selecionadas:" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                           <GridPane.margin>
+                              <Insets left="200.0" top="30.0" />
+                           </GridPane.margin>
+                        </Label>
+                        <JFXListView fx:id="assuntoDisciplinaList" prefHeight="91.0" prefWidth="436.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                           <GridPane.margin>
+                              <Insets bottom="5.0" left="15.0" right="15.0" top="5.0" />
+                           </GridPane.margin>
+                        </JFXListView>
+                        <JFXTextField fx:id="assuntoDisciplinaField" focusColor="#8e24aa" labelFloat="true" promptText="Assunto" GridPane.rowIndex="1">
+                           <GridPane.margin>
+                              <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
+                           </GridPane.margin>
+                        </JFXTextField>
+                        <JFXButton fx:id="adicionarAssuntoDisciplinaBtn" buttonType="RAISED" style="-fx-background-color: #8e24aa;" text="&gt;" textFill="WHITE" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+                           <GridPane.margin>
+                              <Insets />
+                           </GridPane.margin>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </JFXButton>
+                     </children>
+                  </GridPane>
+               </content>
+            </Tab>
+            <Tab fx:id="assuntoTab" text="Assunto">
+               <content>
+                  <GridPane>
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                     <children>
+                        <JFXTextField fx:id="nomeAssuntoField" focusColor="#8e24aa" labelFloat="true" prefHeight="25.0" prefWidth="350.0" promptText="Assunto" GridPane.valignment="BOTTOM">
+                           <GridPane.margin>
+                              <Insets left="50.0" right="50.0" top="50.0" />
+                           </GridPane.margin>
+                           <font>
+                              <Font name="Georgia" size="12.0" />
+                           </font>
+                        </JFXTextField>
+                        <JFXComboBox fx:id="disciplinaAssuntoCombo" focusColor="#6a1b9a" prefHeight="25.0" prefWidth="350.0" promptText="Disciplina" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM" />
+                     </children>
+                  </GridPane>
+               </content>
+            </Tab>
+            <Tab fx:id="perguntaTab" text="Pergunta">
+               <content>
+                  <GridPane>
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <JFXTextArea fx:id="textoPerguntaField" focusColor="#6a1b9a" labelFloat="true" promptText="Pergunta">
+                           <GridPane.margin>
+                              <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                           </GridPane.margin>
+                        </JFXTextArea>
+                        <JFXComboBox fx:id="assuntoPerguntaCombo" focusColor="#6a1b9a" prefHeight="25.0" prefWidth="350.0" promptText="Assunto" GridPane.columnIndex="1">
+                           <GridPane.margin>
+                              <Insets left="30.0" right="30.0" top="60.0" />
+                           </GridPane.margin>
+                        </JFXComboBox>
+                        <JFXComboBox fx:id="disciplinaPerguntaCombo" focusColor="#6a1b9a" prefHeight="25.0" prefWidth="350.0" promptText="Disciplina" GridPane.columnIndex="1">
+                           <GridPane.margin>
+                              <Insets bottom="60.0" left="30.0" right="30.0" />
+                           </GridPane.margin>
+                        </JFXComboBox>
+                        <JFXTextArea fx:id="respostaPerguntaField" disable="true" focusColor="#6a1b9a" labelFloat="true" promptText="Resposta" GridPane.rowIndex="2">
+                           <GridPane.margin>
+                              <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                           </GridPane.margin>
+                        </JFXTextArea>
+                        <JFXListView fx:id="respostaPerguntaList" disable="true" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                           <GridPane.margin>
+                              <Insets bottom="10.0" left="20.0" right="10.0" top="15.0" />
+                           </GridPane.margin>
+                        </JFXListView>
+                        <JFXButton fx:id="adicionarRespostaPerguntaBtn" buttonType="RAISED" disable="true" style="-fx-background-color: #6a1b9a;" text="&gt;" textFill="WHITE" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </JFXButton>
+                        <JFXToggleButton fx:id="respObjPerguntaToggle" text="Respostas objetivas" toggleColor="#6a1b9a" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                     </children>
+                  </GridPane>
+               </content>
+            </Tab>
+            <Tab fx:id="pagamentoTab" text="Pagamento">
+               <content>
+                  <GridPane>
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <JFXToggleButton fx:id="alunoOuFacilitadorPagamentoToggle" text="Facilitador" toggleColor="#6a1b9a" toggleLineColor="#999999" unToggleColor="#6a1b9a" GridPane.columnSpan="2" GridPane.halignment="CENTER">
+                           <GridPane.margin>
+                              <Insets left="50.0" />
+                           </GridPane.margin>
+                        </JFXToggleButton>
+                        <Label fx:id="alunoPagamentoLabel" text="Aluno" GridPane.halignment="RIGHT">
+                           <GridPane.margin>
+                              <Insets right="35.0" />
+                           </GridPane.margin>
+                        </Label>
+                        <JFXTextField fx:id="matriculaPagamentoField" focusColor="#6a1b9a" labelFloat="true" prefWidth="361.0" promptText="Matrícula" GridPane.rowIndex="1">
+                           <GridPane.margin>
+                              <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
+                           </GridPane.margin>
+                           <font>
+                              <Font name="Georgia" size="12.0" />
+                           </font>
+                        </JFXTextField>
+                        <JFXTextField fx:id="valorAlunoPagamentoField" focusColor="#6a1b9a" labelFloat="true" promptText="Valor" GridPane.rowIndex="2">
+                           <GridPane.margin>
+                              <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
+                           </GridPane.margin>
+                           <font>
+                              <Font name="Georgia" size="12.0" />
+                           </font>
+                        </JFXTextField>
+                        <JFXDatePicker fx:id="dataPagamentoDP" defaultColor="#6a1b9a" prefHeight="25.0" prefWidth="415.0" promptText="Data" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                           <GridPane.margin>
+                              <Insets />
+                           </GridPane.margin>
+                        </JFXDatePicker>
+                        <JFXToggleButton fx:id="simuladoOuDuvidaPagamentoToggle" disable="true" text="Dúvida" toggleColor="#6a1b9a" toggleLineColor="#999999" unToggleColor="#6a1b9a" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
+                           <GridPane.margin>
+                              <Insets left="50.0" top="-15.0" />
+                           </GridPane.margin>
+                        </JFXToggleButton>
+                        <JFXTextField fx:id="idSimDuvPagamentoField" disable="true" focusColor="#6a1b9a" labelFloat="true" promptText="ID (Simulado ou Dúvida)" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                           <GridPane.margin>
+                              <Insets left="50.0" right="50.0" top="10.0" />
+                           </GridPane.margin>
+                        </JFXTextField>
+                        <Label fx:id="simuladoPagamentoLabel" disable="true" text="Simulado" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
+                           <GridPane.margin>
+                              <Insets right="100.0" top="5.0" />
+                           </GridPane.margin>
+                        </Label>
+                        <JFXListView fx:id="valorFacilitadorPagamentoList" disable="true" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                           <GridPane.margin>
+                              <Insets bottom="10.0" left="20.0" right="20.0" top="25.0" />
+                           </GridPane.margin>
+                        </JFXListView>
+                        <Label disable="true" text="Valor a ser pago:" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.valignment="TOP">
+                           <GridPane.margin>
+                              <Insets left="20.0" top="5.0" />
+                           </GridPane.margin>
+                        </Label>
+                     </children>
+                  </GridPane>
+               </content>
+            </Tab>
+            <Tab text="Duvida">
+               <content>
+                  <GridPane>
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <JFXTextArea fx:id="perguntaDuvidaCombo" focusColor="#6a1b9a" labelFloat="true" opacity="0.5" promptText="Pergunta:" style="-fx-background-color: #eeeeee;" GridPane.rowIndex="2">
+                           <GridPane.margin>
+                              <Insets bottom="10.0" left="50.0" right="50.0" />
+                           </GridPane.margin>
+                           <font>
+                              <Font name="Georgia Bold" size="12.0" />
+                           </font>
+                        </JFXTextArea>
+                        <JFXComboBox fx:id="alunoDuvidaCombo" focusColor="#6a1b9a" prefHeight="25.0" prefWidth="320.0" promptText="Aluno" GridPane.halignment="CENTER" />
+                        <JFXComboBox fx:id="facilitadorDuvidaCombo" focusColor="#6a1b9a" prefHeight="25.0" prefWidth="320.0" promptText="Facilitador" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                     </children>
+                  </GridPane>
+               </content>
+            </Tab>
+            <Tab text="Gerar Simulado">
+               <content>
+                  <GridPane>
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <JFXComboBox fx:id="alunoSimuladoCombo" focusColor="#6a1b9a" labelFloat="true" prefHeight="25.0" prefWidth="250.0" promptText="Aluno" GridPane.halignment="CENTER" />
+                        <JFXComboBox fx:id="disciplinaSimuladoCombo" focusColor="#6a1b9a" labelFloat="true" prefHeight="25.0" prefWidth="250.0" promptText="Disciplina" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                           <GridPane.margin>
+                              <Insets bottom="30.0" />
+                           </GridPane.margin>
+                        </JFXComboBox>
+                        <JFXListView fx:id="questoesSimuladoView" prefHeight="141.0" prefWidth="440.0" GridPane.columnIndex="1" GridPane.rowSpan="3">
+                           <GridPane.margin>
+                              <Insets bottom="35.0" right="10.0" top="10.0" />
+                           </GridPane.margin>
+                        </JFXListView>
+                        <JFXComboBox fx:id="assuntoSimuladoCombo" focusColor="#6a1b9a" labelFloat="true" prefHeight="25.0" prefWidth="250.0" promptText="Assunto" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                           <GridPane.margin>
+                              <Insets bottom="30.0" />
+                           </GridPane.margin>
+                        </JFXComboBox>
+                        <JFXButton fx:id="gerarSimuladoBtn" buttonType="RAISED" style="-fx-background-color: #6a1b9a;" text="Gerar" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </JFXButton>
+                     </children>
+                  </GridPane>
+               </content>
+            </Tab>
+         </tabs>
+      </JFXTabPane>
+   </center>
+   <bottom>
+      <AnchorPane prefHeight="43.0" prefWidth="900.0" BorderPane.alignment="CENTER">
+         <children>
+            <JFXButton fx:id="finalizarCadastroBtn" buttonType="RAISED" layoutX="432.0" layoutY="5.0" prefHeight="38.0" prefWidth="36.0" ripplerFill="WHITE" style="-fx-background-color: #6a1b9a;" text="+" textFill="WHITE" AnchorPane.bottomAnchor="5.0" AnchorPane.topAnchor="5.0">
+               <font>
+                  <Font name="System Bold" size="25.0" />
+               </font>
+               <padding>
+                  <Insets bottom="1.0" top="1.0" />
+               </padding>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </JFXButton>
+         </children>
+         <effect>
+            <Bloom threshold="0.6" />
+         </effect></AnchorPane>
+   </bottom>
+</BorderPane>

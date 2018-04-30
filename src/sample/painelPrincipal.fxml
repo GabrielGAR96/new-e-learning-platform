@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane fx:id="painelPrincipal" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.PainelPrincipalController">
+   <center>
+
+   </center>
+   <bottom>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="150.0" style="-fx-background-color: #6a1b9a;" BorderPane.alignment="CENTER">
+         <children>
+            <JFXButton fx:id="cadastrarBtn" buttonType="RAISED" defaultButton="true" onAction="#abrirPainelCadastrar" ripplerFill="BLACK" style="-fx-background-color: white;" text="Cadastrar" textFill="#38006b">
+               <font>
+                  <Font name="Georgia" size="15.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </JFXButton>
+            <JFXButton fx:id="registrosBtn" buttonType="RAISED" defaultButton="true" ripplerFill="BLACK" style="-fx-background-color: white;" text="Registros" textFill="#38006b">
+               <font>
+                  <Font name="Georgia" size="15.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </JFXButton>
+            <JFXButton fx:id="avaliacaoBtn" buttonType="RAISED" defaultButton="true" ripplerFill="BLACK" style="-fx-background-color: white;" text="Avaliação" textFill="#38006b">
+               <font>
+                  <Font name="Georgia" size="15.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </JFXButton>
+            <JFXButton fx:id="avaliacaoBtn1" buttonType="RAISED" defaultButton="true" ripplerFill="BLACK" style="-fx-background-color: white;" text="Simulados" textFill="#38006b">
+               <font>
+                  <Font name="Georgia" size="15.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </JFXButton>
+         </children>
+      </HBox>
+   </bottom>
+   <center>
+      <BorderPane fx:id="painelSecundario" prefHeight="400.0" prefWidth="900.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
+         <effect>
+            <InnerShadow />
+         </effect>
+      </BorderPane>
+   </center>
+   <top>
+      <AnchorPane prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="14.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/logo.jpg" />
+               </image>
+            </ImageView>
+            <JFXTextField fx:id="pesquisarField" focusColor="#38006b" layoutX="161.0" layoutY="38.0" prefHeight="25.0" prefWidth="282.0" promptText="Pesquisar" style="-jfx-label-float: true;" unFocusColor="BLACK">
+               <font>
+                  <Font name="Georgia" size="15.0" />
+               </font>
+            </JFXTextField>
+         </children>
+      </AnchorPane>
+   </top>
+</BorderPane>
