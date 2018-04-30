@@ -22,7 +22,7 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="900.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.PainelCadastrarController">
    <center>
-      <JFXTabPane stylesheets="@style.css" BorderPane.alignment="CENTER">
+      <JFXTabPane fx:id="paneCadastros" stylesheets="@style.css" BorderPane.alignment="CENTER">
          <tabs>
             <Tab id="alunoTab" fx:id="alunoTab" text="Aluno">
                <content>
@@ -117,7 +117,7 @@
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </GridPane.margin>
                         </JFXListView>
-                        <JFXListView fx:id="disciplinasSelecionadasFacilitadorField" prefHeight="91.0" prefWidth="436.0" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.rowSpan="2">
+                        <JFXListView fx:id="disciplinasSelecionadasFacilitadorList" prefHeight="91.0" prefWidth="436.0" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.rowSpan="2">
                            <GridPane.margin>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </GridPane.margin>
@@ -155,16 +155,16 @@
                               <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
                            </GridPane.margin>
                         </JFXTextField>
-                        <JFXTextField fx:id="valorDisciplinaField" focusColor="#8e24aa" labelFloat="true" promptText="Valor" GridPane.columnIndex="1">
-                           <GridPane.margin>
-                              <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
-                           </GridPane.margin>
-                        </JFXTextField>
                         <Label text="Facilitadores da disciplina:" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                            <GridPane.margin>
                               <Insets />
                            </GridPane.margin>
                         </Label>
+                        <JFXTextField fx:id="valorDisciplinaField" focusColor="#8e24aa" labelFloat="true" onKeyReleased="#valorDisciplinaDigitado" promptText="Valor" GridPane.columnIndex="1">
+                           <GridPane.margin>
+                              <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
+                           </GridPane.margin>
+                        </JFXTextField>
                         <JFXListView fx:id="facilitadoresDisponiveisDisciplinaField" prefHeight="126.0" prefWidth="440.0" GridPane.rowIndex="3">
                            <GridPane.margin>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -360,7 +360,7 @@
                   </GridPane>
                </content>
             </Tab>
-            <Tab text="Duvida">
+            <Tab fx:id="duvidaTab" text="Duvida">
                <content>
                   <GridPane>
                     <columnConstraints>
@@ -386,7 +386,7 @@
                   </GridPane>
                </content>
             </Tab>
-            <Tab text="Gerar Simulado">
+            <Tab fx:id="gerarSimuladoTab" text="Gerar Simulado">
                <content>
                   <GridPane>
                     <columnConstraints>
@@ -430,7 +430,7 @@
    <bottom>
       <AnchorPane prefHeight="43.0" prefWidth="900.0" BorderPane.alignment="CENTER">
          <children>
-            <JFXButton fx:id="finalizarCadastroBtn" buttonType="RAISED" layoutX="432.0" layoutY="5.0" prefHeight="38.0" prefWidth="36.0" ripplerFill="WHITE" style="-fx-background-color: #6a1b9a;" text="+" textFill="WHITE" AnchorPane.bottomAnchor="5.0" AnchorPane.topAnchor="5.0">
+            <JFXButton fx:id="finalizarCadastroBtn" buttonType="RAISED" layoutX="432.0" layoutY="5.0" onAction="#finalizarCadastro" prefHeight="38.0" prefWidth="36.0" ripplerFill="WHITE" style="-fx-background-color: #6a1b9a;" text="+" textFill="WHITE" AnchorPane.bottomAnchor="5.0" AnchorPane.topAnchor="5.0">
                <font>
                   <Font name="System Bold" size="25.0" />
                </font>
