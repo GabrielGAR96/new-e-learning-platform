@@ -2,6 +2,22 @@
  -fx-background-color: #9c4dcc;
  }
 
+.jfx-tab-pane .tab .tab-label {
+    -fx-font-weight: normal;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 14;
+    -fx-font-family: verdana;
+}
+
+.jfx-tab-pane .tab-header-area .jfx-rippler{
+    -jfx-rippler-fill :#6a1b9a;
+}
+
+.jfx-tab-pane .tab-selected-line {
+    -fx-background-color: #ffffff;
+}
+
+
 .jfx-snackbar-content {
     -fx-background-color: #38006b;
 }

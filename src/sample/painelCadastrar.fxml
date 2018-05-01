@@ -8,11 +8,11 @@
 <?import com.jfoenix.controls.JFXTextArea?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import com.jfoenix.controls.JFXToggleButton?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Tab?>
-<?import javafx.scene.effect.Bloom?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -26,7 +26,7 @@
          <tabs>
             <Tab id="alunoTab" fx:id="alunoTab" onSelectionChanged="#tabAlunoSelecionada" text="Aluno">
                <content>
-                  <GridPane>
+                  <GridPane style="-fx-background-color: #fafafa;">
                     <columnConstraints>
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -38,7 +38,7 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <JFXTextField fx:id="matriculaAlunoField" focusColor="#8e24aa" labelFloat="true" prefHeight="25.0" prefWidth="426.0" promptText="Matrícula">
+                        <JFXTextField fx:id="matriculaAlunoField" focusColor="#8e24aa" labelFloat="true" onKeyReleased="#matriculaAlunoDigitado" prefHeight="25.0" prefWidth="426.0" promptText="Matrícula">
                            <GridPane.margin>
                               <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
                            </GridPane.margin>
@@ -46,7 +46,7 @@
                               <Font name="Georgia" size="12.0" />
                            </font>
                         </JFXTextField>
-                        <JFXTextField fx:id="nomeAlunoField" focusColor="#8e24aa" labelFloat="true" promptText="Nome completo" GridPane.columnIndex="1">
+                        <JFXTextField fx:id="nomeAlunoField" focusColor="#8e24aa" labelFloat="true" onKeyReleased="#nomeAlunoDigitado" promptText="Nome completo" GridPane.columnIndex="1">
                            <GridPane.margin>
                               <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
                            </GridPane.margin>
@@ -82,6 +82,9 @@
                      </children>
                   </GridPane>
                </content>
+               <graphic>
+                  <FontAwesomeIcon fill="WHITE" iconName="USER" />
+               </graphic>
             </Tab>
             <Tab fx:id="facilitadorTab" onSelectionChanged="#tabFacilitadorSelecionada" text="Facilitador">
                <content>
@@ -97,12 +100,12 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                      </rowConstraints>
                      <children>
-                        <JFXTextField fx:id="matriculaFacilitadorField" focusColor="#8e24aa" labelFloat="true" prefHeight="25.0" prefWidth="426.0" promptText="Matrícula">
+                        <JFXTextField fx:id="matriculaFacilitadorField" focusColor="#8e24aa" labelFloat="true" onKeyReleased="#matriculaFacilitadorDigitado" prefHeight="25.0" prefWidth="426.0" promptText="Matrícula">
                            <GridPane.margin>
                               <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
                            </GridPane.margin>
                         </JFXTextField>
-                        <JFXTextField fx:id="nomeFacilitadorField" focusColor="#8e24aa" labelFloat="true" promptText="Nome completo" GridPane.columnIndex="1">
+                        <JFXTextField fx:id="nomeFacilitadorField" focusColor="#8e24aa" labelFloat="true" onKeyReleased="#nomeFacilitadorDigitado" promptText="Nome completo" GridPane.columnIndex="1">
                            <GridPane.margin>
                               <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
                            </GridPane.margin>
@@ -135,6 +138,9 @@
                      </children>
                   </GridPane>
                </content>
+               <graphic>
+                  <FontAwesomeIcon fill="WHITE" iconName="UNIVERSITY" />
+               </graphic>
             </Tab>
             <Tab fx:id="disciplinaTab" onSelectionChanged="#tabDisciplinaSelecionada" text="Disciplina">
                <content>
@@ -195,7 +201,7 @@
                               <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
                            </GridPane.margin>
                         </JFXTextField>
-                        <JFXButton fx:id="adicionarAssuntoDisciplinaBtn" buttonType="RAISED" onAction="#adicionarAssuntoDisciplina" onKeyPressed="#adicionarAssuntoDisciplinaEnter" style="-fx-background-color: #8e24aa;" text="&gt;" textFill="WHITE" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+                        <JFXButton fx:id="adicionarAssuntoDisciplinaBtn" buttonType="RAISED" onAction="#adicionarAssuntoDisciplina" onKeyPressed="#adicionarAssuntoDisciplinaEnter" style="-fx-background-color: #6a1b9a;" text="&gt;" textFill="WHITE" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
                            <GridPane.margin>
                               <Insets />
                            </GridPane.margin>
@@ -209,6 +215,9 @@
                      </children>
                   </GridPane>
                </content>
+               <graphic>
+                  <FontAwesomeIcon fill="WHITE" iconName="BOOK" />
+               </graphic>
             </Tab>
             <Tab fx:id="assuntoTab" onSelectionChanged="#tabAssuntoSelecionada" text="Assunto">
                <content>
@@ -234,6 +243,9 @@
                      </children>
                   </GridPane>
                </content>
+               <graphic>
+                  <FontAwesomeIcon fill="WHITE" iconName="BOOKMARK" />
+               </graphic>
             </Tab>
             <Tab fx:id="perguntaTab" onSelectionChanged="#tabPerguntaSelecionada" text="Pergunta">
                <content>
@@ -281,10 +293,13 @@
                               <Font name="System Bold" size="12.0" />
                            </font>
                         </JFXButton>
-                        <JFXToggleButton fx:id="respObjPerguntaToggle" onAction="#toggleRespObj" text="Respostas objetivas" toggleColor="#6a1b9a" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                        <JFXToggleButton fx:id="respObjPerguntaToggle" onAction="#toggleRespObj" text="Respostas objetivas" toggleColor="#6a1b9a" unToggleLineColor="#c6c6c6" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
                      </children>
                   </GridPane>
                </content>
+               <graphic>
+                  <FontAwesomeIcon fill="WHITE" iconName="PENCIL" />
+               </graphic>
             </Tab>
             <Tab fx:id="pagamentoTab" onSelectionChanged="#tabPagamentoSelecionada" text="Pagamento">
                <content>
@@ -300,7 +315,7 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <JFXToggleButton fx:id="alunoOuFacilitadorPagamentoToggle" onAction="#toggleAlunoFacilitador" text="Facilitador" toggleColor="#6a1b9a" toggleLineColor="#999999" unToggleColor="#6a1b9a" GridPane.columnSpan="2" GridPane.halignment="CENTER">
+                        <JFXToggleButton fx:id="alunoOuFacilitadorPagamentoToggle" onAction="#toggleAlunoFacilitador" text="Facilitador" toggleColor="#6a1b9a" toggleLineColor="#c6c6c6" unToggleColor="#6a1b9a" unToggleLineColor="#c6c6c6" GridPane.columnSpan="2" GridPane.halignment="CENTER">
                            <GridPane.margin>
                               <Insets left="50.0" />
                            </GridPane.margin>
@@ -310,7 +325,7 @@
                               <Insets right="35.0" />
                            </GridPane.margin>
                         </Label>
-                        <JFXTextField fx:id="matriculaPagamentoField" focusColor="#6a1b9a" labelFloat="true" prefWidth="361.0" promptText="Matrícula" GridPane.rowIndex="1">
+                        <JFXTextField fx:id="matriculaPagamentoField" focusColor="#6a1b9a" labelFloat="true" onKeyReleased="#matriculaPagamentoDigitado" prefWidth="361.0" promptText="Matrícula" GridPane.rowIndex="1">
                            <GridPane.margin>
                               <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
                            </GridPane.margin>
@@ -331,12 +346,12 @@
                               <Insets />
                            </GridPane.margin>
                         </JFXDatePicker>
-                        <JFXToggleButton fx:id="simuladoOuDuvidaPagamentoToggle" disable="true" onAction="#toggleSimuladoDuvida" text="Dúvida" toggleColor="#6a1b9a" toggleLineColor="#999999" unToggleColor="#6a1b9a" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
+                        <JFXToggleButton fx:id="simuladoOuDuvidaPagamentoToggle" disable="true" onAction="#toggleSimuladoDuvida" text="Dúvida" toggleColor="#6a1b9a" toggleLineColor="#c6c6c6" unToggleColor="#6a1b9a" unToggleLineColor="#c6c6c6" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
                            <GridPane.margin>
                               <Insets left="50.0" top="-15.0" />
                            </GridPane.margin>
                         </JFXToggleButton>
-                        <JFXTextField fx:id="idSimDuvPagamentoField" disable="true" focusColor="#6a1b9a" labelFloat="true" promptText="ID (Simulado ou Dúvida)" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                        <JFXTextField fx:id="idSimDuvPagamentoField" disable="true" focusColor="#6a1b9a" labelFloat="true" onKeyReleased="#idPagamentoDigitado" promptText="ID (Simulado ou Dúvida)" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                            <GridPane.margin>
                               <Insets left="50.0" right="50.0" top="10.0" />
                            </GridPane.margin>
@@ -359,6 +374,9 @@
                      </children>
                   </GridPane>
                </content>
+               <graphic>
+                  <FontAwesomeIcon fill="WHITE" iconName="MONEY" />
+               </graphic>
             </Tab>
             <Tab fx:id="duvidaTab" onSelectionChanged="#tabDuvidaSelecionada" text="Duvida">
                <content>
@@ -385,6 +403,9 @@
                      </children>
                   </GridPane>
                </content>
+               <graphic>
+                  <FontAwesomeIcon fill="WHITE" iconName="QUESTION" />
+               </graphic>
             </Tab>
             <Tab fx:id="gerarSimuladoTab" onSelectionChanged="#tabGerarSimuladoSelecionada" text="Gerar Simulado">
                <content>
@@ -423,14 +444,17 @@
                      </children>
                   </GridPane>
                </content>
+               <graphic>
+                  <FontAwesomeIcon fill="WHITE" iconName="FILE" />
+               </graphic>
             </Tab>
          </tabs>
       </JFXTabPane>
    </center>
    <bottom>
-      <AnchorPane prefHeight="43.0" prefWidth="900.0" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="43.0" prefWidth="900.0" style="-fx-background-color: #fafafa;" BorderPane.alignment="CENTER">
          <children>
-            <JFXButton fx:id="finalizarCadastroBtn" buttonType="RAISED" layoutX="432.0" layoutY="5.0" onAction="#finalizarCadastro" prefHeight="38.0" prefWidth="36.0" ripplerFill="WHITE" style="-fx-background-color: #6a1b9a;" text="+" textFill="WHITE" AnchorPane.bottomAnchor="5.0" AnchorPane.topAnchor="5.0">
+            <JFXButton fx:id="finalizarCadastroBtn" buttonType="RAISED" contentDisplay="CENTER" layoutX="432.0" layoutY="5.0" onAction="#finalizarCadastro" prefHeight="38.0" prefWidth="36.0" ripplerFill="WHITE" style="-fx-background-color: #6a1b9a;" text=" " textFill="WHITE" AnchorPane.bottomAnchor="5.0" AnchorPane.topAnchor="5.0">
                <font>
                   <Font name="System Bold" size="25.0" />
                </font>
@@ -440,10 +464,10 @@
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
+               <graphic>
+                  <FontAwesomeIcon fill="WHITE" glyphStyleClass="" iconName="PLUS" />
+               </graphic>
             </JFXButton>
-         </children>
-         <effect>
-            <Bloom threshold="0.6" />
-         </effect></AnchorPane>
+         </children></AnchorPane>
    </bottom>
 </BorderPane>

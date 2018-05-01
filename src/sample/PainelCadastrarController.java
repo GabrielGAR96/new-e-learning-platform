@@ -2,11 +2,14 @@ package sample;
 
 import com.jfoenix.controls.*;
 import com.jfoenix.validation.DoubleValidator;
+import com.jfoenix.validation.NumberValidator;
 import com.jfoenix.validation.RequiredFieldValidator;
 import javafx.beans.binding.Bindings;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.input.*;
@@ -186,6 +189,8 @@ public class PainelCadastrarController {
 
     private DoubleValidator dValidator;
 
+    private NumberValidator numberValidator;
+
 
     //EXEMPLO DE COMO SELECIONAR ITEM DA LISTA: System.out.println(assuntoDisciplinaList.getSelectionModel().getSelectedItem().getText());
 
@@ -347,22 +352,57 @@ public class PainelCadastrarController {
         valorAlunoPagamentoField.validate();
     }
 
+    public void matriculaAlunoDigitado(KeyEvent keyEvent) {
+        matriculaAlunoField.validate();
+    }
+
+    public void nomeAlunoDigitado(KeyEvent keyEvent) {
+        nomeAlunoField.validate();
+    }
+
+    public void matriculaFacilitadorDigitado(KeyEvent keyEvent) {
+        matriculaFacilitadorField.validate();
+    }
+
+    public void nomeFacilitadorDigitado(KeyEvent keyEvent) {
+        nomeFacilitadorField.validate();
+    }
+
+    public void matriculaPagamentoDigitado(KeyEvent keyEvent) {
+        matriculaPagamentoField.validate();
+    }
+
+    public void idPagamentoDigitado(KeyEvent keyEvent) {
+        idSimDuvPagamentoField.validate();
+    }
+
     public void adicionarValidators() {
         rqValidator = new RequiredFieldValidator();
         dValidator = new DoubleValidator();
+        numberValidator = new NumberValidator();
 
         rqValidator.setMessage("Campo Obrigatório");
-        dValidator.setMessage("Por favor, insira um número válido.");
+        dValidator.setMessage("Por favor, insira um valor válido.");
+        numberValidator.setMessage("Por favor, insira um número válido.");
 
 
         valorDisciplinaField.getValidators().add(dValidator);
         valorAlunoPagamentoField.getValidators().add(dValidator);
+        matriculaAlunoField.getValidators().add(numberValidator);
+        matriculaFacilitadorField.getValidators().add(numberValidator);
+        nomeFacilitadorField.getValidators().add(numberValidator);
+        matriculaPagamentoField.getValidators().add(numberValidator);
+        idSimDuvPagamentoField.getValidators().add(numberValidator);
+
 
 
     }
 
 
     public void tabAlunoSelecionada(Event event) {
+
+
+
         /*
          *   TODO: CARREGAR dados na view de disciplinas disponiveis (disciplinasDisponiveisAlunoList)
          *
@@ -555,4 +595,6 @@ public class PainelCadastrarController {
 
 
     }
+
+
 }
