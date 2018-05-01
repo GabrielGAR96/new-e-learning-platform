@@ -1,1 +1,11 @@
-.jfx-tab-pane .tab-header-background { -fx-background-color: #6A1B9A; }
+.jfx-tab-pane .tab-header-background {
+ -fx-background-color: #9c4dcc;
+ }
+
+.jfx-snackbar-content {
+    -fx-background-color: #38006b;
+}
+
+.jfx-snackbar-toast {
+    -fx-text-fill: #ffffff;
+}
