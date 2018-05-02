@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.PainelPrincipalController">
+<AnchorPane style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.PainelPrincipalController">
    <children>
       <BorderPane fx:id="painelPrincipal" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
          <center>
@@ -33,7 +33,7 @@
                         <FontAwesomeIcon fill="WHITE" iconName="PLUS" size="2em" />
                      </graphic>
                   </JFXButton>
-                  <JFXButton fx:id="registrosBtn" buttonType="RAISED" contentDisplay="TOP" defaultButton="true" ripplerFill="BLACK" style="-fx-background-color: #6a1b9a;" text="Registros" textFill="WHITE">
+                  <JFXButton fx:id="registrosBtn" buttonType="RAISED" contentDisplay="TOP" defaultButton="true" onAction="#abrirPainelRegistros" ripplerFill="BLACK" style="-fx-background-color: #6a1b9a;" text="Registros" textFill="WHITE">
                      <font>
                         <Font name="Verdana Bold" size="12.0" />
                      </font>

@@ -1,4 +1,4 @@
-package sample;
+package view;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
@@ -37,6 +37,12 @@ public class PainelPrincipalController {
     public void abrirPainelCadastrar(javafx.event.ActionEvent actionEvent) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader();
         BorderPane bp =(BorderPane) fxmlLoader.load(getClass().getResource("painelCadastrar.fxml"));
+        painelSecundario.setCenter(bp);
+    }
+
+    public void abrirPainelRegistros(javafx.event.ActionEvent actionEvent) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        BorderPane bp =(BorderPane) fxmlLoader.load(getClass().getResource("painelRegistros.fxml"));
         painelSecundario.setCenter(bp);
     }
 }

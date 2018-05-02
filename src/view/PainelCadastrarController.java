@@ -1,28 +1,19 @@
-package sample;
+package view;
 
 import com.jfoenix.controls.*;
 import com.jfoenix.validation.DoubleValidator;
 import com.jfoenix.validation.NumberValidator;
 import com.jfoenix.validation.RequiredFieldValidator;
-import javafx.beans.binding.Bindings;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.input.*;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
 
-import java.awt.*;
-import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.util.ArrayList;
-
-import static java.awt.Color.GRAY;
-import static java.awt.Color.gray;
 
 public class PainelCadastrarController {
 
