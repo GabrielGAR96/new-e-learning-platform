@@ -13,12 +13,12 @@ import java.time.LocalDate;
 
 public class Inscricao {
     private IntegerProperty id;
-    private IntegerProperty matriculaAluno;
+    private IntegerProperty matricula;
     private Property<LocalDate> data;
 
-    public Inscricao(int id, int matriculaAluno, LocalDate data) {
+    public Inscricao(int id, int matricula, LocalDate data) {
         this.id = new SimpleIntegerProperty(id);
-        this.matriculaAluno = new SimpleIntegerProperty(matriculaAluno);
+        this.matricula = new SimpleIntegerProperty(matricula);
         this.data = new SimpleObjectProperty<LocalDate>();
     }
 
@@ -34,16 +34,16 @@ public class Inscricao {
         this.id.set(id);
     }
 
-    public int getMatriculaAluno() {
-        return matriculaAluno.get();
+    public int getMatricula() {
+        return matricula.get();
     }
 
-    public IntegerProperty matriculaAlunoProperty() {
-        return matriculaAluno;
+    public IntegerProperty matriculaProperty() {
+        return matricula;
     }
 
-    public void setMatriculaAluno(int matriculaAluno) {
-        this.matriculaAluno.set(matriculaAluno);
+    public void setMatricula(int matricula) {
+        this.matricula.set(matricula);
     }
 
     public LocalDate getData() {

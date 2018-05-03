@@ -3,6 +3,7 @@ package view;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
 import com.jfoenix.controls.JFXPopup;
+import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -133,67 +134,97 @@ public class PainelRegistrosController {
             });
             return row ;
         });
-
-
-
-    //popup.show( (javafx.stage.Window) e.getTarget(),e.getX(),e.getY(), JFXPopup.PopupVPosition.TOP, JFXPopup.PopupHPosition.LEFT,0,0)
-
-
-//        PopupWindow pw = new PopupWindow() {
-//            @Override
-//            public void show(Window owner) {
-//                super.show(owner);
-//            }
-//        }
-        //popup.show((Node) e.getTarget(), JFXPopup.PopupVPosition.BOTTOM, JFXPopup.PopupHPosition.LEFT);
-
     }
 
     public void carregarTabelaDeInscrição() {
-
-        TableView<Inscricao> tabela = new TableView<>();
         List<Inscricao> inscricaoList = new ArrayList<>();
-        ObservableList inscricaoObs = FXCollections.observableArrayList();
 
         Inscricao i1 = new Inscricao(1,180001, LocalDate.of(2018,01,25));
         Inscricao i2 = new Inscricao(2,180002, LocalDate.of(2018,02,02));
         Inscricao i3 = new Inscricao(3,180003, LocalDate.of(2018,03,27));
         Inscricao i4 = new Inscricao(4,180004, LocalDate.of(2018,04,10));
 
-        TableColumn<Inscricao, Integer> id = new TableColumn<>("ID da Inscrição");
-        TableColumn<Inscricao, Integer> mat = new TableColumn<>("Matrícula do Aluno");
-        TableColumn<Inscricao, LocalDate> data = new TableColumn<>("Data da Inscrição");
-
-        tabela.getColumns().add(id);
-        tabela.getColumns().add(mat);
-        tabela.getColumns().add(data);
-
         inscricaoList.add(i1);
         inscricaoList.add(i2);
         inscricaoList.add(i3);
         inscricaoList.add(i4);
 
+        JFXListView<JFXButton> opcoes = new JFXListView<>();
+        JFXPopup popup = new JFXPopup(opcoes);
 
-        inscricaoObs.addAll(inscricaoList);
-        tabela.setItems(inscricaoObs);
 
-        id.setCellValueFactory(cellData -> cellData.getValue().idProperty().asObject());
-        mat.setCellValueFactory(cellData -> cellData.getValue().matriculaAlunoProperty().asObject());
-        data.setCellValueFactory(cellData -> cellData.getValue().dataProperty());
+//        JFXButton insc = new JFXButton("Alunos");
+//        insc.setOnMouseClicked(event -> {
+//            carregarTabelaDeAlunos();
+//            popup.hide();
+//        });
+//
+//        JFXButton pag = new JFXButton("Pagamentos");
+//        insc.setOnMouseClicked(event -> {
+//            carregarTabelaDePgmtAlunos();
+//            popup.hide();
+//        });
+//
+//        JFXButton pag = new JFXButton("Disciplinas inscritas");
+//        insc.setOnMouseClicked(event -> {
+//            carregarTabelaDeDisciplinasInscritas();
+//            popup.hide();
+//        });
 
-        inscricaoObs.addAll(inscricaoList);
 
-        painelPrincipal.setCenter(tabela);
+        painelPrincipal.setCenter(criarTabela(inscricaoList,Inscricao.class));
     }
 
-    public <T> void criarTabela(List<T> lista, Class<T> classe) {
+    public <T> TableView<T> criarTabela(List<T> lista, Class<T> classe) {
         TableView<T> tabela = new TableView<>();
+        tabela.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         ObservableList listObs = FXCollections.observableArrayList();
-
         for(Field field : classe.getDeclaredFields()) {
 
-            //TableColumn<T, >
+            TableColumn<T, Object> coluna = new TableColumn<>(field.getName());
+            tabela.getColumns().add(coluna);
+            coluna.setCellValueFactory(new PropertyValueFactory<>(field.getName()));
         }
+
+        listObs.addAll(lista);
+        tabela.setItems(listObs);
+
+
+
+//
+//        JFXButton insc = new JFXButton("Inscrições");
+//        insc.setOnMouseClicked(event -> {
+//            carregarTabelaDeInscrição();
+//            popup.hide();
+//        });
+//
+//        JFXButton pag = new JFXButton("Pagamentos");
+//        pag.setOnMouseClicked(event -> {
+//            System.out.println("FUNCIONOU");
+//        });
+//
+//        labelList.getItems().add(insc);
+//        labelList.getItems().add(pag);
+//
+//        opcoes.setMinHeight(100);
+//        opcoes.setMinWidth(120);
+//
+//        tabela.setRowFactory(tv -> {
+//            TableRow<T> row = new TableRow<>();
+//            row.setOnMouseClicked(event -> {
+//                if (! row.isEmpty() && event.getButton() == MouseButton.SECONDARY) {
+//
+//                    T clickedRow = row.getItem();
+//                    popup.show((Node) row, JFXPopup.PopupVPosition.TOP, JFXPopup.PopupHPosition.LEFT, event.getX(), 0);
+//
+//                }
+//            });
+//            return row ;
+//        });
+
+
+
+        return tabela;
     }
 
 
