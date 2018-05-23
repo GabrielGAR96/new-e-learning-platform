@@ -1,25 +1,27 @@
 package model;
 
-import javafx.beans.InvalidationListener;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.Property;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 
-import java.time.LocalDate;
+import java.util.Date;
 
 
 public class Inscricao {
     private IntegerProperty id;
-    private IntegerProperty matricula;
-    private Property<LocalDate> data;
+    private IntegerProperty alunoMatricula;
+    private Property<Date> data;
 
-    public Inscricao(int id, int matricula, LocalDate data) {
+    public Inscricao(int id, int alunoMatricula, Date data) {
         this.id = new SimpleIntegerProperty(id);
-        this.matricula = new SimpleIntegerProperty(matricula);
-        this.data = new SimpleObjectProperty<LocalDate>();
+        this.alunoMatricula = new SimpleIntegerProperty(alunoMatricula);
+        this.data = new SimpleObjectProperty<>();
+    }
+
+    public Inscricao(int alunoMatricula, Date data) {
+        this.alunoMatricula = new SimpleIntegerProperty(alunoMatricula);
+        this.data = new SimpleObjectProperty<>(data);
     }
 
     public int getId() {
@@ -34,27 +36,27 @@ public class Inscricao {
         this.id.set(id);
     }
 
-    public int getMatricula() {
-        return matricula.get();
+    public int getAlunoMatricula() {
+        return alunoMatricula.get();
     }
 
-    public IntegerProperty matriculaProperty() {
-        return matricula;
+    public IntegerProperty alunoMatriculaProperty() {
+        return alunoMatricula;
     }
 
-    public void setMatricula(int matricula) {
-        this.matricula.set(matricula);
+    public void setAlunoMatricula(int matricula) {
+        this.alunoMatricula.set(matricula);
     }
 
-    public LocalDate getData() {
+    public Date getData() {
         return data.getValue();
     }
 
-    public Property<LocalDate> dataProperty() {
+    public Property<Date> dataProperty() {
         return data;
     }
 
-    public void setData(LocalDate data) {
+    public void setData(Date data) {
         this.data.setValue(data);
     }
 }
