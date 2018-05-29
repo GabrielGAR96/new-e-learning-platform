@@ -206,6 +206,8 @@ public class PainelCadastrarController {
 
     private PerguntaDao perguntaDao;
 
+    private Dao dao;
+
 
     //EXEMPLO DE COMO SELECIONAR ITEM DA LISTA: System.out.println(assuntoDisciplinaList.getSelectionModel().getSelectedItem().getText());
 
@@ -218,6 +220,8 @@ public class PainelCadastrarController {
         assuntoDao = new AssuntoDao();
         perguntaDao = new PerguntaDao();
         respostaDao = new RespostaDao();
+
+        dao = new Dao();
     }
 
     @FXML
@@ -258,6 +262,7 @@ public class PainelCadastrarController {
             Aluno aluno = alunoDao.buscarPorMatricula(matriculaAluno);
             if (aluno == null) {
                 alunoDao.inserir(new Aluno(matriculaAluno, nomeAluno));
+                //dao.inserir(new Aluno(matriculaAluno, nomeAluno));
             }
             java.util.Date data = new Date();
             Inscricao inscricao = new Inscricao(matriculaAluno, data);
