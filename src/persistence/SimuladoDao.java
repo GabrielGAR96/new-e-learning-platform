@@ -18,10 +18,10 @@ public class SimuladoDao {
             con = Conexao.getConnection();
             statement = con.prepareStatement("insert into Simulado values (?,?,?,?)");
             statement.setInt(1, simulado.getId());
-            statement.setInt(2, simulado.getAluno_matricula());
+            statement.setInt(2, simulado.getAlunoMatricula());
             statement.setInt(3, simulado.getNota());
-            statement.setInt(4, simulado.getAssunto_id());
-            statement.setInt(5, simulado.getFacilitador_matricula());
+            statement.setInt(4, simulado.getAssuntoId());
+            statement.setInt(5, simulado.getFacilitadorMatricula());
             statement.executeUpdate();
         } catch (SQLException e1) {
             e1.printStackTrace();
@@ -35,10 +35,10 @@ public class SimuladoDao {
 //            con = Conexao.getConnection();
 //            statement = con.prepareStatement("update simulado set id = ?, aluno_matricula = ?, nota = ?, assunto_id = ?, facilitador_matricula = ? ");
 //            statement.setInt(1, simulado.getId());
-//            statement.setInt(2, simulado.getAluno_matricula());
+//            statement.setInt(2, simulado.getAlunoMatricula());
 //            statement.setInt(3, simulado.getNota());
-//            statement.setInt(4, simulado.getAssunto_id());
-//            statement.setInt(5, simulado.getFacilitador_matricula());
+//            statement.setInt(4, simulado.getAssuntoId());
+//            statement.setInt(5, simulado.getFacilitadorMatricula());
 //            statement.executeUpdate();
 //        } catch (SQLException e) {
 //            e.printStackTrace();

@@ -17,8 +17,8 @@ public class PerguntaDoSimuladoDao {
         try {
             con = Conexao.getConnection();
             statement = con.prepareStatement("insert into pergunta_do_simulado values (?,?)");
-            statement.setInt(1, perguntaDoSimulado.getSimulado_id());
-            statement.setInt(2, perguntaDoSimulado.getPergunta_id());
+            statement.setInt(1, perguntaDoSimulado.getSimuladoId());
+            statement.setInt(2, perguntaDoSimulado.getPerguntaId());
             statement.executeUpdate();
         } catch (SQLException e1) {
             e1.printStackTrace();
@@ -32,8 +32,8 @@ public class PerguntaDoSimuladoDao {
         try {
             con = Conexao.getConnection();
             statement = con.prepareStatement("update pergunta_do_simulado set pergunta_id = ?, simulado_id = ?");
-            statement.setInt(1, perguntaDoSimulado.getPergunta_id());
-            statement.setInt(2, perguntaDoSimulado.getSimulado_id());
+            statement.setInt(1, perguntaDoSimulado.getPerguntaId());
+            statement.setInt(2, perguntaDoSimulado.getSimuladoId());
             statement.executeUpdate();
         } catch (SQLException e1) {
             e1.printStackTrace();

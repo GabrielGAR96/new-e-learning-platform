@@ -4,20 +4,25 @@ package model;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
+import java.io.Serializable;
+
 
 public class Simulado {
-    private IntegerProperty id;
-    private IntegerProperty aluno_matricula;
-    private IntegerProperty nota;
-    private IntegerProperty assunto_id;
-    private IntegerProperty facilitador_matricula;
+    IntegerProperty id;
+    IntegerProperty alunoMatricula;
+    IntegerProperty nota;
+    IntegerProperty assuntoId;
+    IntegerProperty facilitadorMatricula;
 
-    public Simulado(int id, int aluno_matricula, int nota, int assunto_id, int facilitador_matricula) {
+    public Simulado() {
+    }
+
+    public Simulado(int id, int alunoMatricula, int nota, int assuntoId, int facilitadorMatricula) {
         this.id = new SimpleIntegerProperty(id);
-        this.aluno_matricula = new SimpleIntegerProperty(aluno_matricula);
+        this.alunoMatricula = new SimpleIntegerProperty(alunoMatricula);
         this.nota = new SimpleIntegerProperty(nota);
-        this.assunto_id = new SimpleIntegerProperty(assunto_id);
-        this.facilitador_matricula = new SimpleIntegerProperty(facilitador_matricula);
+        this.assuntoId = new SimpleIntegerProperty(assuntoId);
+        this.facilitadorMatricula = new SimpleIntegerProperty(facilitadorMatricula);
     }
 
     public int getId() {
@@ -32,16 +37,16 @@ public class Simulado {
         this.id.set(id);
     }
 
-    public int getAluno_matricula() {
-        return aluno_matricula.get();
+    public int getAlunoMatricula() {
+        return alunoMatricula.get();
     }
 
-    public IntegerProperty aluno_matriculaProperty() {
-        return aluno_matricula;
+    public IntegerProperty alunoMatriculaProperty() {
+        return alunoMatricula;
     }
 
-    public void setAluno_matricula(int aluno_matricula) {
-        this.aluno_matricula.set(aluno_matricula);
+    public void setAlunoMatricula(int alunoMatricula) {
+        this.alunoMatricula.set(alunoMatricula);
     }
 
     public int getNota() {
@@ -56,27 +61,27 @@ public class Simulado {
         this.nota.set(nota);
     }
 
-    public int getAssunto_id() {
-        return assunto_id.get();
+    public int getAssuntoId() {
+        return assuntoId.get();
     }
 
-    public IntegerProperty assunto_idProperty() {
-        return assunto_id;
+    public IntegerProperty assuntoIdProperty() {
+        return assuntoId;
     }
 
-    public void setAssunto_id(int assunto_id) {
-        this.assunto_id.set(assunto_id);
+    public void setAssuntoId(int assuntoId) {
+        this.assuntoId.set(assuntoId);
     }
 
-    public int getFacilitador_matricula() {
-        return facilitador_matricula.get();
+    public int getFacilitadorMatricula() {
+        return facilitadorMatricula.get();
     }
 
-    public IntegerProperty facilitador_matriculaProperty() {
-        return facilitador_matricula;
+    public IntegerProperty facilitadorMatriculaProperty() {
+        return facilitadorMatricula;
     }
 
-    public void setFacilitador_matricula(int facilitador_matricula) {
-        this.facilitador_matricula.set(facilitador_matricula);
+    public void setFacilitadorMatricula(int facilitadorMatricula) {
+        this.facilitadorMatricula.set(facilitadorMatricula);
     }
 }

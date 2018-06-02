@@ -2,19 +2,23 @@ package model;
 
 import javafx.beans.property.*;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Pagamento {
-    private IntegerProperty id;
-    private DoubleProperty valor;
-    private Property<Date> data;
-    private IntegerProperty idInscricao;
+public class PagamentoAluno {
+    IntegerProperty id;
+    DoubleProperty valor;
+    Property<Date> data;
+    IntegerProperty inscricaoId;
 
-    public Pagamento(int id, double valor, Date data, int idInscricao) {
+    public PagamentoAluno() {
+    }
+
+    public PagamentoAluno(int id, double valor, Date data, int inscricaoId) {
         this.id = new SimpleIntegerProperty(id);
         this.valor = new SimpleDoubleProperty(valor);
         this.data = new SimpleObjectProperty<>(data);
-        this.idInscricao = new SimpleIntegerProperty(idInscricao);
+        this.inscricaoId = new SimpleIntegerProperty(inscricaoId);
     }
 
 
@@ -54,15 +58,15 @@ public class Pagamento {
         this.data.setValue(data);
     }
 
-    public int getIdInscricao() {
-        return idInscricao.get();
+    public int getInscricaoId() {
+        return inscricaoId.get();
     }
 
-    public IntegerProperty idInscricaoProperty() {
-        return idInscricao;
+    public IntegerProperty inscricaoIdProperty() {
+        return inscricaoId;
     }
 
-    public void setIdInscricao(int idInscricao) {
-        this.idInscricao.set(idInscricao);
+    public void setInscricaoId(int inscricaoId) {
+        this.inscricaoId.set(inscricaoId);
     }
 }

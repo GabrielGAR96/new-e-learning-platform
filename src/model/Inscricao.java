@@ -5,13 +5,17 @@ import javafx.beans.property.Property;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 
+import java.io.Serializable;
 import java.util.Date;
 
 
 public class Inscricao {
-    private IntegerProperty id;
-    private IntegerProperty alunoMatricula;
-    private Property<Date> data;
+    IntegerProperty id;
+    IntegerProperty alunoMatricula;
+    Property<Date> data;
+
+    public Inscricao() {
+    }
 
     public Inscricao(int id, int alunoMatricula, Date data) {
         this.id = new SimpleIntegerProperty(id);

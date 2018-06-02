@@ -3,9 +3,14 @@ package model;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
+import java.io.Serializable;
+
 public class DisciplinaInscrita {
     IntegerProperty disciplina_id;
     IntegerProperty inscricao_id;
+
+    public DisciplinaInscrita() {
+    }
 
     public DisciplinaInscrita(int disciplina_id, int inscricao_id) {
         this.disciplina_id = new SimpleIntegerProperty(disciplina_id);

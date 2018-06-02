@@ -5,13 +5,18 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
-public class Duvidas {
+import java.io.Serializable;
+
+public class Duvida {
     IntegerProperty id;
     StringProperty texto;
     IntegerProperty alunoMatricula;
     IntegerProperty facilitadorMatricula;
 
-    public Duvidas(int id, String texto, int alunoMatricula, int facilitadorMatricula) {
+    public Duvida() {
+    }
+
+    public Duvida(int id, String texto, int alunoMatricula, int facilitadorMatricula) {
         this.id = new SimpleIntegerProperty(id);
         this.texto = new SimpleStringProperty(texto);
         this.alunoMatricula = new SimpleIntegerProperty(alunoMatricula);

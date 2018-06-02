@@ -2,10 +2,15 @@ package model;
 
 import javafx.beans.property.*;
 
+import java.io.Serializable;
+
 public class Disciplina {
     IntegerProperty id;
     StringProperty nome;
     DoubleProperty valor;
+
+    public Disciplina() {
+    }
 
     public Disciplina(int id, String nome, double valor) {
         this.id = new SimpleIntegerProperty(id);

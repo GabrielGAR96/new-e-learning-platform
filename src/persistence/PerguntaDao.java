@@ -18,8 +18,8 @@ public class PerguntaDao {
             con = Conexao.getConnection();
             statement = con.prepareStatement("insert into pergunta (texto, assunto_id, resposta_id) values (?,?,?)");
             statement.setString(1, pergunta.getTexto());
-            statement.setInt(2, pergunta.getAssunto_id());
-            statement.setInt(3, pergunta.getResposta_id());
+            statement.setInt(2, pergunta.getAssuntoId());
+            statement.setInt(3, pergunta.getRespostaId());
             statement.executeUpdate();
         } catch (SQLException e1) {
             e1.printStackTrace();

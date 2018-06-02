@@ -80,7 +80,7 @@ public class DisciplinaDao {
         Disciplina disciplina = null;
         try {
             con = Conexao.getConnection();
-            statement = con.prepareStatement("select * from disciplina where nome = ?");
+            statement = con.prepareStatement("select * from Disciplina where nome = ?");
             statement.setString(1, nome);
             ResultSet rs = statement.executeQuery();
             if (rs.next()) {
@@ -96,7 +96,7 @@ public class DisciplinaDao {
         ArrayList<Disciplina> disciplinas = new ArrayList<>();
         try {
             con = Conexao.getConnection();
-            statement = con.prepareStatement("select * from disciplina");
+            statement = con.prepareStatement("select * from Disciplina");
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
                 int id = rs.getInt("id");

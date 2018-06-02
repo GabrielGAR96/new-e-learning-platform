@@ -13,7 +13,7 @@ public class DisciplinaInscritaDao {
     public void inserir (DisciplinaInscrita disciplinaInscrita) {
         try {
             con = Conexao.getConnection();
-            statement = con.prepareStatement("insert into disciplina_inscrita values (?,?)");
+            statement = con.prepareStatement("insert into DisciplinaInscrita values (?,?)");
             statement.setInt(1, disciplinaInscrita.getDisciplina_id());
             statement.setInt(2, disciplinaInscrita.getInscricao_id());
             statement.executeUpdate();
@@ -31,7 +31,7 @@ public class DisciplinaInscritaDao {
     public void excluirPorDisciplina(int disciplina_id) {
         try {
             con = Conexao.getConnection();
-            statement = con.prepareStatement("delete from disciplina_inscrita where disciplina_id = ?");
+            statement = con.prepareStatement("delete from DisciplinaInscrita where disciplinaId = ?");
             statement.setInt(1, disciplina_id);
             statement.executeUpdate();
         } catch (SQLException e1) {
@@ -45,7 +45,7 @@ public class DisciplinaInscritaDao {
         ArrayList<DisciplinaInscrita> disciplinasInscritas = new ArrayList<>();
         try {
             con = Conexao.getConnection();
-            statement = con.prepareStatement("select * from disciplina_inscrita where inscricao_id = ?");
+            statement = con.prepareStatement("select * from DisciplinaInscrita where inscricaoId = ?");
             statement.setInt(1, inscricao_id);
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
@@ -64,7 +64,7 @@ public class DisciplinaInscritaDao {
         ArrayList<DisciplinaInscrita> disciplinaInscritas = new ArrayList<>();
         try {
             con = Conexao.getConnection();
-            statement = con.prepareStatement("select * from disciplina_inscrita");
+            statement = con.prepareStatement("select * from DisciplinaInscrita");
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
                 int disciplina_id = rs.getInt("disciplina_id");
@@ -82,7 +82,7 @@ public class DisciplinaInscritaDao {
     public void excluirPelaInscricao(int inscricao_id) {
         try {
             con = Conexao.getConnection();
-            statement = con.prepareStatement("delete from disciplina_inscrita where inscricao_id = ?");
+            statement = con.prepareStatement("delete from DisciplinaInscrita where inscricaoId = ?");
             statement.setInt(1, inscricao_id);
             statement.executeUpdate();
         } catch (SQLException e1) {

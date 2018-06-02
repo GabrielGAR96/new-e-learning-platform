@@ -5,10 +5,15 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
+import java.io.Serializable;
+
 public class Resposta {
-    private IntegerProperty id;
-    private StringProperty texto;
-    private StringProperty tipo;
+    IntegerProperty id;
+    StringProperty texto;
+    StringProperty tipo;
+
+    public Resposta() {
+    }
 
     public Resposta(int id, String texto, String tipo) {
         this.id = new SimpleIntegerProperty(id);

@@ -18,12 +18,12 @@ Esta é uma aplicação desenvolvida como projeto para a disciplina de Fundament
 Neste trabalho, devem ser apresentados todos os passos necessários para o desenvolvimento de uma aplicação cliente/servidor, utilizando um banco de dados relacional, em uma arquitetura de duas camadas na web.
 
 #### 2. O PROBLEMA
-Um grupo de investidores decidiu comprar parte das ações de uma pequena e inovadora empresa, a NEW Tecnologia em Informática S.A.. Agora, com o aporte financeiro de seus novos sócios, a NEW pretende desenvolver um revolucionário ambiente virtual de ensino a distância (e-learning). A primeira parte deste ambicioso projeto consiste em um sistema virtual de avaliação simulada. Neste ambiente, os alunos associados, mediante pagamentos trimestrais, poderão obter provas simuladas versando sobre diferentes temas. A correção destas avaliações simuladas poderá ser feita tanto de forma on-line como também por um facilitador-avaliador do site, o qual deverá ser um profissional renomado na área em questão. O grupo necessita controlar e gerenciar todas as tarefas referentes ao funcionamento do site, as quais vão desde publicidade, inscrição de alunos, pagamento dos facilitadores-avaliadores, além do acompanhamento e avaliação do rendimento dos alunos. Adicionalmente, é de extrema importante para os executivos da NEW consultar as informações envolvidas nestes processos, a fim de avaliar o comportamento da organização bem como definir as estratégias e políticas globais da companhia.
+Um grupo de investidores decidiu comprar parte das ações de uma pequena e inovadora empresa, a NEW Tecnologia em Informática S.A.. Agora, com o aporte financeiro de seus novos sócios, a NEW pretende desenvolver um revolucionário ambiente virtual de ensino a distância (e-learning). A primeira parte deste ambicioso projeto consiste em um sistema virtual de avaliação simulada. Neste ambiente, os alunos associados, mediante pagamentoAlunos trimestrais, poderão obter provas simuladas versando sobre diferentes temas. A correção destas avaliações simuladas poderá ser feita tanto de forma on-line como também por um facilitador-avaliador do site, o qual deverá ser um profissional renomado na área em questão. O grupo necessita controlar e gerenciar todas as tarefas referentes ao funcionamento do site, as quais vão desde publicidade, inscrição de alunos, pagamentoAluno dos facilitadores-avaliadores, além do acompanhamento e avaliação do rendimento dos alunos. Adicionalmente, é de extrema importante para os executivos da NEW consultar as informações envolvidas nestes processos, a fim de avaliar o comportamento da organização bem como definir as estratégias e políticas globais da companhia.
 
 + ##### O projeto dessa aplicação atenderá às seguintes funcionalidades básicas:
   - Cadastros: alunos, facilitadores, matérias, assuntos, perguntas e opções de resposta.
-  - Registro das inscrições dos alunos associados e controle dos pagamentos efetuados;
-  - Registro dos pagamentos efetuados aos avaliadores;
+  - Registro das inscrições dos alunos associados e controle dos pagamentoAlunos efetuados;
+  - Registro dos pagamentoAlunos efetuados aos avaliadores;
   - Avaliação continuada do aproveitamento dos participantes (controle das notas obtidas nos simulados);
   - Permitir a pesquisa de participantes através dos seguintes “filtros”: matrícula, nome, temas dos simulados que realizou, aproveitamento nos simulados;
   - Permitir a pesquisa de facilitadores através dos seguintes “filtros”: matrícula, nome, matérias em que está apto a atuar, número de simulados que avaliou;
@@ -39,7 +39,7 @@ Um grupo de investidores decidiu comprar parte das ações de uma pequena e inov
   8. O site deve apresentar também um ranking dos alunos que obtiveram os melhores resultados nos testes a que se submeteram.
   9. A cada inscrição ou renovação o aluno ganha um bônus no valor de 10% do valor de sua inscrição. O bônus, que pode ser acumulado, pode ser utilizado na compra de produtos ofertados pelo site: como livros, CD’s, camisetas, etc.
   10. Um estudante associado poderá enviar dúvidas, as quais serão automaticamente alocadas a um facilitador habilitado no tema. O facilitador deverá responder a pergunta via e-mail.
-  11. O pagamento dos facilitadores deverá ser feito com base nos simulados e dúvidas alocadas a ele. O valor a ser pago por cada simulado e por cada dúvida deve estar em uma tabela de parâmetros.
+  11. O pagamentoAluno dos facilitadores deverá ser feito com base nos simulados e dúvidas alocadas a ele. O valor a ser pago por cada simulado e por cada dúvida deve estar em uma tabela de parâmetros.
 
 #### 3. ORIENTAÇÕES GERAIS
 - O programa proposto neste trabalho deverá ser desenvolvido obrigatoriamente em uma das seguintes linguagens: C/C++ (para estudantes de Engenharia) ou Java (para estudantes de Ciência da Computação ou ADS);
@@ -72,7 +72,7 @@ Um grupo de investidores decidiu comprar parte das ações de uma pequena e inov
     - Ao se cadastrar uma dúvida de um aluno esta deverá ser alocada a um facilitador habilitado.
 
   4.6. Crie stored procedures para as seguintes tarefas:
-    - Crie uma stored procedure que calcule o valor a ser pago para pelos serviços prestados por um determinado facilitador em um determinado período. Considere como parâmetros de entrada: o código do facilitador, e data inicial e final (período) das atividades do facilitador que deverão ser consideradas no cálculo. O procedimento deverá também inserir uma tupla referente a este pagamento na tabela de “pagamentos”.
+    - Crie uma stored procedure que calcule o valor a ser pago para pelos serviços prestados por um determinado facilitador em um determinado período. Considere como parâmetros de entrada: o código do facilitador, e data inicial e final (período) das atividades do facilitador que deverão ser consideradas no cálculo. O procedimento deverá também inserir uma tupla referente a este pagamentoAluno na tabela de “pagamentoAlunos”.
     - Crie um stored procedure que receba como parâmetro de entrada um número inteiro “n” e calcule o ranking dos “n” melhores alunos, considerando todos os simulados realizados. O procedimento deverá guardar esta informação em uma tabela a fim de ser utilizada no site, ou seja, ou site irá mostrar os “n”melhores alunos gerados pelo último “ranking” realizado.
     NB: Você pode criar visões, triggers e stored procedures para facilitar a implementação do seu projeto.
 

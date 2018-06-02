@@ -251,121 +251,15 @@ public class PainelCadastrarController {
 
     public void finalizarCadastro(javafx.event.ActionEvent actionEvent) {
 
-        //CADASTRO DE ALUNO:
-        if(alunoTab.isSelected()) {
-            int matriculaAluno = Integer.parseInt(matriculaAlunoField.getText());    //PEGA MATRICULA
-            String nomeAluno = nomeAlunoField.getText();                             //PEGA NOME
+        if(alunoTab.isSelected()) CadastrarAluno();
 
-            //PEGA DISCIPLINAS SELECIONADAS
-            ArrayList<String> disciplinasSelecionadas = new ArrayList<>(disciplinasSelecionadasAlunoList.getItems());
+        if(facilitadorTab.isSelected()) CadastrarFacilitador();
 
-            Aluno aluno = alunoDao.buscarPorMatricula(matriculaAluno);
-            if (aluno == null) {
-                alunoDao.inserir(new Aluno(matriculaAluno, nomeAluno));
-                //dao.inserir(new Aluno(matriculaAluno, nomeAluno));
-            }
-            java.util.Date data = new Date();
-            Inscricao inscricao = new Inscricao(matriculaAluno, data);
-            inscricaoDao.inserir(inscricao);
-            inscricao = inscricaoDao.buscarPorMatricula(matriculaAluno);
+        if(disciplinaTab.isSelected()) CadastrarDisciplina();
 
-            Disciplina disciplina;
-            for(String item : disciplinasSelecionadas) {
-                disciplina = disciplinaDao.buscarPorNome(item);
-                DisciplinaInscrita disciplinaInscrita = new DisciplinaInscrita(disciplina.getId(), inscricao.getId());
-                disciplinaInscritaDao.inserir(disciplinaInscrita);
-            }
-        }
+        if(assuntoTab.isSelected()) CadastrarAssunto();
 
-        //CADASTRO DE FACILITADORES
-        if(facilitadorTab.isSelected()){
-            int matriculaFacilitador = Integer.parseInt(matriculaFacilitadorField.getText());  //PEGA MATRICULA
-            String nomeFacilitador = nomeFacilitadorField.getText();            //PEGA NOME
-
-            //PEGA DISCIPLINAS SELECIONADAS
-            ArrayList<String> disciplinasSelecionadas = new ArrayList<>(disciplinasSelecionadasAlunoList.getItems());
-
-            Facilitador facilitador = facilitadorDao.buscarPorMatricula(matriculaFacilitador);
-            if (facilitador == null) {
-                facilitadorDao.inserir(new Facilitador(matriculaFacilitador, nomeFacilitador));
-            }
-            GrupoDeDisciplinas grupoDeDisciplinas;
-            for(String item : disciplinasSelecionadas) {
-                Disciplina disciplina = disciplinaDao.buscarPorNome(item);
-                grupoDeDisciplinas = new GrupoDeDisciplinas(disciplina.getId(), facilitador.getMatricula());
-                grupoDeDisciplinasDao.inserir(grupoDeDisciplinas);
-            }
-        }
-
-        //CADASTRO DE DISCIPLNAS:
-        if(disciplinaTab.isSelected()) {
-            String nomeDisciplina = nomeDisciplinaField.getText();
-            double valorDisciplina = Double.parseDouble(valorDisciplinaField.getText());
-
-            ArrayList<String> assuntosDisciplina = new ArrayList<>(assuntoDisciplinaList.getItems());
-
-            ArrayList<Facilitador> facilitadores = (ArrayList<Facilitador>) facilitadorDao.listar();
-            for(Facilitador item : facilitadores) {
-                facilitadoresDisponiveisDisciplinaList.getItems().add(item.getNome());
-            }
-
-            ArrayList<String> facilitadoresDisciplina = new ArrayList<>(facilitadoresSelecionadosDisciplinaList.getItems());
-
-            Disciplina disciplina = new Disciplina(nomeDisciplina, valorDisciplina);
-            if (disciplinaDao.buscarPorNome(nomeDisciplina) == null) {
-                disciplinaDao.inserir(disciplina);
-                disciplina = disciplinaDao.buscarPorNome(nomeDisciplina);
-                for (String item : assuntosDisciplina) {
-                    assuntoDao.inserir(new Assunto(item, disciplina.getId()));
-                }
-            } else {
-                JFXSnackbar cadastroSnackBar = new JFXSnackbar(painelPai);
-                cadastroSnackBar.show("Disciplina já cadastrada!", 2000);
-            }
-
-        }
-
-        //CADASTRO DE ASSUNTOS:
-        if(assuntoTab.isSelected()) {
-            String nomeAssunto = nomeAssuntoField.getText();
-            String nomeDisciplina = disciplinaAssuntoCombo.getValue();
-
-            Disciplina disciplina = disciplinaDao.buscarPorNome(nomeDisciplina);
-
-            Assunto assunto = new Assunto(nomeAssunto, disciplina.getId());
-            AssuntoDao assuntoDao = new AssuntoDao();
-            if (assuntoDao.buscarPorNome(nomeAssunto) == null) {
-                assuntoDao.inserir(assunto);
-            } else {
-                JFXSnackbar cadastroSnackBar = new JFXSnackbar(painelPai);
-                cadastroSnackBar.show("Assunto já cadastrado!", 2000);
-            }
-
-        }
-
-        if(perguntaTab.isSelected()) {
-            String textoPergunta = textoPerguntaField.getText();
-            String disciplinaPergunta = disciplinaPerguntaCombo.getValue();
-            String assuntoPergunta = assuntoPerguntaCombo.getValue();
-
-            ArrayList<String> respostasPergunta = new ArrayList<>(respostaPerguntaList.getItems());
-
-            String tipo = respObjPerguntaToggle.isSelected() ? "obj" : "sub";
-
-            Resposta resposta;
-            for(String item : respostasPergunta) {
-                respostaDao.inserir(new Resposta(item, tipo));
-            }
-            resposta = respostaDao.buscarPorTexto(respostasPergunta.get(0));
-
-            AssuntoDao assuntoDao = new AssuntoDao();
-            Assunto assunto = assuntoDao.buscarPorNome(assuntoPergunta);
-
-            PerguntaDao perguntaDao = new PerguntaDao();
-            Pergunta pergunta = new Pergunta(textoPergunta, assunto.getId(), resposta.getId());
-
-            perguntaDao.inserir(pergunta);
-        }
+        if(perguntaTab.isSelected()) CadastrarPergunta();
 
 
 //        if(pagamentoTab.isSelected()) {
@@ -408,6 +302,116 @@ public class PainelCadastrarController {
         //Aqui vão ser RECARREGADAS todas as tabelas de seleção e comboboxes
 
 
+    }
+
+    public void CadastrarAluno() {
+        int matriculaAluno = Integer.parseInt(matriculaAlunoField.getText());
+        String nomeAluno = nomeAlunoField.getText();
+        ArrayList<String> disciplinasSelecionadas = new ArrayList<>(disciplinasSelecionadasAlunoList.getItems());
+
+        //TODO: inserir verificação no método DAO.inserir()
+
+        dao.inserir(new Aluno(matriculaAluno, nomeAluno));
+
+        java.util.Date data = new Date();
+        Inscricao inscricao = new Inscricao(matriculaAluno, data);
+        inscricaoDao.inserir(inscricao);
+        //dao.inserir(inscricao);
+        inscricao = inscricaoDao.buscarPorMatricula(matriculaAluno);
+        //dao.buscar(Inscricao.class, matriculaAluno);
+
+        Disciplina disciplina;
+        for(String item : disciplinasSelecionadas) {
+            disciplina = disciplinaDao.buscarPorNome(item);
+            DisciplinaInscrita disciplinaInscrita = new DisciplinaInscrita(disciplina.getId(), inscricao.getId());
+            disciplinaInscritaDao.inserir(disciplinaInscrita);
+            //dao.inserir(disciplinaInscrita);
+        }
+    }
+
+    public void CadastrarFacilitador() {
+        int matriculaFacilitador = Integer.parseInt(matriculaFacilitadorField.getText());  //PEGA MATRICULA
+        String nomeFacilitador = nomeFacilitadorField.getText();            //PEGA NOME
+
+        //PEGA DISCIPLINAS SELECIONADAS
+        ArrayList<String> disciplinasSelecionadas = new ArrayList<>(disciplinasSelecionadasAlunoList.getItems());
+
+        Facilitador facilitador = facilitadorDao.buscarPorMatricula(matriculaFacilitador);
+        if (facilitador == null) {
+            facilitadorDao.inserir(new Facilitador(matriculaFacilitador, nomeFacilitador));
+        }
+        GrupoDeDisciplinas grupoDeDisciplinas;
+        for(String item : disciplinasSelecionadas) {
+            Disciplina disciplina = disciplinaDao.buscarPorNome(item);
+            grupoDeDisciplinas = new GrupoDeDisciplinas(disciplina.getId(), facilitador.getMatricula());
+            grupoDeDisciplinasDao.inserir(grupoDeDisciplinas);
+        }
+    }
+
+    public void CadastrarDisciplina() {
+        String nomeDisciplina = nomeDisciplinaField.getText();
+        double valorDisciplina = Double.parseDouble(valorDisciplinaField.getText());
+
+        ArrayList<String> assuntosDisciplina = new ArrayList<>(assuntoDisciplinaList.getItems());
+
+        ArrayList<Facilitador> facilitadores = (ArrayList<Facilitador>) facilitadorDao.listar();
+        for(Facilitador item : facilitadores) {
+            facilitadoresDisponiveisDisciplinaList.getItems().add(item.getNome());
+        }
+
+        ArrayList<String> facilitadoresDisciplina = new ArrayList<>(facilitadoresSelecionadosDisciplinaList.getItems());
+
+        Disciplina disciplina = new Disciplina(nomeDisciplina, valorDisciplina);
+        if (disciplinaDao.buscarPorNome(nomeDisciplina) == null) {
+            disciplinaDao.inserir(disciplina);
+            disciplina = disciplinaDao.buscarPorNome(nomeDisciplina);
+            for (String item : assuntosDisciplina) {
+                assuntoDao.inserir(new Assunto(item, disciplina.getId()));
+            }
+        } else {
+            JFXSnackbar cadastroSnackBar = new JFXSnackbar(painelPai);
+            cadastroSnackBar.show("Disciplina já cadastrada!", 2000);
+        }
+    }
+
+    public void CadastrarAssunto() {
+        String nomeAssunto = nomeAssuntoField.getText();
+        String nomeDisciplina = disciplinaAssuntoCombo.getValue();
+
+        Disciplina disciplina = disciplinaDao.buscarPorNome(nomeDisciplina);
+
+        Assunto assunto = new Assunto(nomeAssunto, disciplina.getId());
+        AssuntoDao assuntoDao = new AssuntoDao();
+        if (assuntoDao.buscarPorNome(nomeAssunto) == null) {
+            assuntoDao.inserir(assunto);
+        } else {
+            JFXSnackbar cadastroSnackBar = new JFXSnackbar(painelPai);
+            cadastroSnackBar.show("Assunto já cadastrado!", 2000);
+        }
+    }
+
+    public void CadastrarPergunta() {
+        String textoPergunta = textoPerguntaField.getText();
+        String disciplinaPergunta = disciplinaPerguntaCombo.getValue();
+        String assuntoPergunta = assuntoPerguntaCombo.getValue();
+
+        ArrayList<String> respostasPergunta = new ArrayList<>(respostaPerguntaList.getItems());
+
+        String tipo = respObjPerguntaToggle.isSelected() ? "obj" : "sub";
+
+        Resposta resposta;
+        for(String item : respostasPergunta) {
+            respostaDao.inserir(new Resposta(item, tipo));
+        }
+        resposta = respostaDao.buscarPorTexto(respostasPergunta.get(0));
+
+        AssuntoDao assuntoDao = new AssuntoDao();
+        Assunto assunto = assuntoDao.buscarPorNome(assuntoPergunta);
+
+        PerguntaDao perguntaDao = new PerguntaDao();
+        Pergunta pergunta = new Pergunta(textoPergunta, assunto.getId(), resposta.getId());
+
+        perguntaDao.inserir(pergunta);
     }
 
     public void valorDisciplinaDigitado(KeyEvent inputMethodEvent) {

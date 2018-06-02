@@ -2,6 +2,7 @@ package model;
 
 import javafx.beans.property.*;
 
+import java.io.Serializable;
 import java.util.Date;
 
 public class PagamentoFacilitador {
@@ -12,6 +13,8 @@ public class PagamentoFacilitador {
     IntegerProperty simuladoId;
     IntegerProperty duvidaId;
 
+    public PagamentoFacilitador() {
+    }
 
     public PagamentoFacilitador(int id, double valor, Date data, int facilitadorMatricula, int simuladoId, int duvidaId) {
         this.id = new SimpleIntegerProperty(id);

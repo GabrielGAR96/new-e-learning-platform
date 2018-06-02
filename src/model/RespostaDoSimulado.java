@@ -3,36 +3,41 @@ package model;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
+import java.io.Serializable;
+
 public class RespostaDoSimulado {
-    IntegerProperty simulado_id;
-    IntegerProperty resposta_id;
+    IntegerProperty simuladoId;
+    IntegerProperty respostaId;
 
-    public RespostaDoSimulado(int simulado_id, int resposta_id) {
-        this.simulado_id = new SimpleIntegerProperty(simulado_id);
-        this.resposta_id = new SimpleIntegerProperty(resposta_id);
+    public RespostaDoSimulado() {
     }
 
-    public int getSimulado_id() {
-        return simulado_id.get();
+    public RespostaDoSimulado(int simuladoId, int respostaId) {
+        this.simuladoId = new SimpleIntegerProperty(simuladoId);
+        this.respostaId = new SimpleIntegerProperty(respostaId);
     }
 
-    public IntegerProperty simulado_idProperty() {
-        return simulado_id;
+    public int getSimuladoId() {
+        return simuladoId.get();
     }
 
-    public void setSimulado_id(int simulado_id) {
-        this.simulado_id.set(simulado_id);
+    public IntegerProperty simuladoIdProperty() {
+        return simuladoId;
     }
 
-    public int getResposta_id() {
-        return resposta_id.get();
+    public void setSimuladoId(int simuladoId) {
+        this.simuladoId.set(simuladoId);
     }
 
-    public IntegerProperty resposta_idProperty() {
-        return resposta_id;
+    public int getRespostaId() {
+        return respostaId.get();
     }
 
-    public void setResposta_id(int resposta_id) {
-        this.resposta_id.set(resposta_id);
+    public IntegerProperty respostaIdProperty() {
+        return respostaId;
+    }
+
+    public void setRespostaId(int respostaId) {
+        this.respostaId.set(respostaId);
     }
 }

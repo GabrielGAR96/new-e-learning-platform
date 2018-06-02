@@ -1,6 +1,6 @@
 package persistence;
 
-import model.Duvidas;
+import model.Duvida;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,14 +13,14 @@ public class DuvidaDao {
     Connection con = null;
     PreparedStatement statement = null;
 
-    public void inserir(Duvidas duvidas) {
+    public void inserir(Duvida duvida) {
         try {
             con = Conexao.getConnection();
             statement = con.prepareStatement("insert into duvidas values (?,?,?,?)");
-            statement.setInt(1, duvidas.getId());
-            statement.setString(2, duvidas.getTexto());
-            statement.setInt(3, duvidas.getAlunoMatricula());
-            statement.setInt(4, duvidas.getFacilitadorMatricula());
+            statement.setInt(1, duvida.getId());
+            statement.setString(2, duvida.getTexto());
+            statement.setInt(3, duvida.getAlunoMatricula());
+            statement.setInt(4, duvida.getFacilitadorMatricula());
             statement.executeUpdate();
         } catch (SQLException e1) {
             e1.printStackTrace();
@@ -29,7 +29,7 @@ public class DuvidaDao {
         }
     }
 
-//    public void alterar(Duvidas duvida) {
+//    public void alterar(Duvida duvida) {
 //
 //    }
 
@@ -46,8 +46,8 @@ public class DuvidaDao {
         }
     }
 
-    public List<Duvidas> buscarPorAluno(int alunoMatricula) {
-        ArrayList<Duvidas> duvidasDoAluno = new ArrayList<>();
+    public List<Duvida> buscarPorAluno(int alunoMatricula) {
+        ArrayList<Duvida> duvidaDoAluno = new ArrayList<>();
         try {
             con = Conexao.getConnection();
             statement = con.prepareStatement("select * from duvidas where aluno_matricula = ?");
@@ -57,18 +57,18 @@ public class DuvidaDao {
                 int id = rs.getInt("id");
                 String texto = rs.getString("texto");
                 int facilitadorMatricula = rs.getInt("facilitador_matricula");
-                duvidasDoAluno.add(new Duvidas(id, texto, alunoMatricula, facilitadorMatricula));
+                duvidaDoAluno.add(new Duvida(id, texto, alunoMatricula, facilitadorMatricula));
             }
         } catch (SQLException e1) {
             e1.printStackTrace();
         } finally {
             Conexao.closeConnection(statement, con);
         }
-        return duvidasDoAluno;
+        return duvidaDoAluno;
     }
 
-    public List<Duvidas> listar() {
-        ArrayList<Duvidas> duvidas = new ArrayList<>();
+    public List<Duvida> listar() {
+        ArrayList<Duvida> duvidas = new ArrayList<>();
         try {
             con = Conexao.getConnection();
             statement = con.prepareStatement("select * from duvidas");
@@ -78,7 +78,7 @@ public class DuvidaDao {
                 String texto = rs.getString("texto");
                 int alunoMatricula = rs.getInt("aluno_matricula");
                 int facilitadorMatricula = rs.getInt("facilitador_matricula");
-                duvidas.add(new Duvidas(id, texto, alunoMatricula, facilitadorMatricula));
+                duvidas.add(new Duvida(id, texto, alunoMatricula, facilitadorMatricula));
             }
         } catch (SQLException e1) {
             e1.printStackTrace();

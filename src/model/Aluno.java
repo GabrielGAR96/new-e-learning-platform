@@ -5,9 +5,15 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
+import java.io.Serializable;
+
 public class Aluno {
-    private IntegerProperty matricula;
-    private StringProperty nome;
+    IntegerProperty matricula;
+    StringProperty nome;
+
+    public Aluno() {
+
+    }
 
     public Aluno(int matricula, String nome) {
         this.matricula = new SimpleIntegerProperty(matricula);

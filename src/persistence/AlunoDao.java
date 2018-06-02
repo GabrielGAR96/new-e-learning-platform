@@ -12,7 +12,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AlunoDao{
+public class AlunoDao {
 
     Connection con = null;
     PreparedStatement statement = null;
@@ -20,7 +20,7 @@ public class AlunoDao{
     public void inserir(Aluno aluno) {
         try {
             con = Conexao.getConnection();
-            statement = con.prepareStatement("insert into aluno values (?,?)");
+            statement = con.prepareStatement("insert into Aluno values (?,?)");
             statement.setInt(1, aluno.getMatricula());
             statement.setString(2, aluno.getNome());
             statement.executeUpdate();
@@ -70,7 +70,7 @@ public class AlunoDao{
 
         try {
             con = Conexao.getConnection();
-            statement = con.prepareStatement("delete from aluno where matricula = ?");
+            statement = con.prepareStatement("delete from Aluno where matricula = ?");
             statement.setInt(1, matricula);
             statement.executeUpdate();
         } catch (SQLException e1) {
@@ -84,7 +84,7 @@ public class AlunoDao{
         ArrayList<Aluno> alunos = new ArrayList<>();
         try {
             con = Conexao.getConnection();
-            statement = con.prepareStatement("select * from aluno where nome like ? order by nome");
+            statement = con.prepareStatement("select * from Aluno where nome like ? order by nome");
             statement.setString(1, "%" + nome + "%");
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
@@ -104,7 +104,7 @@ public class AlunoDao{
         Aluno aluno = null;
         try {
             con = Conexao.getConnection();
-            statement = con.prepareStatement("select * from aluno where matricula = ?");
+            statement = con.prepareStatement("select * from Aluno where matricula = ?");
             statement.setInt(1, matricula);
             ResultSet rs = statement.executeQuery();
             if (rs.next()) {
@@ -122,7 +122,7 @@ public class AlunoDao{
         ArrayList<Aluno> alunos = new ArrayList<>();
         try {
             con = Conexao.getConnection();
-            statement = con.prepareStatement("select * from aluno order by nome");
+            statement = con.prepareStatement("select * from Aluno order by nome");
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
                 int matricula = rs.getInt("matricula");

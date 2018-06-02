@@ -146,8 +146,8 @@ public class PainelRegistrosController {
     }
 
     public void abrirPagamentos(ActionEvent actionEvent) {
-//        List<Pagamento> pagamentosList = pagamentoDao.listar();
-//        painelPrincipal.setCenter(criarTabela(pagamentosList, Pagamento.class));
+//        List<PagamentoAluno> pagamentosList = pagamentoDao.listar();
+//        painelPrincipal.setCenter(criarTabela(pagamentosList, PagamentoAluno.class));
     }
 
     public void abrirDisciplinas(ActionEvent actionEvent) {
