@@ -61,43 +61,43 @@ public class InscricaoDao {
         }
     }
 
-    public Inscricao buscarPorMatricula(int alunoMatricula) {
-        Inscricao inscricao = null;
-        try {
-            con = Conexao.getConnection();
-            statement = con.prepareStatement("select * from Inscricao where alunoMatricula = ?");
-            statement.setInt(1, alunoMatricula);
-            ResultSet rs = statement.executeQuery();
-            if (rs.next()) {
-                int id = rs.getInt("id");
-                Date data = rs.getTimestamp("data");
-                inscricao = new Inscricao(id, alunoMatricula, data);
-            }
-        } catch (SQLException e1) {
-            e1.printStackTrace();
-        } finally {
-            Conexao.closeConnection(statement, con);
-        }
-        return inscricao;
-    }
+//    public Inscricao buscarPorMatricula(int alunoMatricula) {
+//        Inscricao inscricao = null;
+//        try {
+//            con = Conexao.getConnection();
+//            statement = con.prepareStatement("select * from Inscricao where alunoMatricula = ?");
+//            statement.setInt(1, alunoMatricula);
+//            ResultSet rs = statement.executeQuery();
+//            if (rs.next()) {
+//                int id = rs.getInt("id");
+//                Date data = rs.getTimestamp("data");
+//                inscricao = new Inscricao(id, alunoMatricula, data);
+//            }
+//        } catch (SQLException e1) {
+//            e1.printStackTrace();
+//        } finally {
+//            Conexao.closeConnection(statement, con);
+//        }
+//        return inscricao;
+//    }
 
-    public List<Inscricao> listar() {
-        ArrayList<Inscricao> inscricoes = new ArrayList<>();
-        try{
-            con = Conexao.getConnection();
-            statement = con.prepareStatement("select * from Inscricao order by matricula");
-            ResultSet rs = statement.executeQuery();
-            while(rs.next()){
-                int id = rs.getInt("id");
-                int alunoMatricula = rs.getInt("matricula");
-                Date data = rs.getDate("data");
-                inscricoes.add(new Inscricao(id, alunoMatricula, data));
-            }
-        } catch (SQLException e1) {
-            e1.printStackTrace();
-        } finally {
-            Conexao.closeConnection(statement, con);
-        }
-        return inscricoes;
-    }
+//    public List<Inscricao> listar() {
+//        ArrayList<Inscricao> inscricoes = new ArrayList<>();
+//        try{
+//            con = Conexao.getConnection();
+//            statement = con.prepareStatement("select * from Inscricao order by matricula");
+//            ResultSet rs = statement.executeQuery();
+//            while(rs.next()){
+//                int id = rs.getInt("id");
+//                int alunoMatricula = rs.getInt("matricula");
+//                Date data = rs.getDate("data");
+//                inscricoes.add(new Inscricao(id, alunoMatricula, data));
+//            }
+//        } catch (SQLException e1) {
+//            e1.printStackTrace();
+//        } finally {
+//            Conexao.closeConnection(statement, con);
+//        }
+//        return inscricoes;
+//    }
 }

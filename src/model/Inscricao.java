@@ -17,11 +17,11 @@ public class Inscricao {
     public Inscricao() {
     }
 
-    public Inscricao(int id, int alunoMatricula, Date data) {
-        this.id = new SimpleIntegerProperty(id);
-        this.alunoMatricula = new SimpleIntegerProperty(alunoMatricula);
-        this.data = new SimpleObjectProperty<>();
-    }
+//    public Inscricao(int id, int alunoMatricula, Date data) {
+//        this.id = new SimpleIntegerProperty(id);
+//        this.alunoMatricula = new SimpleIntegerProperty(alunoMatricula);
+//        this.data = new SimpleObjectProperty<>();
+//    }
 
     public Inscricao(int alunoMatricula, Date data) {
         this.alunoMatricula = new SimpleIntegerProperty(alunoMatricula);

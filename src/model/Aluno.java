@@ -7,7 +7,7 @@ import javafx.beans.property.StringProperty;
 
 import java.io.Serializable;
 
-public class Aluno {
+public class Aluno{
     IntegerProperty matricula;
     StringProperty nome;
 
@@ -15,8 +15,7 @@ public class Aluno {
 
     }
 
-    public Aluno(int matricula, String nome) {
-        this.matricula = new SimpleIntegerProperty(matricula);
+    public Aluno(String nome) {
         this.nome = new SimpleStringProperty(nome);
     }
 

@@ -33,9 +33,6 @@ public class PainelCadastrarController {
     private Tab alunoTab;
 
     @FXML
-    private JFXTextField matriculaAlunoField;
-
-    @FXML
     private JFXTextField nomeAlunoField;
 
     @FXML
@@ -46,9 +43,6 @@ public class PainelCadastrarController {
 
     @FXML
     private Tab facilitadorTab;
-
-    @FXML
-    private JFXTextField matriculaFacilitadorField;
 
     @FXML
     private JFXTextField nomeFacilitadorField;
@@ -208,9 +202,6 @@ public class PainelCadastrarController {
 
     private Dao dao;
 
-
-    //EXEMPLO DE COMO SELECIONAR ITEM DA LISTA: System.out.println(assuntoDisciplinaList.getSelectionModel().getSelectedItem().getText());
-
     public PainelCadastrarController() {
         alunoDao = new AlunoDao();
         facilitadorDao = new FacilitadorDao();
@@ -247,7 +238,6 @@ public class PainelCadastrarController {
             assuntoDisciplinaList.getItems().add(assunto);
         }
     }
-
 
     public void finalizarCadastro(javafx.event.ActionEvent actionEvent) {
 
@@ -305,47 +295,39 @@ public class PainelCadastrarController {
     }
 
     public void CadastrarAluno() {
-        int matriculaAluno = Integer.parseInt(matriculaAlunoField.getText());
         String nomeAluno = nomeAlunoField.getText();
         ArrayList<String> disciplinasSelecionadas = new ArrayList<>(disciplinasSelecionadasAlunoList.getItems());
 
-        //TODO: inserir verificação no método DAO.inserir()
-
-        dao.inserir(new Aluno(matriculaAluno, nomeAluno));
+        Aluno aluno = dao.inserir(new Aluno(nomeAluno));
 
         java.util.Date data = new Date();
-        Inscricao inscricao = new Inscricao(matriculaAluno, data);
-        inscricaoDao.inserir(inscricao);
-        //dao.inserir(inscricao);
-        inscricao = inscricaoDao.buscarPorMatricula(matriculaAluno);
-        //dao.buscar(Inscricao.class, matriculaAluno);
+        Inscricao inscricao = new Inscricao(aluno.getMatricula(), data);
+        inscricao = dao.inserir(inscricao);
 
         Disciplina disciplina;
         for(String item : disciplinasSelecionadas) {
-            disciplina = disciplinaDao.buscarPorNome(item);
-            DisciplinaInscrita disciplinaInscrita = new DisciplinaInscrita(disciplina.getId(), inscricao.getId());
-            disciplinaInscritaDao.inserir(disciplinaInscrita);
-            //dao.inserir(disciplinaInscrita);
+            disciplina = dao.buscar(Disciplina.class, "nome", item);
+            dao.inserir(new DisciplinaInscrita(disciplina.getId(), inscricao.getId()));
         }
     }
 
     public void CadastrarFacilitador() {
-        int matriculaFacilitador = Integer.parseInt(matriculaFacilitadorField.getText());  //PEGA MATRICULA
-        String nomeFacilitador = nomeFacilitadorField.getText();            //PEGA NOME
-
-        //PEGA DISCIPLINAS SELECIONADAS
-        ArrayList<String> disciplinasSelecionadas = new ArrayList<>(disciplinasSelecionadasAlunoList.getItems());
-
-        Facilitador facilitador = facilitadorDao.buscarPorMatricula(matriculaFacilitador);
-        if (facilitador == null) {
-            facilitadorDao.inserir(new Facilitador(matriculaFacilitador, nomeFacilitador));
-        }
-        GrupoDeDisciplinas grupoDeDisciplinas;
-        for(String item : disciplinasSelecionadas) {
-            Disciplina disciplina = disciplinaDao.buscarPorNome(item);
-            grupoDeDisciplinas = new GrupoDeDisciplinas(disciplina.getId(), facilitador.getMatricula());
-            grupoDeDisciplinasDao.inserir(grupoDeDisciplinas);
-        }
+//        int matriculaFacilitador = Integer.parseInt(matriculaFacilitadorField.getText());  //PEGA MATRICULA
+//        String nomeFacilitador = nomeFacilitadorField.getText();            //PEGA NOME
+//
+//        //PEGA DISCIPLINAS SELECIONADAS
+//        ArrayList<String> disciplinasSelecionadas = new ArrayList<>(disciplinasSelecionadasAlunoList.getItems());
+//
+//        Facilitador facilitador = facilitadorDao.buscarPorMatricula(matriculaFacilitador);
+//        if (facilitador == null) {
+//            facilitadorDao.inserir(new Facilitador(matriculaFacilitador, nomeFacilitador));
+//        }
+//        GrupoDeDisciplinas grupoDeDisciplinas;
+//        for(String item : disciplinasSelecionadas) {
+//            Disciplina disciplina = disciplinaDao.buscarPorNome(item);
+//            grupoDeDisciplinas = new GrupoDeDisciplinas(disciplina.getId(), facilitador.getMatricula());
+//            grupoDeDisciplinasDao.inserir(grupoDeDisciplinas);
+//        }
     }
 
     public void CadastrarDisciplina() {
@@ -422,16 +404,8 @@ public class PainelCadastrarController {
         valorAlunoPagamentoField.validate();
     }
 
-    public void matriculaAlunoDigitado(KeyEvent keyEvent) {
-        matriculaAlunoField.validate();
-    }
-
     public void nomeAlunoDigitado(KeyEvent keyEvent) {
         nomeAlunoField.validate();
-    }
-
-    public void matriculaFacilitadorDigitado(KeyEvent keyEvent) {
-        matriculaFacilitadorField.validate();
     }
 
     public void nomeFacilitadorDigitado(KeyEvent keyEvent) {
@@ -458,14 +432,11 @@ public class PainelCadastrarController {
 
         valorDisciplinaField.getValidators().add(dValidator);
         valorAlunoPagamentoField.getValidators().add(dValidator);
-        matriculaAlunoField.getValidators().add(numberValidator);
-        matriculaFacilitadorField.getValidators().add(numberValidator);
         nomeFacilitadorField.getValidators().add(numberValidator);
         matriculaPagamentoField.getValidators().add(numberValidator);
         idSimDuvPagamentoField.getValidators().add(numberValidator);
 
     }
-
 
     public void tabAlunoSelecionada(Event event) {
         disciplinasDisponiveisAlunoList.getItems().clear();
@@ -567,6 +538,7 @@ public class PainelCadastrarController {
     public void removerFacilitadoresSelecionadosDisciplinas(MouseEvent mouseEvent) {
         transferirItem(mouseEvent, facilitadoresSelecionadosDisciplinaList, facilitadoresDisponiveisDisciplinaList);
     }
+
     public void removerAssuntosAdicionados(MouseEvent mouseEvent) {
         if(mouseEvent.getClickCount() == 2) {
             int indexSelecionado = assuntoDisciplinaList.getSelectionModel().getSelectedIndex();
@@ -585,7 +557,6 @@ public class PainelCadastrarController {
         ObservableList<String> assuntosObservableList = FXCollections.observableArrayList(nomeAssuntos);
         assuntoPerguntaCombo.setItems(assuntosObservableList);
     }
-
 
     public void toggleRespObj(ActionEvent actionEvent) {
         if(respObjPerguntaToggle.isSelected()) {

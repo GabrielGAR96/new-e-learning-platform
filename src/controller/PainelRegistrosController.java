@@ -105,9 +105,9 @@ public class PainelRegistrosController {
         int linha = pos.getRow();
         int valor = (int) coluna.getCellObservableValue(linha).getValue();
 
-        if(classe == Aluno.class) {
-            alunoDao.excluir(valor);
-        }
+//        if(classe == Aluno.class) {
+//            alunoDao.excluir(valor);
+//        }
         if(classe == Facilitador.class) {
             facilitadorDao.excluir(valor);
         }
@@ -129,8 +129,8 @@ public class PainelRegistrosController {
 //        TableView<Aluno> tabela = (TableView<Aluno>) painelPrincipal.getCenter();
 //        Aluno selecionado = tabela.getSelectionModel().getSelectedItem();
 //        int id = selecionado.getMatricula();
-        List<Aluno> alunoList = alunoDao.listar();
-        painelPrincipal.setCenter(criarTabela(alunoList, Aluno.class));
+        //List<Aluno> alunoList = alunoDao.listar();
+        //painelPrincipal.setCenter(criarTabela(alunoList, Aluno.class));
 
     }
 
