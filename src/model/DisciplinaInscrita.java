@@ -6,6 +6,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import java.io.Serializable;
 
 public class DisciplinaInscrita {
+    IntegerProperty id;
     IntegerProperty disciplina_id;
     IntegerProperty inscricao_id;
 
@@ -15,6 +16,18 @@ public class DisciplinaInscrita {
     public DisciplinaInscrita(int disciplina_id, int inscricao_id) {
         this.disciplina_id = new SimpleIntegerProperty(disciplina_id);
         this.inscricao_id = new SimpleIntegerProperty(inscricao_id);
+    }
+
+    public int getId() {
+        return id.get();
+    }
+
+    public IntegerProperty idProperty() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id.set(id);
     }
 
     public int getDisciplina_id() {

@@ -1,9 +1,9 @@
 package model;
+
 import javafx.beans.property.*;
 import persistence.Conexao;
+
 import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.sql.*;
 
 public class Dao {
@@ -12,34 +12,23 @@ public class Dao {
 
     public <T> T inserir(T dado) {
 
-        String nomesDosCampos = "(";
-        String valoresDosCampos = "(";
+        StringBuilder nomesDosCampos = new StringBuilder("(");
+        StringBuilder valoresDosCampos = new StringBuilder("(");
         Field[] camposNaClasse = dado.getClass().getDeclaredFields();
 
-        for(int i = 1; i < camposNaClasse.length; i++) {
-            nomesDosCampos += (camposNaClasse[i].getName() + ",");
-            valoresDosCampos += "?,";
+        for (int i = 1; i < camposNaClasse.length; i++) {
+            nomesDosCampos.append(camposNaClasse[i].getName()).append(",");
+            valoresDosCampos.append("?,");
         }
-        valoresDosCampos = valoresDosCampos.substring(0, valoresDosCampos.length() - 1);
-        valoresDosCampos += ") ";
-        nomesDosCampos = nomesDosCampos.substring(0, nomesDosCampos.length() - 1);
-        nomesDosCampos += ") ";
+        valoresDosCampos = new StringBuilder(valoresDosCampos.substring(0, valoresDosCampos.length() - 1));
+        valoresDosCampos.append(") ");
+        nomesDosCampos = new StringBuilder(nomesDosCampos.substring(0, nomesDosCampos.length() - 1));
+        nomesDosCampos.append(") ");
         try {
             con = Conexao.getConnection();
             statement = con.prepareStatement("INSERT INTO " + dado.getClass().getSimpleName() + " " + nomesDosCampos + " VALUES " + valoresDosCampos);
-            for (int i = 1; i < dado.getClass().getDeclaredFields().length; i++) {
-                Field[] fds = dado.getClass().getDeclaredFields();
-                Object valor = fds[i].get(dado);
-                if (valor instanceof IntegerProperty)
-                    statement.setInt(i, ((IntegerProperty) valor).get());
-                else if (valor instanceof DoubleProperty)
-                    statement.setDouble(i, ((DoubleProperty) valor).get());
-                else if (valor instanceof StringProperty)
-                    statement.setString(i, ((StringProperty) valor).get());
-                else if (valor instanceof SimpleObjectProperty) {
-                    statement.setDate(i, new java.sql.Date(((SimpleObjectProperty<java.util.Date>) valor).get().getTime()));
-                }
-            }
+            int i = 1;
+            statementSetter(dado, camposNaClasse, i);
             statement.executeUpdate();
 
             String id = camposNaClasse[0].getName();
@@ -48,30 +37,11 @@ public class Dao {
             if (rs.next()) {
                 for (Field field : dado.getClass().getDeclaredFields()) {
                     Object valor = rs.getObject(field.getName());
-                    System.out.println(valor);
-                    String nomeDoCampo = field.getName().substring(0, 1).toUpperCase() + field.getName().substring(1);
-                    Class<?> clazz;
-                    if (field.getType().equals(IntegerProperty.class))
-                        clazz = int.class;
-                    else if (field.getType().equals(DoubleProperty.class))
-                        clazz = double.class;
-                    else if (field.getType().equals(StringProperty.class))
-                        clazz = String.class;
-                    else
-                        clazz = Date.class;
-                    Method method = dado.getClass().getDeclaredMethod("set" + nomeDoCampo, clazz);
-                    method.invoke(dado, valor);
-                    //field.set(dado, valor);
+                    fieldSetter(dado, field, valor);
                 }
             }
-        } catch (SQLException e1) {
+        } catch (SQLException | IllegalAccessException e1) {
             e1.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
         } finally {
             Conexao.closeConnection(statement, con);
         }
@@ -95,71 +65,81 @@ public class Dao {
     }
 
     public <T> void alterar(T dado, int key) {
-        String keyName = dado.getClass().getDeclaredFields()[0].getName();
+        Field[] camposNaClasse = dado.getClass().getDeclaredFields();
+        String keyName = camposNaClasse[0].getName();
 
-        String campos = new String();
-        for (Field field : dado.getClass().getDeclaredFields()) {
-            campos += field.getName() + " = ?,";
+        StringBuilder campos = new StringBuilder();
+        for (Field field : camposNaClasse) {
+            campos.append(field.getName()).append(" = ?,");
         }
-        campos = campos.substring(0, campos.length() - 1);
+        campos = new StringBuilder(campos.substring(0, campos.length() - 1));
 
         try {
             con = Conexao.getConnection();
             statement = con.prepareStatement("update " + dado.getClass().getSimpleName() + " set " + campos + " where " + keyName + "= ?");
-            int i;
-            for (i = 1; i < dado.getClass().getDeclaredFields().length; i++) {
-                Object valor = dado.getClass().getDeclaredFields()[i].get(dado);
-                if (valor instanceof IntegerProperty)
-                    statement.setInt(i + 1, ((IntegerProperty) valor).get());
-                else if (valor instanceof DoubleProperty)
-                    statement.setDouble(i + 1, ((DoubleProperty) valor).get());
-                else if (valor instanceof StringProperty)
-                    statement.setString(i + 1, ((StringProperty) valor).get());
-                else if (valor instanceof SimpleObjectProperty)
-                    statement.setDate(i + 1, new java.sql.Date(((SimpleObjectProperty<java.util.Date>) valor).get().getTime()));
-            }
+            int i = 1;
+            statementSetter(dado, camposNaClasse, i);
             statement.setInt(i, key);
             statement.executeUpdate();
-        } catch (SQLException e1) {
+        } catch (SQLException | IllegalAccessException e1) {
             e1.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
         } finally {
             Conexao.closeConnection(statement, con);
         }
     }
 
     public <T> T buscar(Class<T> tabela, String keyName, Object key) {
-        T dado;
+        T dado = null;
 
         try {
             dado = tabela.getDeclaredConstructor().newInstance();
             con = Conexao.getConnection();
             statement = con.prepareStatement("select * from " + tabela.getSimpleName() + " where " + keyName + " = ?");
-            if(key instanceof Integer)
+            if (key instanceof Integer)
                 statement.setInt(1, (int) key);
-            else if(key instanceof Double)
+            else if (key instanceof Double)
                 statement.setDouble(1, (double) key);
-            else if(key instanceof String)
+            else if (key instanceof String)
                 statement.setString(1, (String) key);
 
             ResultSet rs = statement.executeQuery();
             if (rs.next()) {
                 for (Field field : tabela.getDeclaredFields()) {
                     Object valor = rs.getObject(field.getName());
-                    field.set(dado, valor);
+                    fieldSetter(dado, field, valor);
                 }
             }
-
-            return dado;
-        } catch (SQLException e) {
+        } catch (SQLException | ReflectiveOperationException e) {
             e.printStackTrace();
-        } catch (ReflectiveOperationException r) {
-            r.printStackTrace();
         } finally {
             Conexao.closeConnection(statement, con);
         }
-        return null;
+        return dado;
+    }
+
+    private <T> void fieldSetter(T dado, Field field, Object valor) throws IllegalAccessException {
+        if (field.getType().equals(IntegerProperty.class))
+            field.set(dado, new SimpleIntegerProperty((int) valor));
+        else if (field.getType().equals(DoubleProperty.class))
+            field.set(dado, new SimpleDoubleProperty((double) valor));
+        else if (field.getType().equals(StringProperty.class))
+            field.set(dado, new SimpleStringProperty((String) valor));
+        else
+            field.set(dado, new SimpleObjectProperty<>((Date) valor));
+    }
+
+    private <T> void statementSetter(T dado, Field[] camposNaClasse, int i) throws SQLException, IllegalAccessException {
+        for (i = 1; i < camposNaClasse.length; i++) {
+            Object valor = camposNaClasse[i].get(dado);
+            if (valor instanceof IntegerProperty)
+                statement.setInt(i, ((IntegerProperty) valor).get());
+            else if (valor instanceof DoubleProperty)
+                statement.setDouble(i, ((DoubleProperty) valor).get());
+            else if (valor instanceof StringProperty)
+                statement.setString(i, ((StringProperty) valor).get());
+            else if (valor instanceof SimpleObjectProperty)
+                statement.setDate(i, new java.sql.Date(((SimpleObjectProperty<java.util.Date>) valor).get().getTime()));
+        }
     }
 
 }

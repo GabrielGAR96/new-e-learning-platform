@@ -3,41 +3,52 @@ package model;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
-import java.io.Serializable;
-
 public class GrupoDeDisciplinas {
-    IntegerProperty facilitador_matricula;
-    IntegerProperty disciplina_id;
+    IntegerProperty id;
+    IntegerProperty facilitadorMatricula;
+    IntegerProperty disciplinaId;
 
     public GrupoDeDisciplinas() {
     }
 
-    public GrupoDeDisciplinas(int facilitador_matricula, int disciplina_id) {
-        this.facilitador_matricula = new SimpleIntegerProperty(facilitador_matricula);
-        this.disciplina_id = new SimpleIntegerProperty(disciplina_id);
+    public GrupoDeDisciplinas(int facilitadorMatricula, int disciplinaId) {
+        this.facilitadorMatricula = new SimpleIntegerProperty(facilitadorMatricula);
+        this.disciplinaId = new SimpleIntegerProperty(disciplinaId);
     }
 
-    public int getFacilitador_matricula() {
-        return facilitador_matricula.get();
+    public int getId() {
+        return id.get();
     }
 
-    public IntegerProperty facilitador_matriculaProperty() {
-        return facilitador_matricula;
+    public IntegerProperty idProperty() {
+        return id;
     }
 
-    public void setFacilitador_matricula(int facilitador_matricula) {
-        this.facilitador_matricula.set(facilitador_matricula);
+    public void setId(int id) {
+        this.id.set(id);
     }
 
-    public int getDisciplina_id() {
-        return disciplina_id.get();
+    public int getFacilitadorMatricula() {
+        return facilitadorMatricula.get();
     }
 
-    public IntegerProperty disciplina_idProperty() {
-        return disciplina_id;
+    public IntegerProperty facilitadorMatriculaProperty() {
+        return facilitadorMatricula;
     }
 
-    public void setDisciplina_id(int disciplina_id) {
-        this.disciplina_id.set(disciplina_id);
+    public void setFacilitadorMatricula(int facilitadorMatricula) {
+        this.facilitadorMatricula.set(facilitadorMatricula);
+    }
+
+    public int getDisciplinaId() {
+        return disciplinaId.get();
+    }
+
+    public IntegerProperty disciplinaIdProperty() {
+        return disciplinaId;
+    }
+
+    public void setDisciplinaId(int disciplinaId) {
+        this.disciplinaId.set(disciplinaId);
     }
 }

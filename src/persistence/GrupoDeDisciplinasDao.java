@@ -17,8 +17,8 @@ public class GrupoDeDisciplinasDao {
         try {
             con = Conexao.getConnection();
             statement = con.prepareStatement("insert into grupo_de_disciplinas values (?,?)");
-            statement.setInt(1, grupoDeDisciplinas.getFacilitador_matricula());
-            statement.setInt(2, grupoDeDisciplinas.getDisciplina_id());
+            statement.setInt(1, grupoDeDisciplinas.getFacilitadorMatricula());
+            statement.setInt(2, grupoDeDisciplinas.getDisciplinaId());
             statement.executeUpdate();
         } catch (SQLException e1) {
             e1.printStackTrace();
@@ -35,8 +35,8 @@ public class GrupoDeDisciplinasDao {
         try {
             con = Conexao.getConnection();
             statement = con.prepareStatement("delete from grupo_de_disciplinas where facilitador_matricula = ? and disciplina = ?");
-            statement.setInt(1, grupoDeDisciplinas.getFacilitador_matricula());
-            statement.setInt(2, grupoDeDisciplinas.getDisciplina_id());
+            statement.setInt(1, grupoDeDisciplinas.getFacilitadorMatricula());
+            statement.setInt(2, grupoDeDisciplinas.getDisciplinaId());
             statement.executeUpdate();
         } catch (SQLException e1) {
             e1.printStackTrace();

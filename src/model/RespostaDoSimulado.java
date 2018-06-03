@@ -6,6 +6,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import java.io.Serializable;
 
 public class RespostaDoSimulado {
+    IntegerProperty id;
     IntegerProperty simuladoId;
     IntegerProperty respostaId;
 
@@ -15,6 +16,18 @@ public class RespostaDoSimulado {
     public RespostaDoSimulado(int simuladoId, int respostaId) {
         this.simuladoId = new SimpleIntegerProperty(simuladoId);
         this.respostaId = new SimpleIntegerProperty(respostaId);
+    }
+
+    public int getId() {
+        return id.get();
+    }
+
+    public IntegerProperty idProperty() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id.set(id);
     }
 
     public int getSimuladoId() {
