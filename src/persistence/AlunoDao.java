@@ -14,25 +14,25 @@ import java.util.List;
 
 public class AlunoDao {
 
-    Connection con = null;
-    PreparedStatement statement = null;
-
+//    Connection con = null;
+//    PreparedStatement statement = null;
+//
     public void inserir(Aluno aluno) {
-        try {
-            con = Conexao.getConnection();
-            statement = con.prepareStatement("insert into Aluno values (?,?)");
-            statement.setInt(1, aluno.getMatricula());
-            statement.setString(2, aluno.getNome());
-            statement.executeUpdate();
-        } catch (SQLException e1) {
-            e1.printStackTrace();
-        } finally {
-            Conexao.closeConnection(statement, con);
-        }
-
+//        try {
+//            con = Conexao.getConnection();
+//            statement = con.prepareStatement("insert into Aluno values (?,?)");
+//            statement.setInt(1, aluno.getMatricula());
+//            statement.setString(2, aluno.getNome());
+//            statement.executeUpdate();
+//        } catch (SQLException e1) {
+//            e1.printStackTrace();
+//        } finally {
+//            Conexao.closeConnection(statement, con);
+//        }
+//
     }
 
-//    public void alterar(Aluno aluno) {
+    public void alterar(Aluno aluno) {
 //        try {
 //            con = Conexao.getConnection();
 //            statement = con.prepareStatement("update aluno set matricula = ?, nome = ?");
@@ -52,9 +52,9 @@ public class AlunoDao {
 //                e1.printStackTrace();
 //            }
 //        }
-//    }
+    }
 
-//    public void excluir(int matricula) {
+    public void excluir(int matricula) {
 //
 //        InscricaoDao inscricaoDao = new InscricaoDao();
 //        Inscricao inscricao = inscricaoDao.buscarPorMatricula(matricula);
@@ -63,7 +63,7 @@ public class AlunoDao {
 //
 //        List<DisciplinaInscrita> disciplinasInscritas = disciplinaInscritaDao.buscarPorInscricao(inscricao.getId());
 //        for(DisciplinaInscrita di : disciplinasInscritas) {
-//            disciplinaInscritaDao.excluirPelaInscricao(di.getInscricao_id());
+//            disciplinaInscritaDao.excluirPelaInscricao(di.getInscricaoId());
 //        }
 //
 //        inscricaoDao.excluir(inscricao.getId());
@@ -78,10 +78,10 @@ public class AlunoDao {
 //        } finally {
 //            Conexao.closeConnection(statement, con);
 //        }
-//    }
+    }
 
-//    public List<Aluno> buscarPorNome(String nome) {
-//        ArrayList<Aluno> alunos = new ArrayList<>();
+    public List<Aluno> buscarPorNome(String nome) {
+        ArrayList<Aluno> alunos = new ArrayList<>();
 //        try {
 //            con = Conexao.getConnection();
 //            statement = con.prepareStatement("select * from Aluno where nome like ? order by nome");
@@ -97,11 +97,11 @@ public class AlunoDao {
 //        } finally {
 //            Conexao.closeConnection(statement, con);
 //        }
-//        return alunos;
-//    }
+        return alunos;
+    }
 
-//    public Aluno buscarPorMatricula(int matricula) {
-//        Aluno aluno = null;
+    public Aluno buscarPorMatricula(int matricula) {
+        Aluno aluno = null;
 //        try {
 //            con = Conexao.getConnection();
 //            statement = con.prepareStatement("select * from Aluno where matricula = ?");
@@ -115,11 +115,11 @@ public class AlunoDao {
 //        } finally {
 //            Conexao.closeConnection(statement, con);
 //        }
-//        return aluno;
-//    }
+        return aluno;
+    }
 
-//    public List<Aluno> listar() {
-//        ArrayList<Aluno> alunos = new ArrayList<>();
+    public List<Aluno> listar() {
+        ArrayList<Aluno> alunos = new ArrayList<>();
 //        try {
 //            con = Conexao.getConnection();
 //            statement = con.prepareStatement("select * from Aluno order by nome");
@@ -134,7 +134,7 @@ public class AlunoDao {
 //        } finally {
 //            Conexao.closeConnection(statement, con);
 //        }
-//        return alunos;
-//    }
+        return alunos;
+    }
 
 }

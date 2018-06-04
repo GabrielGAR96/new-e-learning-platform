@@ -16,8 +16,7 @@ public class PagamentoFacilitador {
     public PagamentoFacilitador() {
     }
 
-    public PagamentoFacilitador(int id, double valor, Date data, int facilitadorMatricula, int simuladoId, int duvidaId) {
-        this.id = new SimpleIntegerProperty(id);
+    public PagamentoFacilitador(double valor, Date data, int facilitadorMatricula, int simuladoId, int duvidaId) {
         this.valor = new SimpleDoubleProperty(valor);
         this.data = new SimpleObjectProperty<Date>(data);
         this.facilitadorMatricula = new SimpleIntegerProperty(facilitadorMatricula);

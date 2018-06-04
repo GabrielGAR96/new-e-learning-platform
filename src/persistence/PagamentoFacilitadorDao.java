@@ -57,47 +57,47 @@ public class PagamentoFacilitadorDao {
 
     public List<PagamentoFacilitador> buscarPorFacilitador(int facilitadorMatricula) {
         ArrayList<PagamentoFacilitador> pagamentosDoFacilitador = new ArrayList<>();
-        try {
-            con = Conexao.getConnection();
-            statement = con.prepareStatement("select * from pgmt_facilitador where facilitador_matricula = ?");
-            statement.setInt(1, facilitadorMatricula);
-            ResultSet rs = statement.executeQuery();
-            while (rs.next()) {
-                int id = rs.getInt("id");
-                double valor = rs.getDouble("valor");
-                Date data = rs.getTimestamp("data");
-                int simuladoId = rs.getInt("simulado_id");
-                int duvidaId = rs.getInt("duvida_id");
-                pagamentosDoFacilitador.add(new PagamentoFacilitador(id, valor, data, facilitadorMatricula, simuladoId, duvidaId));
-            }
-        } catch (SQLException e1) {
-            e1.printStackTrace();
-        } finally {
-            Conexao.closeConnection(statement, con);
-        }
+//        try {
+//            con = Conexao.getConnection();
+//            statement = con.prepareStatement("select * from pgmt_facilitador where facilitador_matricula = ?");
+//            statement.setInt(1, facilitadorMatricula);
+//            ResultSet rs = statement.executeQuery();
+//            while (rs.next()) {
+//                int id = rs.getInt("id");
+//                double valor = rs.getDouble("valor");
+//                Date data = rs.getTimestamp("data");
+//                int simuladoId = rs.getInt("simulado_id");
+//                int duvidaId = rs.getInt("duvida_id");
+//                pagamentosDoFacilitador.add(new PagamentoFacilitador(id, valor, data, facilitadorMatricula, simuladoId, duvidaId));
+//            }
+//        } catch (SQLException e1) {
+//            e1.printStackTrace();
+//        } finally {
+//            Conexao.closeConnection(statement, con);
+//        }
         return pagamentosDoFacilitador;
     }
 
     public List<PagamentoFacilitador> listar() {
         ArrayList<PagamentoFacilitador> pagamentosDosFacilitadores = new ArrayList<>();
-        try {
-            con = Conexao.getConnection();
-            statement = con.prepareStatement("select * from pgmt_facilitador");
-            ResultSet rs = statement.executeQuery();
-            while (rs.next()) {
-                int id = rs.getInt("id");
-                double valor = rs.getDouble("valor");
-                Date data = rs.getTimestamp("data");
-                int facilitadorMatricula = rs.getInt("facilitador_matricula");
-                int simuladoId = rs.getInt("simulado_id");
-                int duvidaId = rs.getInt("duvida_id");
-                pagamentosDosFacilitadores.add(new PagamentoFacilitador(id, valor, data, facilitadorMatricula, simuladoId, duvidaId));
-            }
-        } catch (SQLException e1) {
-            e1.printStackTrace();
-        } finally {
-            Conexao.closeConnection(statement, con);
-        }
+//        try {
+//            con = Conexao.getConnection();
+//            statement = con.prepareStatement("select * from pgmt_facilitador");
+//            ResultSet rs = statement.executeQuery();
+//            while (rs.next()) {
+//                int id = rs.getInt("id");
+//                double valor = rs.getDouble("valor");
+//                Date data = rs.getTimestamp("data");
+//                int facilitadorMatricula = rs.getInt("facilitador_matricula");
+//                int simuladoId = rs.getInt("simulado_id");
+//                int duvidaId = rs.getInt("duvida_id");
+//                pagamentosDosFacilitadores.add(new PagamentoFacilitador(id, valor, data, facilitadorMatricula, simuladoId, duvidaId));
+//            }
+//        } catch (SQLException e1) {
+//            e1.printStackTrace();
+//        } finally {
+//            Conexao.closeConnection(statement, con);
+//        }
         return pagamentosDosFacilitadores;
     }
 }

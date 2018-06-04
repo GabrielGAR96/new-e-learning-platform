@@ -107,14 +107,14 @@ public class PagamentoDao {
     }
 
     private void addPagamentoToList(ArrayList<PagamentoAluno> pagamentoAlunos, ResultSet rs) throws SQLException {
-        while (rs.next()) {
-            int id = rs.getInt("id");
-            double valor = rs.getDouble("valor");
-            java.sql.Date data = rs.getDate("data");
-            Date date = Date.from(data.toInstant());
-            int idInscricao = rs.getInt("inscricao_id");
-
-            pagamentoAlunos.add(new PagamentoAluno(id, valor, date, idInscricao));
-        }
+//        while (rs.next()) {
+//            int id = rs.getInt("id");
+//            double valor = rs.getDouble("valor");
+//            java.sql.Date data = rs.getDate("data");
+//            Date date = Date.from(data.toInstant());
+//            int idInscricao = rs.getInt("inscricao_id");
+//
+//            pagamentoAlunos.add(new PagamentoAluno(id, valor, date, idInscricao));
+//        }
     }
 }

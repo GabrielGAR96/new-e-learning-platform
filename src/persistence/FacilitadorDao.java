@@ -46,38 +46,38 @@ public class FacilitadorDao {
 
     public Facilitador buscarPorMatricula(int matricula) {
         Facilitador facilitador = null;
-        try {
-            con = Conexao.getConnection();
-            statement = con.prepareStatement("select * from facilitador where matricula = ?");
-            statement.setInt(1, matricula);
-            ResultSet rs = statement.executeQuery();
-            if(rs.next()) {
-                facilitador = new Facilitador(matricula, rs.getString("nome"));
-            }
-        } catch (SQLException e1) {
-            e1.printStackTrace();
-        } finally {
-            Conexao.closeConnection(statement, con);
-        }
+//        try {
+//            con = Conexao.getConnection();
+//            statement = con.prepareStatement("select * from facilitador where matricula = ?");
+//            statement.setInt(1, matricula);
+//            ResultSet rs = statement.executeQuery();
+//            if(rs.next()) {
+//                facilitador = new Facilitador(matricula, rs.getString("nome"));
+//            }
+//        } catch (SQLException e1) {
+//            e1.printStackTrace();
+//        } finally {
+//            Conexao.closeConnection(statement, con);
+//        }
         return facilitador;
     }
 
     public List<Facilitador> listar() {
         ArrayList<Facilitador> facilitadores = new ArrayList<>();
-        try {
-            con = Conexao.getConnection();
-            statement = con.prepareStatement("select * from facilitador");
-            ResultSet rs = statement.executeQuery();
-            while (rs.next()) {
-                int matricula = rs.getInt("matricula");
-                String nome = rs.getString("nome");
-                facilitadores.add(new Facilitador(matricula, nome));
-            }
-        } catch (SQLException e1) {
-            e1.printStackTrace();
-        } finally {
-            Conexao.closeConnection(statement, con);
-        }
+//        try {
+//            con = Conexao.getConnection();
+//            statement = con.prepareStatement("select * from facilitador");
+//            ResultSet rs = statement.executeQuery();
+//            while (rs.next()) {
+//                int matricula = rs.getInt("matricula");
+//                String nome = rs.getString("nome");
+//                facilitadores.add(new Facilitador(matricula, nome));
+//            }
+//        } catch (SQLException e1) {
+//            e1.printStackTrace();
+//        } finally {
+//            Conexao.closeConnection(statement, con);
+//        }
         return facilitadores;
     }
 }

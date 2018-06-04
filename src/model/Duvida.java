@@ -16,8 +16,7 @@ public class Duvida {
     public Duvida() {
     }
 
-    public Duvida(int id, String texto, int alunoMatricula, int facilitadorMatricula) {
-        this.id = new SimpleIntegerProperty(id);
+    public Duvida(String texto, int alunoMatricula, int facilitadorMatricula) {
         this.texto = new SimpleStringProperty(texto);
         this.alunoMatricula = new SimpleIntegerProperty(alunoMatricula);
         this.facilitadorMatricula = new SimpleIntegerProperty(facilitadorMatricula);

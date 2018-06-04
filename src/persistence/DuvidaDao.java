@@ -48,43 +48,43 @@ public class DuvidaDao {
 
     public List<Duvida> buscarPorAluno(int alunoMatricula) {
         ArrayList<Duvida> duvidaDoAluno = new ArrayList<>();
-        try {
-            con = Conexao.getConnection();
-            statement = con.prepareStatement("select * from duvidas where aluno_matricula = ?");
-            statement.setInt(1, alunoMatricula);
-            ResultSet rs = statement.executeQuery();
-            while (rs.next()) {
-                int id = rs.getInt("id");
-                String texto = rs.getString("texto");
-                int facilitadorMatricula = rs.getInt("facilitador_matricula");
-                duvidaDoAluno.add(new Duvida(id, texto, alunoMatricula, facilitadorMatricula));
-            }
-        } catch (SQLException e1) {
-            e1.printStackTrace();
-        } finally {
-            Conexao.closeConnection(statement, con);
-        }
+//        try {
+//            con = Conexao.getConnection();
+//            statement = con.prepareStatement("select * from duvidas where aluno_matricula = ?");
+//            statement.setInt(1, alunoMatricula);
+//            ResultSet rs = statement.executeQuery();
+//            while (rs.next()) {
+//                int id = rs.getInt("id");
+//                String texto = rs.getString("texto");
+//                int facilitadorMatricula = rs.getInt("facilitador_matricula");
+//                duvidaDoAluno.add(new Duvida(id, texto, alunoMatricula, facilitadorMatricula));
+//            }
+//        } catch (SQLException e1) {
+//            e1.printStackTrace();
+//        } finally {
+//            Conexao.closeConnection(statement, con);
+//        }
         return duvidaDoAluno;
     }
 
     public List<Duvida> listar() {
         ArrayList<Duvida> duvidas = new ArrayList<>();
-        try {
-            con = Conexao.getConnection();
-            statement = con.prepareStatement("select * from duvidas");
-            ResultSet rs = statement.executeQuery();
-            while (rs.next()) {
-                int id = rs.getInt("id");
-                String texto = rs.getString("texto");
-                int alunoMatricula = rs.getInt("aluno_matricula");
-                int facilitadorMatricula = rs.getInt("facilitador_matricula");
-                duvidas.add(new Duvida(id, texto, alunoMatricula, facilitadorMatricula));
-            }
-        } catch (SQLException e1) {
-            e1.printStackTrace();
-        } finally {
-            Conexao.closeConnection(statement, con);
-        }
+//        try {
+//            con = Conexao.getConnection();
+//            statement = con.prepareStatement("select * from duvidas");
+//            ResultSet rs = statement.executeQuery();
+//            while (rs.next()) {
+//                int id = rs.getInt("id");
+//                String texto = rs.getString("texto");
+//                int alunoMatricula = rs.getInt("aluno_matricula");
+//                int facilitadorMatricula = rs.getInt("facilitador_matricula");
+//                duvidas.add(new Duvida(id, texto, alunoMatricula, facilitadorMatricula));
+//            }
+//        } catch (SQLException e1) {
+//            e1.printStackTrace();
+//        } finally {
+//            Conexao.closeConnection(statement, con);
+//        }
         return duvidas;
     }
 }

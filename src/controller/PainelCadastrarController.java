@@ -15,11 +15,11 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.paint.Color;
 import model.*;
-import persistence.*;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+
+import java.time.ZoneId;
+import java.util.*;
 
 public class PainelCadastrarController {
 
@@ -61,12 +61,6 @@ public class PainelCadastrarController {
 
     @FXML
     private JFXTextField valorDisciplinaField;
-
-    @FXML
-    private JFXListView<String> facilitadoresDisponiveisDisciplinaList;
-
-    @FXML
-    private JFXListView<String> facilitadoresSelecionadosDisciplinaList;
 
     @FXML
     private JFXListView<String> assuntoDisciplinaList;
@@ -176,122 +170,67 @@ public class PainelCadastrarController {
     @FXML
     private Label valorPagamentoLabel;
 
+    @FXML
+    private Label respostasLabel;
+
+    @FXML
+    private JFXTextField inscricaoAlunoPagamentoField;
+
     private RequiredFieldValidator rqValidator;
 
     private DoubleValidator dValidator;
 
     private NumberValidator numberValidator;
 
-    private AlunoDao alunoDao;
-
-    private InscricaoDao inscricaoDao;
-
-    private DisciplinaDao disciplinaDao;
-
-    private DisciplinaInscritaDao disciplinaInscritaDao;
-
-    private FacilitadorDao facilitadorDao;
-
-    private GrupoDeDisciplinasDao grupoDeDisciplinasDao;
-
-    private AssuntoDao assuntoDao;
-
-    private RespostaDao respostaDao;
-
-    private PerguntaDao perguntaDao;
-
     private Dao dao;
 
     public PainelCadastrarController() {
-        alunoDao = new AlunoDao();
-        facilitadorDao = new FacilitadorDao();
-        inscricaoDao = new InscricaoDao();
-        disciplinaDao = new DisciplinaDao();
-        disciplinaInscritaDao = new DisciplinaInscritaDao();
-        assuntoDao = new AssuntoDao();
-        perguntaDao = new PerguntaDao();
-        respostaDao = new RespostaDao();
-
         dao = new Dao();
     }
 
     @FXML
     public void initialize() {
         adicionarValidators();
-
         alunoOuFacilitadorPagamentoToggle.setStyle("-fx-text-fill: gray");
         simuladoPagamentoLabel.setStyle("-fx-text-fill: black");
-
-
-
-        //Aqui vão ser CARREGADAS todas as tabelas de seleção e comboboxes
     }
 
     public void adicionarAssuntoDisciplina(javafx.event.ActionEvent actionEvent) {
         String assunto = assuntoDisciplinaField.getText();
+        assuntoDisciplinaField.clear();
         assuntoDisciplinaList.getItems().add(assunto);
     }
 
     public void adicionarAssuntoDisciplinaEnter(KeyEvent keyEvent) {
-        if(keyEvent.getCode() == KeyCode.ENTER) {
+        if (keyEvent.getCode() == KeyCode.ENTER) {
             String assunto = assuntoDisciplinaField.getText();
+            assuntoDisciplinaField.clear();
             assuntoDisciplinaList.getItems().add(assunto);
         }
     }
 
     public void finalizarCadastro(javafx.event.ActionEvent actionEvent) {
 
-        if(alunoTab.isSelected()) CadastrarAluno();
+        if (alunoTab.isSelected()) CadastrarAluno();
 
-        if(facilitadorTab.isSelected()) CadastrarFacilitador();
+        else if (facilitadorTab.isSelected()) CadastrarFacilitador();
 
-        if(disciplinaTab.isSelected()) CadastrarDisciplina();
+        else if (disciplinaTab.isSelected()) CadastrarDisciplina();
 
-        if(assuntoTab.isSelected()) CadastrarAssunto();
+        else if (assuntoTab.isSelected()) CadastrarAssunto();
 
-        if(perguntaTab.isSelected()) CadastrarPergunta();
+        else if (perguntaTab.isSelected()) CadastrarPergunta();
 
+        else if (pagamentoTab.isSelected()) CadastrarPagamento();
 
-//        if(pagamentoTab.isSelected()) {
-//            String matriculaPagamento = matriculaPagamentoField.getText();
-//            LocalDate dataPagamento = dataPagamentoDP.getValue();
-//            double valorPagamento;
-//            int idSimDuv;
-//
-//            if(alunoOuFacilitadorPagamentoToggle.isSelected()) {
-//                valorPagamento = Double.parseDouble(valorAlunoPagamentoField.getText());
-//            } else {
-//                valorPagamento = Double.parseDouble(valorFacilitadorPagamentoList.getItems().get(0));
-//                idSimDuv = Integer.parseInt(idSimDuvPagamentoField.getText());
-//            }
+        else if (duvidaTab.isSelected()) CadastrarDuvida();
 
-            /*
-             *   TODO: colocar variaveis no banco de dados
-             *
-             */
-
-//        }
-//
-//        if(duvidaTab.isSelected()) {
-//            String alunoDuvida = alunoDuvidaCombo.getValue();
-//            String facilitadorDuvida = facilitadorDuvidaCombo.getValue();
-//            String textoDuvida = perguntaDuvidaField.getText();
-
-            /*
-             *   TODO: colocar variaveis no banco de dados
-             *
-             */
-
-//        }
-
+        else CadastrarSimulado();
 
         JFXSnackbar cadastroSnackBar = new JFXSnackbar(painelPai);
-        cadastroSnackBar.show("Cadastro realizado com sucesso!", 2000);
+        cadastroSnackBar.show("Cadastro realizado com sucesso!", 1500);
 
-
-        //Aqui vão ser RECARREGADAS todas as tabelas de seleção e comboboxes
-
-
+        //TODO: Aqui vão ser RECARREGADAS todas as tabelas de seleção e comboboxes
     }
 
     public void CadastrarAluno() {
@@ -305,54 +244,34 @@ public class PainelCadastrarController {
         inscricao = dao.inserir(inscricao);
 
         Disciplina disciplina;
-        for(String item : disciplinasSelecionadas) {
+        for (String item : disciplinasSelecionadas) {
             disciplina = dao.buscar(Disciplina.class, "nome", item);
             dao.inserir(new DisciplinaInscrita(disciplina.getId(), inscricao.getId()));
         }
     }
 
     public void CadastrarFacilitador() {
-//        int matriculaFacilitador = Integer.parseInt(matriculaFacilitadorField.getText());  //PEGA MATRICULA
-//        String nomeFacilitador = nomeFacilitadorField.getText();            //PEGA NOME
-//
-//        //PEGA DISCIPLINAS SELECIONADAS
-//        ArrayList<String> disciplinasSelecionadas = new ArrayList<>(disciplinasSelecionadasAlunoList.getItems());
-//
-//        Facilitador facilitador = facilitadorDao.buscarPorMatricula(matriculaFacilitador);
-//        if (facilitador == null) {
-//            facilitadorDao.inserir(new Facilitador(matriculaFacilitador, nomeFacilitador));
-//        }
-//        GrupoDeDisciplinas grupoDeDisciplinas;
-//        for(String item : disciplinasSelecionadas) {
-//            Disciplina disciplina = disciplinaDao.buscarPorNome(item);
-//            grupoDeDisciplinas = new GrupoDeDisciplinas(disciplina.getId(), facilitador.getMatricula());
-//            grupoDeDisciplinasDao.inserir(grupoDeDisciplinas);
-//        }
+        String nomeFacilitador = nomeFacilitadorField.getText();
+        ArrayList<String> disciplinasSelecionadas = new ArrayList<>(disciplinasSelecionadasFacilitadorList.getItems());
+
+        Facilitador facilitador = dao.inserir(new Facilitador(nomeFacilitador));
+
+        Disciplina disciplina;
+        for (String item : disciplinasSelecionadas) {
+            disciplina = dao.buscar(Disciplina.class, "nome", item);
+            dao.inserir(new GrupoDeDisciplinas(facilitador.getMatricula(), disciplina.getId()));
+        }
     }
 
     public void CadastrarDisciplina() {
         String nomeDisciplina = nomeDisciplinaField.getText();
         double valorDisciplina = Double.parseDouble(valorDisciplinaField.getText());
-
         ArrayList<String> assuntosDisciplina = new ArrayList<>(assuntoDisciplinaList.getItems());
 
-        ArrayList<Facilitador> facilitadores = (ArrayList<Facilitador>) facilitadorDao.listar();
-        for(Facilitador item : facilitadores) {
-            facilitadoresDisponiveisDisciplinaList.getItems().add(item.getNome());
-        }
+        Disciplina disciplina = dao.inserir(new Disciplina(nomeDisciplina, valorDisciplina));
 
-        ArrayList<String> facilitadoresDisciplina = new ArrayList<>(facilitadoresSelecionadosDisciplinaList.getItems());
-
-        Disciplina disciplina = new Disciplina(nomeDisciplina, valorDisciplina);
-        if (disciplinaDao.buscarPorNome(nomeDisciplina) == null) {
-            disciplinaDao.inserir(disciplina);
-            disciplina = disciplinaDao.buscarPorNome(nomeDisciplina);
-            for (String item : assuntosDisciplina) {
-                assuntoDao.inserir(new Assunto(item, disciplina.getId()));
-            }
-        } else {
-            JFXSnackbar cadastroSnackBar = new JFXSnackbar(painelPai);
-            cadastroSnackBar.show("Disciplina já cadastrada!", 2000);
+        for (String item : assuntosDisciplina) {
+            dao.inserir(new Assunto(item, disciplina.getId()));
         }
     }
 
@@ -360,40 +279,63 @@ public class PainelCadastrarController {
         String nomeAssunto = nomeAssuntoField.getText();
         String nomeDisciplina = disciplinaAssuntoCombo.getValue();
 
-        Disciplina disciplina = disciplinaDao.buscarPorNome(nomeDisciplina);
+        Disciplina disciplina = dao.buscar(Disciplina.class, "nome", nomeDisciplina);
 
-        Assunto assunto = new Assunto(nomeAssunto, disciplina.getId());
-        AssuntoDao assuntoDao = new AssuntoDao();
-        if (assuntoDao.buscarPorNome(nomeAssunto) == null) {
-            assuntoDao.inserir(assunto);
-        } else {
-            JFXSnackbar cadastroSnackBar = new JFXSnackbar(painelPai);
-            cadastroSnackBar.show("Assunto já cadastrado!", 2000);
-        }
+        dao.inserir(new Assunto(nomeAssunto, disciplina.getId()));
     }
 
     public void CadastrarPergunta() {
+        ArrayList<String> respostasPergunta = new ArrayList<>(respostaPerguntaList.getItems());
+        String tipo = respObjPerguntaToggle.isSelected() ? "obj" : "sub";
+        for (String item : respostasPergunta) {
+            dao.inserir(new Resposta(item, tipo));
+        }
+        Resposta respostaCorreta = dao.buscar(Resposta.class, "texto", respostasPergunta.get(0));
+
+
         String textoPergunta = textoPerguntaField.getText();
-        String disciplinaPergunta = disciplinaPerguntaCombo.getValue();
         String assuntoPergunta = assuntoPerguntaCombo.getValue();
 
-        ArrayList<String> respostasPergunta = new ArrayList<>(respostaPerguntaList.getItems());
+        Assunto assunto = dao.buscar(Assunto.class, "nome", assuntoPergunta);
 
-        String tipo = respObjPerguntaToggle.isSelected() ? "obj" : "sub";
+        dao.inserir(new Pergunta(textoPergunta, assunto.getId(), respostaCorreta.getId()));
 
-        Resposta resposta;
-        for(String item : respostasPergunta) {
-            respostaDao.inserir(new Resposta(item, tipo));
+        respostaPerguntaList.getItems().clear();
+        respostasLabel.setText("Insira a resposta correta: ");
+        respostasLabel.setTextFill(Color.web("#00ff00"));
+    }
+
+    public void CadastrarPagamento() {
+        int matriculaPagamento = Integer.parseInt(matriculaPagamentoField.getText());
+        int inscricaoId = Integer.parseInt(inscricaoAlunoPagamentoField.getText());
+        Date dataPagamento = Date.from(dataPagamentoDP.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
+        double valorPagamento;
+        int idSim;
+        int idDuv;
+
+        if (alunoOuFacilitadorPagamentoToggle.isSelected()) {
+            valorPagamento = Double.parseDouble(valorFacilitadorPagamentoList.getItems().get(0));
+            idSim = simuladoOuDuvidaPagamentoToggle.isSelected() ? 0 : Integer.parseInt(idSimDuvPagamentoField.getText());
+            idDuv = simuladoOuDuvidaPagamentoToggle.isSelected() ? Integer.parseInt(idSimDuvPagamentoField.getText()) : 0;
+            dao.inserir(new PagamentoFacilitador(valorPagamento, dataPagamento, matriculaPagamento, idSim, idDuv));
+        } else {
+            valorPagamento = Double.parseDouble(valorAlunoPagamentoField.getText());
+            dao.inserir(new PagamentoAluno(valorPagamento, dataPagamento, inscricaoId));
         }
-        resposta = respostaDao.buscarPorTexto(respostasPergunta.get(0));
+    }
 
-        AssuntoDao assuntoDao = new AssuntoDao();
-        Assunto assunto = assuntoDao.buscarPorNome(assuntoPergunta);
+    public void CadastrarSimulado() {
+        String alunoSimulado = alunoSimuladoCombo.getValue();
+        String assuntoSimulado = assuntoSimuladoCombo.getValue();
 
-        PerguntaDao perguntaDao = new PerguntaDao();
-        Pergunta pergunta = new Pergunta(textoPergunta, assunto.getId(), resposta.getId());
+    }
 
-        perguntaDao.inserir(pergunta);
+    public void CadastrarDuvida() {
+        Aluno aluno = dao.buscar(Aluno.class, "nome", alunoDuvidaCombo.getValue());
+        Facilitador facilitador = dao.buscar(Facilitador.class, "nome", facilitadorDuvidaCombo.getValue());
+        String textoDuvida = perguntaDuvidaField.getText();
+
+        dao.inserir(new Duvida(textoDuvida, aluno.getMatricula(), facilitador.getMatricula()));
     }
 
     public void valorDisciplinaDigitado(KeyEvent inputMethodEvent) {
@@ -432,7 +374,7 @@ public class PainelCadastrarController {
 
         valorDisciplinaField.getValidators().add(dValidator);
         valorAlunoPagamentoField.getValidators().add(dValidator);
-        nomeFacilitadorField.getValidators().add(numberValidator);
+        nomeFacilitadorField.getValidators().add(rqValidator);
         matriculaPagamentoField.getValidators().add(numberValidator);
         idSimDuvPagamentoField.getValidators().add(numberValidator);
 
@@ -441,11 +383,9 @@ public class PainelCadastrarController {
     public void tabAlunoSelecionada(Event event) {
         disciplinasDisponiveisAlunoList.getItems().clear();
 
-        List<Disciplina> disciplinas = disciplinaDao.listar();
-        if(disciplinas != null) {
-            for(Disciplina disciplina : disciplinas) {
-                disciplinasDisponiveisAlunoList.getItems().add(disciplina.getNome());
-            }
+        List<Disciplina> disciplinas = dao.listar(Disciplina.class);
+        for (Disciplina disciplina : disciplinas) {
+            disciplinasDisponiveisAlunoList.getItems().add(disciplina.getNome());
         }
 
     }
@@ -453,31 +393,40 @@ public class PainelCadastrarController {
     public void tabFacilitadorSelecionada(Event event) {
         disciplinasDisponiveisFacilitadorList.getItems().clear();
 
-        List<Disciplina> disciplinas = disciplinaDao.listar();
+        List<Disciplina> disciplinas = dao.listar(Disciplina.class);
         for (Disciplina disciplina : disciplinas) {
             disciplinasDisponiveisFacilitadorList.getItems().add(disciplina.getNome());
         }
     }
 
-    public void tabDisciplinaSelecionada(Event event) {
-        facilitadoresDisponiveisDisciplinaList.getItems().clear();
-
-        List<Facilitador> facilitadores = facilitadorDao.listar();
-        for (Facilitador facilitador : facilitadores) {
-            facilitadoresDisponiveisDisciplinaList.getItems().add(facilitador.getNome());
-        }
-    }
-
     public void tabAssuntoSelecionada(Event event) {
-        getDisciplinasObservable(disciplinaAssuntoCombo);
+        disciplinaListToComboBox(disciplinaAssuntoCombo);
     }
 
     public void tabPerguntaSelecionada(Event event) {
-        getDisciplinasObservable(disciplinaPerguntaCombo);
+        disciplinaListToComboBox(disciplinaPerguntaCombo);
     }
 
-    private void getDisciplinasObservable(JFXComboBox<String> combo) {
-        List<Disciplina> disciplinas = disciplinaDao.listar();
+    public void tabDuvidaSelecionada(Event event) {
+        alunoListToComboBox(alunoDuvidaCombo);
+
+
+        List<Facilitador> facilitadores = dao.listar(Facilitador.class);
+        List<String> nomeFacilitadores = new ArrayList<>();
+        for (Facilitador facilitador : facilitadores) {
+            nomeFacilitadores.add(facilitador.getNome());
+        }
+        ObservableList<String> facilitadoresObservable = FXCollections.observableArrayList(nomeFacilitadores);
+        facilitadorDuvidaCombo.setItems(facilitadoresObservable);
+    }
+
+    public void tabGerarSimuladoSelecionada(Event event) {
+       alunoListToComboBox(alunoSimuladoCombo);
+       disciplinaListToComboBox(disciplinaSimuladoCombo);
+    }
+
+    private void disciplinaListToComboBox(JFXComboBox<String> combo) {
+        List<Disciplina> disciplinas = dao.listar(Disciplina.class);
         List<String> nomeDisciplinas = new ArrayList<>();
         for (Disciplina disciplina : disciplinas) {
             nomeDisciplinas.add(disciplina.getNome());
@@ -486,25 +435,28 @@ public class PainelCadastrarController {
         combo.setItems(disciplinaObservableList);
     }
 
-    public void tabPagamentoSelecionada(Event event) {
+    private void assuntoListToComboBox(JFXComboBox<String> combo) {
+        List<Assunto> assuntos = dao.listar(Assunto.class);
+        List<String> nomeAssuntos = new ArrayList<>();
+        for (Assunto assunto : assuntos) {
+            nomeAssuntos.add(assunto.getNome());
+        }
+        ObservableList<String> assuntoObservableList = FXCollections.observableArrayList(nomeAssuntos);
+        combo.setItems(assuntoObservableList);
     }
 
-    public void tabDuvidaSelecionada(Event event) {
-        /*
-         *   TODO: CARREGAR dados dos alunos e facilitadores disponiveis (alunoDuvidaCombo e facilitadorDuvidaCombo)
-         *
-         */
-    }
-
-    public void tabGerarSimuladoSelecionada(Event event) {
-        /*
-         *   TODO: CARREGAR dados dos alunos e disciplinas disponiveis (alunoSimuladoCombo e disciplinaSimuladoCombo)
-         *
-         */
+    private void alunoListToComboBox(JFXComboBox<String> combo) {
+        List<Aluno> alunos = dao.listar(Aluno.class);
+        List<String> nomeAlunos = new ArrayList<>();
+        for (Aluno aluno : alunos) {
+            nomeAlunos.add(aluno.getNome());
+        }
+        ObservableList<String> alunosObservable = FXCollections.observableArrayList(nomeAlunos);
+        combo.setItems(alunosObservable);
     }
 
     private void transferirItem(MouseEvent mouseEvent, JFXListView<String> origem, JFXListView<String> destino) {
-        if(mouseEvent.getClickCount() == 2) {
+        if (mouseEvent.getClickCount() == 2) {
             int indexSelecionado = origem.getSelectionModel().getSelectedIndex();
             String selecionado = origem.getSelectionModel().getSelectedItem();
             origem.getItems().remove(indexSelecionado);
@@ -530,63 +482,58 @@ public class PainelCadastrarController {
 
     }
 
-    public void clicarFacilitadoresDisciplinas(MouseEvent mouseEvent) {
-        transferirItem(mouseEvent, facilitadoresDisponiveisDisciplinaList, facilitadoresSelecionadosDisciplinaList);
-
-    }
-
-    public void removerFacilitadoresSelecionadosDisciplinas(MouseEvent mouseEvent) {
-        transferirItem(mouseEvent, facilitadoresSelecionadosDisciplinaList, facilitadoresDisponiveisDisciplinaList);
-    }
-
     public void removerAssuntosAdicionados(MouseEvent mouseEvent) {
-        if(mouseEvent.getClickCount() == 2) {
+        if (mouseEvent.getClickCount() == 2) {
             int indexSelecionado = assuntoDisciplinaList.getSelectionModel().getSelectedIndex();
             assuntoDisciplinaList.getItems().remove(indexSelecionado);
         }
     }
 
     public void disciplinaSelecionadaPergunta(ActionEvent actionEvent) {
-        String nomeDisciplina = disciplinaPerguntaCombo.getValue();
-        Disciplina disciplina = disciplinaDao.buscarPorNome(nomeDisciplina);
-        List<Assunto> assuntos = assuntoDao.listarPorDisciplina(disciplina.getId());
-        List<String> nomeAssuntos = new ArrayList<>();
-        for (Assunto item : assuntos) {
-            nomeAssuntos.add(item.getNome());
-        }
-        ObservableList<String> assuntosObservableList = FXCollections.observableArrayList(nomeAssuntos);
-        assuntoPerguntaCombo.setItems(assuntosObservableList);
+        assuntoToComboBox(disciplinaPerguntaCombo, assuntoPerguntaCombo);
     }
 
     public void toggleRespObj(ActionEvent actionEvent) {
-        if(respObjPerguntaToggle.isSelected()) {
+        if (respObjPerguntaToggle.isSelected()) {
             respObjPerguntaToggle.setStyle("-fx-font-weight: bold");
             respostaPerguntaField.setDisable(false);
             adicionarRespostaPerguntaBtn.setDisable(false);
             respostaPerguntaList.setDisable(false);
+            respostasLabel.setDisable(false);
         } else {
             respObjPerguntaToggle.setStyle("-fx-font-weight: normal");
             respostaPerguntaField.setDisable(true);
             adicionarRespostaPerguntaBtn.setDisable(true);
             respostaPerguntaList.setDisable(true);
+            respostasLabel.setDisable(true);
         }
 
     }
 
     public void adicionarRespostaPergunta(ActionEvent actionEvent) {
+        if (respostaPerguntaList.getItems().isEmpty()) {
+            respostasLabel.setText("Insira alternativas falsas.");
+            respostasLabel.setTextFill(Color.web("#cc0000"));
+        }
         String resposta = respostaPerguntaField.getText();
         respostaPerguntaList.getItems().add(resposta);
+        respostaPerguntaField.clear();
     }
 
     public void adicionarRespostaPerguntaEnter(KeyEvent keyEvent) {
-        if(keyEvent.getCode() == KeyCode.ENTER){
+        if (keyEvent.getCode() == KeyCode.ENTER) {
+            if (respostaPerguntaList.getItems().isEmpty()) {
+                respostasLabel.setText("Insira alternativas falsas.");
+                respostasLabel.setTextFill(Color.web("#cc0000"));
+            }
             String resposta = respostaPerguntaField.getText();
             respostaPerguntaList.getItems().add(resposta);
+            respostaPerguntaField.clear();
         }
     }
 
     public void toggleAlunoFacilitador(ActionEvent actionEvent) {
-        if(alunoOuFacilitadorPagamentoToggle.isSelected()) {
+        if (alunoOuFacilitadorPagamentoToggle.isSelected()) {
             valorAlunoPagamentoField.setDisable(true);
             simuladoOuDuvidaPagamentoToggle.setDisable(false);
             simuladoPagamentoLabel.setDisable(false);
@@ -595,6 +542,7 @@ public class PainelCadastrarController {
             valorFacilitadorPagamentoList.setDisable(false);
             alunoPagamentoLabel.setStyle("-fx-text-fill: gray");
             alunoOuFacilitadorPagamentoToggle.setStyle("-fx-text-fill: black");
+            inscricaoAlunoPagamentoField.setDisable(true);
         } else {
             valorAlunoPagamentoField.setDisable(false);
             simuladoOuDuvidaPagamentoToggle.setDisable(true);
@@ -603,45 +551,58 @@ public class PainelCadastrarController {
             valorFacilitadorPagamentoList.setDisable(true);
             alunoPagamentoLabel.setStyle("-fx-text-fill: black");
             alunoOuFacilitadorPagamentoToggle.setStyle("-fx-text-fill: gray");
+            inscricaoAlunoPagamentoField.setDisable(false);
         }
     }
 
     public void toggleSimuladoDuvida(ActionEvent actionEvent) {
-        if(simuladoOuDuvidaPagamentoToggle.isSelected()) {
+        if (simuladoOuDuvidaPagamentoToggle.isSelected()) {
             simuladoPagamentoLabel.setStyle("-fx-text-fill: gray");
             simuladoOuDuvidaPagamentoToggle.setStyle("-fx-text-fill: black");
             idSimDuvPagamentoField.setPromptText("ID da dúvida");
-            //CARREGA VALOR A SER PAGO
+            valorFacilitadorPagamentoList.getItems().add("50"); //TODO: DECIDIR PREÇOS E FIXAR EM ALGUM LOCAL
         } else {
             simuladoPagamentoLabel.setStyle("-fx-text-fill: black");
             simuladoOuDuvidaPagamentoToggle.setStyle("-fx-text-fill: gray");
             idSimDuvPagamentoField.setPromptText("ID do simulado");
-            //CARREGA VALOR A SER PAGO
+            valorFacilitadorPagamentoList.getItems().add("100"); //TODO: DECIDIR PREÇOS E FIXAR EM ALGUM LOCAL
 
         }
     }
 
     public void disciplinaSelecionadaSimulado(ActionEvent actionEvent) {
-        String disciplina = disciplinaSimuladoCombo.getValue();
-        /*
-         *   TODO: CARREGAR os assuntos da disciplina em assuntoSimuladoCombo
-         *
-         */
+        assuntoToComboBox(disciplinaSimuladoCombo, assuntoSimuladoCombo);
+    }
+
+    private void assuntoToComboBox(JFXComboBox<String> disciplinaSimuladoCombo, JFXComboBox<String> assuntoSimuladoCombo) {
+        String nomeDisciplina = disciplinaSimuladoCombo.getValue();
+        Disciplina disciplina = dao.buscar(Disciplina.class, "nome", nomeDisciplina);
+
+        List<Assunto> assuntos = dao.listarComFiltro(Assunto.class, "disciplinaId", disciplina.getId());
+        List<String> nomeAssuntos = new ArrayList<>();
+        for (Assunto item : assuntos) {
+            nomeAssuntos.add(item.getNome());
+        }
+        ObservableList<String> assuntosObservableList = FXCollections.observableArrayList(nomeAssuntos);
+        assuntoSimuladoCombo.setItems(assuntosObservableList);
     }
 
     public void gerarSimulado(ActionEvent actionEvent) {
-        String alunoSimulado = alunoSimuladoCombo.getValue();
-        String assuntoSimulado = assuntoSimuladoCombo.getValue();
+        ArrayList<Integer> idsDasPerguntasDisponiveis = dao.buscarChaves(Pergunta.class);
+        ArrayList<Integer> idsDasPerguntasUsadas = new ArrayList<>();
 
+        Random random = new Random();
+        Assunto assunto = dao.buscar(Assunto.class, "nome", assuntoSimuladoCombo.getValue());
 
-        /*
-         *   TODO: Fazer select com os dados acimas e pegar 10 perguntas aleatorias.
-         *
-         */
+        while(idsDasPerguntasUsadas.size() <= 10) {
+            int id = random.nextInt(Collections.max(idsDasPerguntasDisponiveis));
+            Pergunta pergunta = dao.buscar(Pergunta.class, "id", id);
 
-        //AQUI AS PERGUNTAS SERÃO COLOCADAS NO VISUALIZADOR DO SIMULADO
-
-
+            if(!idsDasPerguntasUsadas.contains(id) && pergunta.getAssuntoId() == assunto.getId()) {
+                questoesSimuladoView.getItems().add(pergunta.getTexto());
+                idsDasPerguntasUsadas.add(id);
+            }
+        }
     }
 
 

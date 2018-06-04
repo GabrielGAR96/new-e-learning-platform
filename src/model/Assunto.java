@@ -5,25 +5,17 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
-import java.io.Serializable;
-
 public class Assunto {
     IntegerProperty id;
     StringProperty nome;
-    IntegerProperty disciplina_id;
+    IntegerProperty disciplinaId;
 
     public Assunto() {
     }
 
-    public Assunto(int id, String nome, int disciplina_id) {
-        this.id = new SimpleIntegerProperty(id);
+    public Assunto(String nome, int disciplinaId) {
         this.nome = new SimpleStringProperty(nome);
-        this.disciplina_id = new SimpleIntegerProperty(disciplina_id);
-    }
-
-    public Assunto(String nome, int disciplina_id) {
-        this.nome = new SimpleStringProperty(nome);
-        this.disciplina_id = new SimpleIntegerProperty(disciplina_id);
+        this.disciplinaId = new SimpleIntegerProperty(disciplinaId);
     }
 
     public int getId() {
@@ -50,15 +42,15 @@ public class Assunto {
         this.nome.set(nome);
     }
 
-    public int getDisciplina_id() {
-        return disciplina_id.get();
+    public int getDisciplinaId() {
+        return disciplinaId.get();
     }
 
-    public IntegerProperty disciplina_idProperty() {
-        return disciplina_id;
+    public IntegerProperty disciplinaIdProperty() {
+        return disciplinaId;
     }
 
-    public void setDisciplina_id(int disciplina_id) {
-        this.disciplina_id.set(disciplina_id);
+    public void setDisciplinaId(int disciplinaId) {
+        this.disciplinaId.set(disciplinaId);
     }
 }

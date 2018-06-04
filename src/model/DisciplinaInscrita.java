@@ -3,19 +3,17 @@ package model;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
-import java.io.Serializable;
-
 public class DisciplinaInscrita {
     IntegerProperty id;
-    IntegerProperty disciplina_id;
-    IntegerProperty inscricao_id;
+    IntegerProperty disciplinaId;
+    IntegerProperty inscricaoId;
 
     public DisciplinaInscrita() {
     }
 
-    public DisciplinaInscrita(int disciplina_id, int inscricao_id) {
-        this.disciplina_id = new SimpleIntegerProperty(disciplina_id);
-        this.inscricao_id = new SimpleIntegerProperty(inscricao_id);
+    public DisciplinaInscrita(int disciplinaId, int inscricaoId) {
+        this.disciplinaId = new SimpleIntegerProperty(disciplinaId);
+        this.inscricaoId = new SimpleIntegerProperty(inscricaoId);
     }
 
     public int getId() {
@@ -30,27 +28,27 @@ public class DisciplinaInscrita {
         this.id.set(id);
     }
 
-    public int getDisciplina_id() {
-        return disciplina_id.get();
+    public int getDisciplinaId() {
+        return disciplinaId.get();
     }
 
-    public IntegerProperty disciplina_idProperty() {
-        return disciplina_id;
+    public IntegerProperty disciplinaIdProperty() {
+        return disciplinaId;
     }
 
-    public void setDisciplina_id(int disciplina_id) {
-        this.disciplina_id.set(disciplina_id);
+    public void setDisciplinaId(int disciplinaId) {
+        this.disciplinaId.set(disciplinaId);
     }
 
-    public int getInscricao_id() {
-        return inscricao_id.get();
+    public int getInscricaoId() {
+        return inscricaoId.get();
     }
 
-    public IntegerProperty inscricao_idProperty() {
-        return inscricao_id;
+    public IntegerProperty inscricaoIdProperty() {
+        return inscricaoId;
     }
 
-    public void setInscricao_id(int inscricao_id) {
-        this.inscricao_id.set(inscricao_id);
+    public void setInscricaoId(int inscricaoId) {
+        this.inscricaoId.set(inscricaoId);
     }
 }

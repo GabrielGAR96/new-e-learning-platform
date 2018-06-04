@@ -14,8 +14,8 @@ public class DisciplinaInscritaDao {
         try {
             con = Conexao.getConnection();
             statement = con.prepareStatement("insert into DisciplinaInscrita values (?,?)");
-            statement.setInt(1, disciplinaInscrita.getDisciplina_id());
-            statement.setInt(2, disciplinaInscrita.getInscricao_id());
+            statement.setInt(1, disciplinaInscrita.getDisciplinaId());
+            statement.setInt(2, disciplinaInscrita.getInscricaoId());
             statement.executeUpdate();
         } catch (SQLException e1) {
             e1.printStackTrace();

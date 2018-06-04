@@ -14,8 +14,7 @@ public class PagamentoAluno {
     public PagamentoAluno() {
     }
 
-    public PagamentoAluno(int id, double valor, Date data, int inscricaoId) {
-        this.id = new SimpleIntegerProperty(id);
+    public PagamentoAluno(double valor, Date data, int inscricaoId) {
         this.valor = new SimpleDoubleProperty(valor);
         this.data = new SimpleObjectProperty<>(data);
         this.inscricaoId = new SimpleIntegerProperty(inscricaoId);

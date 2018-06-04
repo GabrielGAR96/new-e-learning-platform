@@ -122,7 +122,7 @@
                </Label>
             </GridPane>
          </Tab>
-         <Tab fx:id="disciplinaTab" onSelectionChanged="#tabDisciplinaSelecionada" text="Disciplina">
+         <Tab fx:id="disciplinaTab" text="Disciplina">
             <graphic>
                <FontAwesomeIcon fill="WHITE" iconName="BOOK" />
             </graphic>
@@ -143,36 +143,11 @@
                         <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
                      </GridPane.margin>
                   </JFXTextField>
-                  <Label text="Facilitadores da disciplina:" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2">
-                     <GridPane.margin>
-                        <Insets />
-                     </GridPane.margin>
-                  </Label>
                   <JFXTextField fx:id="valorDisciplinaField" focusColor="#8e24aa" labelFloat="true" onKeyReleased="#valorDisciplinaDigitado" promptText="Valor" GridPane.columnIndex="1">
                      <GridPane.margin>
                         <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
                      </GridPane.margin>
                   </JFXTextField>
-                  <JFXListView fx:id="facilitadoresDisponiveisDisciplinaList" onMouseClicked="#clicarFacilitadoresDisciplinas" prefHeight="126.0" prefWidth="440.0" GridPane.rowIndex="3">
-                     <GridPane.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </GridPane.margin>
-                  </JFXListView>
-                  <JFXListView fx:id="facilitadoresSelecionadosDisciplinaList" onMouseClicked="#removerFacilitadoresSelecionadosDisciplinas" prefHeight="91.0" prefWidth="436.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
-                     <GridPane.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </GridPane.margin>
-                  </JFXListView>
-                  <Label text="Disponiveis:" GridPane.rowIndex="2">
-                     <GridPane.margin>
-                        <Insets left="200.0" top="30.0" />
-                     </GridPane.margin>
-                  </Label>
-                  <Label text="Selecionadas:" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                     <GridPane.margin>
-                        <Insets left="200.0" top="30.0" />
-                     </GridPane.margin>
-                  </Label>
                   <JFXListView fx:id="assuntoDisciplinaList" onMouseClicked="#removerAssuntosAdicionados" prefHeight="91.0" prefWidth="436.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <GridPane.margin>
                         <Insets bottom="5.0" left="15.0" right="15.0" top="5.0" />
@@ -270,10 +245,18 @@
                      </font>
                   </JFXButton>
                   <JFXToggleButton fx:id="respObjPerguntaToggle" onAction="#toggleRespObj" text="Respostas objetivas" toggleColor="#6a1b9a" unToggleLineColor="#c6c6c6" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                  <Label fx:id="respostasLabel" disable="true" text="Insira a resposta correta:" textFill="LIME" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <GridPane.margin>
+                        <Insets left="20.0" top="100.0" />
+                     </GridPane.margin>
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
                </children>
             </GridPane>
          </Tab>
-         <Tab fx:id="pagamentoTab" onSelectionChanged="#tabPagamentoSelecionada" text="Pagamento">
+         <Tab fx:id="pagamentoTab" text="Pagamento">
             <graphic>
                <FontAwesomeIcon fill="WHITE" iconName="MONEY" />
             </graphic>
@@ -289,17 +272,17 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <JFXToggleButton fx:id="alunoOuFacilitadorPagamentoToggle" onAction="#toggleAlunoFacilitador" text="Facilitador" toggleColor="#6a1b9a" toggleLineColor="#c6c6c6" unToggleColor="#6a1b9a" unToggleLineColor="#c6c6c6" GridPane.columnSpan="2" GridPane.halignment="CENTER">
+                  <JFXToggleButton fx:id="alunoOuFacilitadorPagamentoToggle" onAction="#toggleAlunoFacilitador" text="Facilitador" toggleColor="#6a1b9a" toggleLineColor="#c6c6c6" unToggleColor="#6a1b9a" unToggleLineColor="#c6c6c6" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                      <GridPane.margin>
                         <Insets left="50.0" />
                      </GridPane.margin>
                   </JFXToggleButton>
-                  <Label fx:id="alunoPagamentoLabel" text="Aluno" GridPane.halignment="RIGHT">
+                  <Label fx:id="alunoPagamentoLabel" text="Aluno" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
                      <GridPane.margin>
                         <Insets right="35.0" />
                      </GridPane.margin>
                   </Label>
-                  <JFXTextField fx:id="matriculaPagamentoField" focusColor="#6a1b9a" labelFloat="true" onKeyReleased="#matriculaPagamentoDigitado" prefWidth="361.0" promptText="Matrícula" GridPane.rowIndex="1">
+                  <JFXTextField fx:id="matriculaPagamentoField" focusColor="#6a1b9a" labelFloat="true" onKeyReleased="#matriculaPagamentoDigitado" prefWidth="361.0" promptText="Matrícula">
                      <GridPane.margin>
                         <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
                      </GridPane.margin>
@@ -315,7 +298,7 @@
                         <Font name="Georgia" size="12.0" />
                      </font>
                   </JFXTextField>
-                  <JFXDatePicker fx:id="dataPagamentoDP" defaultColor="#6a1b9a" prefHeight="25.0" prefWidth="415.0" promptText="Data" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                  <JFXDatePicker fx:id="dataPagamentoDP" defaultColor="#6a1b9a" prefHeight="25.0" prefWidth="415.0" promptText="Data" GridPane.columnIndex="1" GridPane.halignment="CENTER">
                      <GridPane.margin>
                         <Insets />
                      </GridPane.margin>
@@ -345,6 +328,11 @@
                         <Insets left="20.0" top="5.0" />
                      </GridPane.margin>
                   </Label>
+                  <JFXTextField fx:id="inscricaoAlunoPagamentoField" focusColor="#6a1b9a" labelFloat="true" promptText="Inscrição" GridPane.rowIndex="3">
+                     <GridPane.margin>
+                        <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
+                     </GridPane.margin>
+                  </JFXTextField>
                </children>
             </GridPane>
          </Tab>

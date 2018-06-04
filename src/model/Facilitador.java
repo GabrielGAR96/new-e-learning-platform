@@ -14,8 +14,7 @@ public class Facilitador {
     public Facilitador() {
     }
 
-    public Facilitador(int matricula, String nome) {
-        this.matricula = new SimpleIntegerProperty(matricula);
+    public Facilitador(String nome) {
         this.nome = new SimpleStringProperty(nome);
     }
 

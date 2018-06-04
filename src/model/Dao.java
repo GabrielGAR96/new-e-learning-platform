@@ -5,6 +5,7 @@ import persistence.Conexao;
 
 import java.lang.reflect.Field;
 import java.sql.*;
+import java.util.ArrayList;
 
 public class Dao {
     private Connection con = null;
@@ -27,8 +28,7 @@ public class Dao {
         try {
             con = Conexao.getConnection();
             statement = con.prepareStatement("INSERT INTO " + dado.getClass().getSimpleName() + " " + nomesDosCampos + " VALUES " + valoresDosCampos);
-            int i = 1;
-            statementSetter(dado, camposNaClasse, i);
+            statementSetter(dado, camposNaClasse);
             statement.executeUpdate();
 
             String id = camposNaClasse[0].getName();
@@ -77,9 +77,8 @@ public class Dao {
         try {
             con = Conexao.getConnection();
             statement = con.prepareStatement("update " + dado.getClass().getSimpleName() + " set " + campos + " where " + keyName + "= ?");
-            int i = 1;
-            statementSetter(dado, camposNaClasse, i);
-            statement.setInt(i, key);
+            int parametrosSetados = statementSetter(dado, camposNaClasse);
+            statement.setInt(parametrosSetados, key);
             statement.executeUpdate();
         } catch (SQLException | IllegalAccessException e1) {
             e1.printStackTrace();
@@ -95,12 +94,7 @@ public class Dao {
             dado = tabela.getDeclaredConstructor().newInstance();
             con = Conexao.getConnection();
             statement = con.prepareStatement("select * from " + tabela.getSimpleName() + " where " + keyName + " = ?");
-            if (key instanceof Integer)
-                statement.setInt(1, (int) key);
-            else if (key instanceof Double)
-                statement.setDouble(1, (double) key);
-            else if (key instanceof String)
-                statement.setString(1, (String) key);
+            parametroSetter(key);
 
             ResultSet rs = statement.executeQuery();
             if (rs.next()) {
@@ -117,6 +111,89 @@ public class Dao {
         return dado;
     }
 
+    public <T> ArrayList<T> listar(Class<T> tabela) {
+        ArrayList<T> dados = new ArrayList<>();
+        T dado = null;
+
+        try {
+            con = Conexao.getConnection();
+            statement = con.prepareStatement("select * from " + tabela.getSimpleName());
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                dado = tabela.getDeclaredConstructor().newInstance();
+                for (Field field : tabela.getDeclaredFields()) {
+                    Object valor = rs.getObject(field.getName());
+                    fieldSetter(dado, field, valor);
+                }
+                dados.add(dado);
+            }
+        } catch (SQLException | ReflectiveOperationException e) {
+            e.printStackTrace();
+        } finally {
+            Conexao.closeConnection(statement, con);
+        }
+        return dados;
+    }
+
+    public <T> ArrayList<T> listarComFiltro(Class<T> tabela, String nomeFiltro, Object valorFiltro) {
+        ArrayList<T> dados = new ArrayList<>();
+        T dado = null;
+
+        try {
+            con = Conexao.getConnection();
+            statement = con.prepareStatement("select * from " + tabela.getSimpleName() + " where " + nomeFiltro + " = ?");
+            parametroSetter(valorFiltro);
+
+            ResultSet rs = statement.executeQuery();
+
+            while (rs.next()) {
+                dado = tabela.getDeclaredConstructor().newInstance();
+                for (Field field : tabela.getDeclaredFields()) {
+                    Object valor = rs.getObject(field.getName());
+                    fieldSetter(dado, field, valor);
+                }
+                dados.add(dado);
+            }
+        } catch (SQLException | ReflectiveOperationException e) {
+            e.printStackTrace();
+        } finally {
+            Conexao.closeConnection(statement, con);
+        }
+        return dados;
+    }
+
+
+
+    private void parametroSetter(Object valorFiltro) throws SQLException {
+        if (valorFiltro instanceof Integer)
+            statement.setInt(1, (int) valorFiltro);
+        else if (valorFiltro instanceof Double)
+            statement.setDouble(1, (double) valorFiltro);
+        else if (valorFiltro instanceof String)
+            statement.setString(1, (String) valorFiltro);
+    }
+
+    public <T> ArrayList<Integer> buscarChaves(Class<T> tabela) {
+        ArrayList<Integer> chaves = new ArrayList<>();
+
+        try {
+            con = Conexao.getConnection();
+            statement = con.prepareStatement("select * from " + tabela.getSimpleName(), statement.RETURN_GENERATED_KEYS);
+            ResultSet rs = statement.getGeneratedKeys();
+            int i = 0;
+            while (rs.next()) {
+                chaves.add(rs.getInt(i));
+                i++;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            Conexao.closeConnection(statement, con);
+        }
+        return chaves;
+    }
+
+
     private <T> void fieldSetter(T dado, Field field, Object valor) throws IllegalAccessException {
         if (field.getType().equals(IntegerProperty.class))
             field.set(dado, new SimpleIntegerProperty((int) valor));
@@ -128,7 +205,8 @@ public class Dao {
             field.set(dado, new SimpleObjectProperty<>((Date) valor));
     }
 
-    private <T> void statementSetter(T dado, Field[] camposNaClasse, int i) throws SQLException, IllegalAccessException {
+    private <T> int statementSetter(T dado, Field[] camposNaClasse) throws SQLException, IllegalAccessException {
+        int i;
         for (i = 1; i < camposNaClasse.length; i++) {
             Object valor = camposNaClasse[i].get(dado);
             if (valor instanceof IntegerProperty)
@@ -140,6 +218,7 @@ public class Dao {
             else if (valor instanceof SimpleObjectProperty)
                 statement.setDate(i, new java.sql.Date(((SimpleObjectProperty<java.util.Date>) valor).get().getTime()));
         }
+        return i; //Retorna quantos parametros foram setados + 1.
     }
 
 }

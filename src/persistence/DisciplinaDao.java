@@ -58,57 +58,57 @@ public class DisciplinaDao {
 
     public List<Disciplina> buscarPorId(int id) {
         ArrayList<Disciplina> disciplinas = new ArrayList<>();
-        try {
-            con = Conexao.getConnection();
-            statement = con.prepareStatement("select * from disciplina where id = ?");
-            statement.setInt(1, id);
-            ResultSet rs = statement.executeQuery();
-            while (rs.next()) {
-                String nome = rs.getString("nome");
-                double valor = rs.getDouble("valor");
-                disciplinas.add(new Disciplina(id, nome, valor));
-            }
-        } catch (SQLException e1) {
-            e1.printStackTrace();
-        } finally {
-            Conexao.closeConnection(statement, con);
-        }
+//        try {
+//            con = Conexao.getConnection();
+//            statement = con.prepareStatement("select * from disciplina where id = ?");
+//            statement.setInt(1, id);
+//            ResultSet rs = statement.executeQuery();
+//            while (rs.next()) {
+//                String nome = rs.getString("nome");
+//                double valor = rs.getDouble("valor");
+//                disciplinas.add(new Disciplina(id, nome, valor));
+//            }
+//        } catch (SQLException e1) {
+//            e1.printStackTrace();
+//        } finally {
+//            Conexao.closeConnection(statement, con);
+//        }
         return disciplinas;
     }
 
     public Disciplina buscarPorNome(String nome) {
         Disciplina disciplina = null;
-        try {
-            con = Conexao.getConnection();
-            statement = con.prepareStatement("select * from Disciplina where nome = ?");
-            statement.setString(1, nome);
-            ResultSet rs = statement.executeQuery();
-            if (rs.next()) {
-                disciplina = new Disciplina(rs.getInt("id"), nome, rs.getDouble("valor"));
-            }
-        } catch (SQLException e1) {
-            e1.printStackTrace();
-        }
+//        try {
+//            con = Conexao.getConnection();
+//            statement = con.prepareStatement("select * from Disciplina where nome = ?");
+//            statement.setString(1, nome);
+//            ResultSet rs = statement.executeQuery();
+//            if (rs.next()) {
+//                disciplina = new Disciplina(rs.getInt("id"), nome, rs.getDouble("valor"));
+//            }
+//        } catch (SQLException e1) {
+//            e1.printStackTrace();
+//        }
         return disciplina;
     }
 
     public List<Disciplina> listar() {
         ArrayList<Disciplina> disciplinas = new ArrayList<>();
-        try {
-            con = Conexao.getConnection();
-            statement = con.prepareStatement("select * from Disciplina");
-            ResultSet rs = statement.executeQuery();
-            while (rs.next()) {
-                int id = rs.getInt("id");
-                String nome = rs.getString("nome");
-                double valor = rs.getDouble("valor");
-                disciplinas.add(new Disciplina(id, nome, valor));
-            }
-        } catch (SQLException e1) {
-            e1.printStackTrace();
-        } finally {
-            Conexao.closeConnection(statement, con);
-        }
+//        try {
+//            con = Conexao.getConnection();
+//            statement = con.prepareStatement("select * from Disciplina");
+//            ResultSet rs = statement.executeQuery();
+//            while (rs.next()) {
+//                int id = rs.getInt("id");
+//                String nome = rs.getString("nome");
+//                double valor = rs.getDouble("valor");
+//                disciplinas.add(new Disciplina(id, nome, valor));
+//            }
+//        } catch (SQLException e1) {
+//            e1.printStackTrace();
+//        } finally {
+//            Conexao.closeConnection(statement, con);
+//        }
         return disciplinas;
     }
 }
