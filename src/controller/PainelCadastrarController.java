@@ -193,6 +193,7 @@ public class PainelCadastrarController {
         adicionarValidators();
         alunoOuFacilitadorPagamentoToggle.setStyle("-fx-text-fill: gray");
         simuladoPagamentoLabel.setStyle("-fx-text-fill: black");
+        valorFacilitadorPagamentoList.getItems().add("100"); //TODO: DECIDIR PREÇOS E FIXAR EM ALGUM LOCAL
     }
 
     public void adicionarAssuntoDisciplina(javafx.event.ActionEvent actionEvent) {
@@ -285,18 +286,18 @@ public class PainelCadastrarController {
     }
 
     public void CadastrarPergunta() {
-        ArrayList<String> respostasPergunta = new ArrayList<>(respostaPerguntaList.getItems());
-        String tipo = respObjPerguntaToggle.isSelected() ? "obj" : "sub";
-        for (String item : respostasPergunta) {
-            dao.inserir(new Resposta(item, tipo));
-        }
-        Resposta respostaCorreta = dao.buscar(Resposta.class, "texto", respostasPergunta.get(0));
-
-
         String textoPergunta = textoPerguntaField.getText();
         String assuntoPergunta = assuntoPerguntaCombo.getValue();
+        ArrayList<String> respostasPergunta = new ArrayList<>(respostaPerguntaList.getItems());
+        String tipo = respObjPerguntaToggle.isSelected() ? "obj" : "sub";
 
         Assunto assunto = dao.buscar(Assunto.class, "nome", assuntoPergunta);
+
+        for (String item : respostasPergunta) {
+            dao.inserir(new Resposta(item, tipo, assunto.getId()));
+        }
+
+        Resposta respostaCorreta = dao.buscar(Resposta.class, "texto", respostasPergunta.get(0));
 
         dao.inserir(new Pergunta(textoPergunta, assunto.getId(), respostaCorreta.getId()));
 
@@ -560,11 +561,13 @@ public class PainelCadastrarController {
             simuladoPagamentoLabel.setStyle("-fx-text-fill: gray");
             simuladoOuDuvidaPagamentoToggle.setStyle("-fx-text-fill: black");
             idSimDuvPagamentoField.setPromptText("ID da dúvida");
+            valorFacilitadorPagamentoList.getItems().clear();
             valorFacilitadorPagamentoList.getItems().add("50"); //TODO: DECIDIR PREÇOS E FIXAR EM ALGUM LOCAL
         } else {
             simuladoPagamentoLabel.setStyle("-fx-text-fill: black");
             simuladoOuDuvidaPagamentoToggle.setStyle("-fx-text-fill: gray");
             idSimDuvPagamentoField.setPromptText("ID do simulado");
+            valorFacilitadorPagamentoList.getItems().clear();
             valorFacilitadorPagamentoList.getItems().add("100"); //TODO: DECIDIR PREÇOS E FIXAR EM ALGUM LOCAL
 
         }

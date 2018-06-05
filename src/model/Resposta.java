@@ -11,19 +11,22 @@ public class Resposta {
     IntegerProperty id;
     StringProperty texto;
     StringProperty tipo;
+    IntegerProperty assuntoId;
 
     public Resposta() {
     }
 
-    public Resposta(int id, String texto, String tipo) {
+    public Resposta(int id, String texto, String tipo, int assuntoId) {
         this.id = new SimpleIntegerProperty(id);
         this.texto = new SimpleStringProperty(texto);
         this.tipo = new SimpleStringProperty(tipo);
+        this.assuntoId = new SimpleIntegerProperty(assuntoId);
     }
 
-    public Resposta(String texto, String tipo) {
+    public Resposta(String texto, String tipo, int assuntoId) {
         this.texto = new SimpleStringProperty(texto);
         this.tipo = new SimpleStringProperty(tipo);
+        this.assuntoId = new SimpleIntegerProperty(assuntoId);
     }
 
     public int getId() {
@@ -60,5 +63,17 @@ public class Resposta {
 
     public void setTipo(String tipo) {
         this.tipo.set(tipo);
+    }
+
+    public int getAssuntoId() {
+        return assuntoId.get();
+    }
+
+    public IntegerProperty assuntoIdProperty() {
+        return assuntoId;
+    }
+
+    public void setAssuntoId(int assuntoId) {
+        this.assuntoId.set(assuntoId);
     }
 }
