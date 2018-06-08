@@ -3,7 +3,6 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
 <?import javafx.scene.Cursor?>
-<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
@@ -11,100 +10,111 @@
 
 <BorderPane fx:id="painelPrincipal" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="900.0" style="-fx-background-color: #f9f9f9;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PainelRegistrosController">
    <top>
-      <AnchorPane prefHeight="40.0" prefWidth="900.0" style="-fx-background-color: #9c4dcc;"
-                  BorderPane.alignment="CENTER">
-         <ComboBox fx:id="colunasRegistroBtn" layoutX="736.0" layoutY="8.0" prefWidth="150.0"
-                   promptText="Selecionar colunas" style="-fx-background-color: #c6c6c6;"/>
+      <AnchorPane prefHeight="40.0" prefWidth="900.0" style="-fx-background-color: #9c4dcc;" BorderPane.alignment="CENTER">
          <JFXButton fx:id="backBtn" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" disable="true" layoutY="8.0">
             <graphic>
-               <FontAwesomeIcon iconName="ARROW_LEFT"/>
+               <FontAwesomeIcon iconName="ARROW_LEFT" />
             </graphic>
          </JFXButton>
-         <JFXButton fx:id="forwardBtn" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" disable="true" layoutX="28.0"
-                    layoutY="8.0">
+         <JFXButton fx:id="forwardBtn" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" disable="true" layoutX="28.0" layoutY="8.0">
             <graphic>
-               <FontAwesomeIcon iconName="ARROW_RIGHT"/>
+               <FontAwesomeIcon iconName="ARROW_RIGHT" />
             </graphic>
          </JFXButton>
-         <JFXButton fx:id="inscricoesRegistroBtn" layoutX="62.0" layoutY="8.0" onAction="#abrirInscricoes"
-                    text="Inscrições">
+         <JFXButton fx:id="inscricoesRegistroBtn" layoutX="62.0" layoutY="8.0" onAction="#abrirInscricoes" text="Inscrições">
             <graphic>
-               <FontAwesomeIcon iconName="EDIT"/>
+               <FontAwesomeIcon iconName="EDIT" />
             </graphic>
             <font>
-               <Font name="Verdana Bold" size="12.0"/>
+               <Font name="Verdana Bold" size="12.0" />
             </font>
             <cursor>
-               <Cursor fx:constant="HAND"/>
+               <Cursor fx:constant="HAND" />
             </cursor>
          </JFXButton>
-         <JFXButton fx:id="pagamentosRegistroBtn" layoutX="164.0" layoutY="9.0" onAction="#abrirPagamentos"
-                    text="Pagamentos">
+         <JFXButton fx:id="pagamentosRegistroBtn" layoutX="164.0" layoutY="9.0" onAction="#abrirPagamentos" text="Pagamentos">
             <graphic>
-               <FontAwesomeIcon iconName="MONEY"/>
+               <FontAwesomeIcon iconName="MONEY" />
             </graphic>
             <font>
-               <Font name="Verdana Bold" size="12.0"/>
+               <Font name="Verdana Bold" size="12.0" />
             </font>
             <cursor>
-               <Cursor fx:constant="HAND"/>
+               <Cursor fx:constant="HAND" />
             </cursor>
          </JFXButton>
-         <JFXButton fx:id="disciplinasRegistroBtn" layoutX="281.0" layoutY="8.0" onAction="#abrirDisciplinas"
-                    text="Disciplinas">
+         <JFXButton fx:id="disciplinasRegistroBtn" layoutX="281.0" layoutY="8.0" onAction="#abrirDisciplinas" text="Disciplinas">
             <graphic>
-               <FontAwesomeIcon iconName="BOOK"/>
+               <FontAwesomeIcon iconName="BOOK" />
             </graphic>
             <font>
-               <Font name="Verdana Bold" size="12.0"/>
+               <Font name="Verdana Bold" size="12.0" />
             </font>
             <cursor>
-               <Cursor fx:constant="HAND"/>
+               <Cursor fx:constant="HAND" />
             </cursor>
          </JFXButton>
          <JFXButton fx:id="assuntosRegistroBtn" layoutX="385.0" layoutY="8.0" onAction="#abrirAssuntos" text="Assuntos">
             <graphic>
-               <FontAwesomeIcon iconName="BOOKMARK"/>
+               <FontAwesomeIcon iconName="BOOKMARK" />
             </graphic>
             <font>
-               <Font name="Verdana Bold" size="12.0"/>
+               <Font name="Verdana Bold" size="12.0" />
             </font>
             <cursor>
-               <Cursor fx:constant="HAND"/>
+               <Cursor fx:constant="HAND" />
             </cursor>
          </JFXButton>
-         <JFXButton fx:id="perguntasRegistroBtn" layoutX="468.0" layoutY="7.0" onAction="#abrirPerguntas"
-                    text="Perguntas">
+         <JFXButton fx:id="perguntasRegistroBtn" layoutX="468.0" layoutY="7.0" onAction="#abrirPerguntas" text="Perguntas">
             <graphic>
-               <FontAwesomeIcon iconName="PENCIL"/>
+               <FontAwesomeIcon iconName="PENCIL" />
             </graphic>
+            <cursor>
+               <Cursor fx:constant="HAND" />
+            </cursor>
          </JFXButton>
-         <JFXButton fx:id="respostasRegistroBtn" layoutX="567.0" layoutY="7.0" onAction="#abrirRespostas"
-                    text="Respostas">
+         <JFXButton fx:id="respostasRegistroBtn" layoutX="567.0" layoutY="7.0" onAction="#abrirRespostas" text="Respostas">
             <graphic>
-               <FontAwesomeIcon iconName="TASKS"/>
+               <FontAwesomeIcon iconName="TASKS" />
             </graphic>
+            <cursor>
+               <Cursor fx:constant="HAND" />
+            </cursor>
+         </JFXButton>
+         <JFXButton fx:id="simuladosRegistroBtn" layoutX="669.0" layoutY="7.0" onAction="#abrirSimulados" text="Simulados">
+            <graphic>
+               <FontAwesomeIcon iconName="FILE" />
+            </graphic>
+            <cursor>
+               <Cursor fx:constant="HAND" />
+            </cursor>
+         </JFXButton>
+         <JFXButton fx:id="duvidasRegistroBtn" layoutX="772.0" layoutY="7.0" onAction="#abrirDuvidas" text="Duvidas">
+            <graphic>
+               <FontAwesomeIcon iconName="QUESTION" />
+            </graphic>
+            <cursor>
+               <Cursor fx:constant="HAND" />
+            </cursor>
          </JFXButton>
       </AnchorPane>
    </top>
    <left>
       <VBox prefHeight="350.0" prefWidth="50.0" style="-fx-background-color: #c6c6c6;" BorderPane.alignment="CENTER">
-         <JFXButton fx:id="alunosRegistroBtn" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY"
-                    onAction="#abrirRegistroAlunos" prefHeight="40.0" prefWidth="56.0" ripplerFill="BLACK">
+         <JFXButton fx:id="alunosRegistroBtn" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" onAction="#abrirRegistroAlunos" prefHeight="40.0" prefWidth="56.0" ripplerFill="BLACK">
             <graphic>
-               <FontAwesomeIcon fill="#38006b" iconName="USER" size="2em" wrappingWidth="20.85714340209961"/>
+               <FontAwesomeIcon fill="#38006b" iconName="USER" size="2em" wrappingWidth="20.85714340209961" />
             </graphic>
             <cursor>
-               <Cursor fx:constant="HAND"/>
+               <Cursor fx:constant="HAND" />
             </cursor>
          </JFXButton>
-         <JFXButton fx:id="facilitadoresRegistroBtn" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY"
-                    onAction="#abrirRegistroFacilitadores" prefHeight="39.0" prefWidth="56.0" ripplerFill="BLACK">
+         <JFXButton fx:id="facilitadoresRegistroBtn" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" onAction="#abrirRegistroFacilitadores" prefHeight="39.0" prefWidth="56.0" ripplerFill="BLACK">
             <graphic>
-               <FontAwesomeIcon fill="#38006b" iconName="UNIVERSITY" size="2em" wrappingWidth="26.428571701049805"/>
+               <FontAwesomeIcon fill="#38006b" iconName="UNIVERSITY" size="2em" wrappingWidth="26.428571701049805" />
             </graphic>
             <cursor>
-               <Cursor fx:constant="HAND"/>
+               <Cursor fx:constant="HAND" />
             </cursor>
          </JFXButton>
       </VBox>

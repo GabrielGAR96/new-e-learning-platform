@@ -163,7 +163,6 @@ public class Dao {
     }
 
 
-
     private void parametroSetter(Object valorFiltro) throws SQLException {
         if (valorFiltro instanceof Integer)
             statement.setInt(1, (int) valorFiltro);
@@ -195,9 +194,11 @@ public class Dao {
 
 
     private <T> void fieldSetter(T dado, Field field, Object valor) throws IllegalAccessException {
-        if (field.getType().equals(IntegerProperty.class))
-            field.set(dado, new SimpleIntegerProperty((int) valor));
-        else if (field.getType().equals(DoubleProperty.class))
+        if (field.getType().equals(IntegerProperty.class)) {
+            if (valor != null) {
+                field.set(dado, new SimpleIntegerProperty((int) valor));
+            }
+        } else if (field.getType().equals(DoubleProperty.class))
             field.set(dado, new SimpleDoubleProperty((double) valor));
         else if (field.getType().equals(StringProperty.class))
             field.set(dado, new SimpleStringProperty((String) valor));
@@ -209,9 +210,13 @@ public class Dao {
         int i;
         for (i = 1; i < camposNaClasse.length; i++) {
             Object valor = camposNaClasse[i].get(dado);
-            if (valor instanceof IntegerProperty)
-                statement.setInt(i, ((IntegerProperty) valor).get());
-            else if (valor instanceof DoubleProperty)
+            if (valor instanceof IntegerProperty) {
+                if (((IntegerProperty) valor).get() == 0) {
+                    statement.setNull(i, Types.INTEGER);
+                } else {
+                    statement.setInt(i, ((IntegerProperty) valor).get());
+                }
+            } else if (valor instanceof DoubleProperty)
                 statement.setDouble(i, ((DoubleProperty) valor).get());
             else if (valor instanceof StringProperty)
                 statement.setString(i, ((StringProperty) valor).get());

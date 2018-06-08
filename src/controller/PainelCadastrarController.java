@@ -293,17 +293,23 @@ public class PainelCadastrarController {
 
         Assunto assunto = dao.buscar(Assunto.class, "nome", assuntoPergunta);
 
-        for (String item : respostasPergunta) {
-            dao.inserir(new Resposta(item, tipo, assunto.getId()));
+        if(respObjPerguntaToggle.isSelected()) {
+            for (String item : respostasPergunta) {
+                dao.inserir(new Resposta(item, tipo, assunto.getId()));
+            }
+
+            Resposta respostaCorreta = dao.buscar(Resposta.class, "texto", respostasPergunta.get(0));
+
+            dao.inserir(new Pergunta(textoPergunta, assunto.getId(), respostaCorreta.getId()));
+
+            respostaPerguntaList.getItems().clear();
+            respostasLabel.setText("Insira a resposta correta: ");
+            respostasLabel.setTextFill(Color.web("#00ff00"));
+        } else {
+            dao.inserir(new Pergunta(textoPergunta, assunto.getId(), 0));
         }
 
-        Resposta respostaCorreta = dao.buscar(Resposta.class, "texto", respostasPergunta.get(0));
 
-        dao.inserir(new Pergunta(textoPergunta, assunto.getId(), respostaCorreta.getId()));
-
-        respostaPerguntaList.getItems().clear();
-        respostasLabel.setText("Insira a resposta correta: ");
-        respostasLabel.setTextFill(Color.web("#00ff00"));
     }
 
     public void CadastrarPagamento() {
