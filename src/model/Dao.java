@@ -49,12 +49,11 @@ public class Dao {
         return dado;
     }
 
-    public <T> void excluir(T dado, int key) {
-        String keyName = dado.getClass().getDeclaredFields()[0].getName();
-
+    public <T> void excluir(Class<T> tabela, int key) {
+        String keyName = tabela.getDeclaredFields()[0].getName();
         try {
             con = Conexao.getConnection();
-            statement = con.prepareStatement("delete from " + dado.getClass().getSimpleName() + " where " + keyName + " = ?");
+            statement = con.prepareStatement("delete from " + tabela.getSimpleName() + " where " + keyName + " = ?");
             statement.setInt(1, key);
             statement.executeUpdate();
         } catch (SQLException e1) {
@@ -69,8 +68,8 @@ public class Dao {
         String keyName = camposNaClasse[0].getName();
 
         StringBuilder campos = new StringBuilder();
-        for (Field field : camposNaClasse) {
-            campos.append(field.getName()).append(" = ?,");
+        for(int i = 1; i < camposNaClasse.length; i++) {
+            campos.append(camposNaClasse[i].getName()).append(" = ?,");
         }
         campos = new StringBuilder(campos.substring(0, campos.length() - 1));
 

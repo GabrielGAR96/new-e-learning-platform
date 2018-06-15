@@ -17,8 +17,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import model.*;
-
-import java.lang.reflect.Array;
 import java.time.ZoneId;
 import java.util.*;
 
@@ -233,8 +231,6 @@ public class PainelCadastrarController {
 
         JFXSnackbar cadastroSnackBar = new JFXSnackbar(painelPai);
         cadastroSnackBar.show("Cadastro realizado com sucesso!", 1500);
-
-        //TODO: Aqui vão ser RECARREGADAS todas as tabelas de seleção e comboboxes
     }
 
     public void CadastrarAluno() {
@@ -590,13 +586,13 @@ public class PainelCadastrarController {
             simuladoOuDuvidaPagamentoToggle.setStyle("-fx-text-fill: black");
             idSimDuvPagamentoField.setPromptText("ID da dúvida");
             valorFacilitadorPagamentoList.getItems().clear();
-            valorFacilitadorPagamentoList.getItems().add("50"); //TODO: DECIDIR PREÇOS E FIXAR EM ALGUM LOCAL
+            valorFacilitadorPagamentoList.getItems().add("50");
         } else {
             simuladoPagamentoLabel.setStyle("-fx-text-fill: black");
             simuladoOuDuvidaPagamentoToggle.setStyle("-fx-text-fill: gray");
             idSimDuvPagamentoField.setPromptText("ID do simulado");
             valorFacilitadorPagamentoList.getItems().clear();
-            valorFacilitadorPagamentoList.getItems().add("100"); //TODO: DECIDIR PREÇOS E FIXAR EM ALGUM LOCAL
+            valorFacilitadorPagamentoList.getItems().add("100");
 
         }
     }

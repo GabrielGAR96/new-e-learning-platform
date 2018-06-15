@@ -2,6 +2,7 @@ package controller;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPopup;
+import com.jfoenix.controls.JFXSnackbar;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -12,9 +13,11 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.layout.BorderPane;
 import model.*;
 
+import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.SortedMap;
 
 public class PainelRegistrosController {
 
@@ -119,8 +122,8 @@ public class PainelRegistrosController {
         dao.excluir(classeDaTabela, valor);
     }
 
-    public void abrirRegistroAlunos(javafx.event.ActionEvent actionEvent) { //Possivel abrir a partir de : Insc, Pgmt, Disc, Sim e Duv
-        //buttonSetter(false, true, true, true, true, true, true, true);
+    public void abrirRegistroAlunos(javafx.event.ActionEvent actionEvent) {
+        buttonSetter("bold", "bold", "bold", "normal", "normal", "normal", "bold", "bold");
         ArrayList<Aluno> alunos = new ArrayList<>();
         if (!tabelaAtual.getItems().isEmpty()) {
             Class classeDaTabela = tabelaAtual.getItems().get(0).getClass();
@@ -164,8 +167,8 @@ public class PainelRegistrosController {
 
     }
 
-    public void abrirRegistroFacilitadores(javafx.event.ActionEvent actionEvent) { //Possivel abrir a partir de : Pgmt, Disc, Sim e Duv
-        //buttonSetter(true, false, false, true, true, true, true, true);
+    public void abrirRegistroFacilitadores(javafx.event.ActionEvent actionEvent) {
+        buttonSetter("normal", "bold", "bold", "normal", "normal", "normal", "bold", "bold");
         ArrayList<Facilitador> facilitadores = new ArrayList<>();
         if (!tabelaAtual.getItems().isEmpty()) {
             Class classeDaTabela = tabelaAtual.getItems().get(0).getClass();
@@ -202,8 +205,8 @@ public class PainelRegistrosController {
     }
 
 
-    public void abrirInscricoes(ActionEvent actionEvent) { //Possivel abrir a partir de : Aluno, Pgmt, Disc
-        //buttonSetter(true, false, false, true, true, true, true, true);
+    public void abrirInscricoes(ActionEvent actionEvent) {
+        buttonSetter("normal", "bold", "bold", "normal", "normal", "normal", "normal", "normal");
         ArrayList<Inscricao> inscricoes = new ArrayList<>();
         if (!tabelaAtual.getItems().isEmpty()) {
             Class classeDaTabela = tabelaAtual.getItems().get(0).getClass();
@@ -234,7 +237,9 @@ public class PainelRegistrosController {
         painelPrincipal.setCenter(tabelaAtual);
     }
 
-    public void abrirPagamentos(ActionEvent actionEvent) { //PAGAMENTO REFERENTE AO UMA INSCRICAO OU A UM FACILITADOR
+    public void abrirPagamentos(ActionEvent actionEvent) {
+        buttonSetter("bold", "normal", "normal", "normal", "normal", "normal", "normal", "normal");
+
         if (!tabelaAtual.getItems().isEmpty()) {
             Class classeDaTabela = tabelaAtual.getItems().get(0).getClass();
             if (tabelaAtual.getSelectionModel().getSelectedItem() != null) {
@@ -258,49 +263,71 @@ public class PainelRegistrosController {
                             "facilitadorMatricula", selecionado.getMatricula());
                     tabelaAtual = criarTabela(pagamentos, PagamentoFacilitador.class);
                 } else {
-                    //ABRIR TODOS OS PAGAMENTOS POSSIVEIS (ALUNO E FACILITADOR)
-                    //tabelaAtual = ....
+                    JFXSnackbar SnackBar = new JFXSnackbar(painelPrincipal);
+                    SnackBar.show("Por favor, selecione um aluno, facilitador ou inscrição.", 3500);
                 }
 
             } else {
-                //ABRIR TODOS OS PAGAMENTOS POSSIVEIS (ALUNO E FACILITADOR)
-                //tabelaAtual = ....
+                JFXSnackbar SnackBar = new JFXSnackbar(painelPrincipal);
+                SnackBar.show("Por favor, selecione um aluno, facilitador ou inscrição.", 3500);
             }
         } else {
-            //ABRIR TODOS OS PAGAMENTOS POSSIVEIS (ALUNO E FACILITADOR)
-            //tabelaAtual = ....
+            JFXSnackbar SnackBar = new JFXSnackbar(painelPrincipal);
+            SnackBar.show("Por favor, selecione um aluno, facilitador ou inscrição.", 3500);
         }
 
         painelPrincipal.setCenter(tabelaAtual);
     }
 
     public void abrirDisciplinas(ActionEvent actionEvent) {
-        //buttonSetter(true, true, true, false, true, true, true, true);
+        buttonSetter("bold", "normal", "normal", "bold", "bold", "bold", "bold", "bold");
         ArrayList<Disciplina> disciplinas = new ArrayList<>();
         if (!tabelaAtual.getItems().isEmpty()) {
             Class classeDaTabela = tabelaAtual.getItems().get(0).getClass();
             if (tabelaAtual.getSelectionModel().getSelectedItem() != null) {
-                if (classeDaTabela.equals(Inscricao.class)) {
-                    Inscricao selecionada = (Inscricao) tabelaAtual.getSelectionModel().getSelectedItem();
-                    ArrayList<DisciplinaInscrita> disciplinaInscritas = dao.listarComFiltro(DisciplinaInscrita.class,
-                            "inscricaoId", selecionada.getId());
-                    for (DisciplinaInscrita di : disciplinaInscritas) {
+                if (classeDaTabela.equals(Aluno.class)) {
+                    Aluno aluno = (Aluno) tabelaAtual.getSelectionModel().getSelectedItem();
+                    ArrayList<Inscricao> inscricoes = dao.listarComFiltro(Inscricao.class, "alunoMatricula", aluno.getMatricula());
+                    ArrayList<DisciplinaInscrita> disciplinasInscritas = new ArrayList<>();
+                    for(Inscricao inscricao : inscricoes) {
+                        disciplinasInscritas.addAll(dao.listarComFiltro(DisciplinaInscrita.class, "inscricaoId", inscricao.getId()));
+                    }
+                    for(DisciplinaInscrita di : disciplinasInscritas) {
                         disciplinas.add(dao.buscar(Disciplina.class, "id", di.getDisciplinaId()));
                     }
                 } else if (classeDaTabela.equals(Facilitador.class)) {
-                    Facilitador selecionado = (Facilitador) tabelaAtual.getSelectionModel().getSelectedItem();
-                    ArrayList<GrupoDeDisciplinas> gruposDeDisciplinas = dao.listarComFiltro(GrupoDeDisciplinas.class,
-                            "facilitadorMatricula", selecionado.getMatricula());
-                    for (GrupoDeDisciplinas gd : gruposDeDisciplinas) {
-                        disciplinas.add(dao.buscar(Disciplina.class, "id", gd.getDisciplinaId()));
+                    Facilitador facilitador = (Facilitador) tabelaAtual.getSelectionModel().getSelectedItem();
+                    ArrayList<GrupoDeDisciplinas> gruposDeDisciplinas = dao.listarComFiltro(GrupoDeDisciplinas.class, "facilitadorMatricula", facilitador.getMatricula());
+                    for(GrupoDeDisciplinas gdd : gruposDeDisciplinas) {
+                            disciplinas.add(dao.buscar(Disciplina.class, "id", gdd.getDisciplinaId()));
                     }
-                } else {
+                } else if (classeDaTabela.equals(Inscricao.class)) {
+                    Inscricao inscricao = (Inscricao) tabelaAtual.getSelectionModel().getSelectedItem();
+                    ArrayList<DisciplinaInscrita> disciplinasInscritas = dao.listarComFiltro(DisciplinaInscrita.class,
+                            "inscricaoId", inscricao.getId());
+                    for(DisciplinaInscrita di : disciplinasInscritas) {
+                        disciplinas.add(dao.buscar(Disciplina.class, "id", di.getDisciplinaId()));
+                    }
+                } else if (classeDaTabela.equals(Assunto.class)) {
+                    Assunto assunto = (Assunto) tabelaAtual.getSelectionModel().getSelectedItem();
+                    disciplinas = dao.listarComFiltro(Disciplina.class, "id", assunto.getDisciplinaId());
+                } else if (classeDaTabela.equals(Pergunta.class)) {
+                    Pergunta pergunta = (Pergunta) tabelaAtual.getSelectionModel().getSelectedItem();
+                    Assunto assunto = dao.buscar(Assunto.class, "id", pergunta.getAssuntoId());
+                    disciplinas = dao.listarComFiltro(Disciplina.class, "id", assunto.getDisciplinaId());
+                } else if (classeDaTabela.equals(Resposta.class)) {
+                    Resposta resposta = (Resposta) tabelaAtual.getSelectionModel().getSelectedItem();
+                    Assunto assunto = dao.buscar(Assunto.class, "id", resposta.getAssuntoId());
+                    disciplinas = dao.listarComFiltro(Disciplina.class, "id", assunto.getDisciplinaId());
+                } else if(classeDaTabela.equals(Simulado.class)) {
+                    Simulado simulado = (Simulado) tabelaAtual.getSelectionModel().getSelectedItem();
+                    Assunto assunto = dao.buscar(Assunto.class, "id", simulado.getAssuntoId());
+                    disciplinas = dao.listarComFiltro(Disciplina.class, "id", assunto.getDisciplinaId());
+                }  else {
                     disciplinas = dao.listar(Disciplina.class);
-
                 }
             } else {
                 disciplinas = dao.listar(Disciplina.class);
-
             }
         } else {
             disciplinas = dao.listar(Disciplina.class);
@@ -308,12 +335,10 @@ public class PainelRegistrosController {
 
         tabelaAtual = criarTabela(disciplinas, Disciplina.class);
         painelPrincipal.setCenter(tabelaAtual);
-
-
     }
 
     public void abrirAssuntos(ActionEvent actionEvent) {
-        //buttonSetter(true, true, false, true, false, false, false, true);
+        buttonSetter("normal", "normal", "bold", "normal", "bold", "bold", "bold", "normal");
         ArrayList<Assunto> assuntos;
         if (!tabelaAtual.getItems().isEmpty()) {
             Class classeDaTabela = tabelaAtual.getItems().get(0).getClass();
@@ -346,6 +371,7 @@ public class PainelRegistrosController {
     }
 
     public void abrirPerguntas(ActionEvent actionEvent) {
+        buttonSetter("normal", "normal", "bold", "bold", "normal", "bold", "bold", "normal");
         ArrayList<Pergunta> perguntas = new ArrayList<>();
         if (!tabelaAtual.getItems().isEmpty()) {
             Class classeDaTabela = tabelaAtual.getItems().get(0).getClass();
@@ -384,6 +410,7 @@ public class PainelRegistrosController {
     }
 
     public void abrirRespostas(ActionEvent actionEvent) {
+        buttonSetter("normal", "normal", "bold", "bold", "bold", "normal", "bold", "normal");
         ArrayList<Resposta> respostas = new ArrayList<>();
 
         if (!tabelaAtual.getItems().isEmpty()) {
@@ -424,9 +451,54 @@ public class PainelRegistrosController {
     }
 
     public void abrirSimulados(ActionEvent actionEvent) {
+        buttonSetter("normal", "normal", "bold", "bold", "bold", "bold", "normal", "normal");
+        ArrayList<Simulado> simulados = new ArrayList<>();
+        if (!tabelaAtual.getItems().isEmpty()) {
+            Class classeDaTabela = tabelaAtual.getItems().get(0).getClass();
+            if (tabelaAtual.getSelectionModel().getSelectedItem() != null) {
+                if (classeDaTabela.equals(Aluno.class)) {
+                    Aluno aluno = (Aluno) tabelaAtual.getSelectionModel().getSelectedItem();
+                    simulados = dao.listarComFiltro(Simulado.class, "alunoMatricula", aluno.getMatricula());
+                } else if (classeDaTabela.equals(Facilitador.class)) {
+                    Facilitador facilitador = (Facilitador) tabelaAtual.getSelectionModel().getSelectedItem();
+                    simulados = dao.listarComFiltro(Simulado.class, "facilitadorMatricula", facilitador.getMatricula());
+                } else if (classeDaTabela.equals(Disciplina.class)) {
+                    Disciplina disciplina = (Disciplina) tabelaAtual.getSelectionModel().getSelectedItem();
+                    ArrayList<Assunto> assuntos = dao.listarComFiltro(Assunto.class, "disciplinaId", disciplina.getId());
+                    for(Assunto assunto : assuntos) {
+                        simulados.addAll(dao.listarComFiltro(Simulado.class, "assuntoId", assunto.getId()));
+                    }
+                } else if (classeDaTabela.equals(Assunto.class)) {
+                    Assunto assunto = (Assunto) tabelaAtual.getSelectionModel().getSelectedItem();
+                    simulados = dao.listarComFiltro(Simulado.class, "assuntoId", assunto.getId());
+                } else if (classeDaTabela.equals(Pergunta.class)) {
+                    Pergunta pergunta = (Pergunta) tabelaAtual.getSelectionModel().getSelectedItem();
+                    ArrayList<PerguntaDoSimulado> pds = dao.listarComFiltro(PerguntaDoSimulado.class, "perguntaId", pergunta.getId());
+                    for(PerguntaDoSimulado p : pds) {
+                        simulados.addAll(dao.listarComFiltro(Simulado.class, "id", p.getSimuladoId()));
+                    }
+                } else if (classeDaTabela.equals(Resposta.class)) {
+                    Resposta resposta = (Resposta) tabelaAtual.getSelectionModel().getSelectedItem();
+                    ArrayList<RespostaDoSimulado> rds = dao.listarComFiltro(RespostaDoSimulado.class, "perguntaId", resposta.getId());
+                    for(RespostaDoSimulado r : rds) {
+                        simulados.addAll(dao.listarComFiltro(Simulado.class, "id", r.getSimuladoId()));
+                    }
+                } else {
+                    simulados = dao.listar(Simulado.class);
+                }
+            } else {
+                simulados = dao.listar(Simulado.class);
+            }
+        } else {
+            simulados = dao.listar(Simulado.class);
+        }
+
+        tabelaAtual = criarTabela(simulados, Simulado.class);
+        painelPrincipal.setCenter(tabelaAtual);
     }
 
     public void abrirDuvidas(ActionEvent actionEvent) {
+        buttonSetter("normal", "normal", "normal", "normal", "normal", "normal", "normal", "normal");
         ArrayList<Duvida> duvidas;
         if (!tabelaAtual.getItems().isEmpty()) {
             Class classeDaTabela = tabelaAtual.getItems().get(0).getClass();
@@ -451,15 +523,15 @@ public class PainelRegistrosController {
         painelPrincipal.setCenter(tabelaAtual);
     }
 
-//    private void buttonSetter(Boolean in, Boolean pa, Boolean di, Boolean as, Boolean pe, Boolean re, Boolean si, Boolean du) {
-//        inscricoesRegistroBtn.setDisable(in);
-//        pagamentosRegistroBtn.setDisable(pa);
-//        disciplinasRegistroBtn.setDisable(di);
-//        assuntosRegistroBtn.setDisable(as);
-//        perguntasRegistroBtn.setDisable(pe);
-//        respostasRegistroBtn.setDisable(re);
-//        simuladosRegistroBtn.setDisable(si);
-//        duvidasRegistroBtn.setDisable(du);
-//    }
+    private void buttonSetter(String in, String pa, String di, String as, String pe, String re, String si, String du) {
+        inscricoesRegistroBtn.setStyle("-fx-font-weight: " + in);
+        pagamentosRegistroBtn.setStyle("-fx-font-weight: " + pa);
+        disciplinasRegistroBtn.setStyle("-fx-font-weight: " + di);
+        assuntosRegistroBtn.setStyle("-fx-font-weight: " + as);
+        perguntasRegistroBtn.setStyle("-fx-font-weight: " + pe);
+        respostasRegistroBtn.setStyle("-fx-font-weight: " + re);
+        simuladosRegistroBtn.setStyle("-fx-font-weight: " + si);
+        duvidasRegistroBtn.setStyle("-fx-font-weight: " + du);
+    }
 
 }
