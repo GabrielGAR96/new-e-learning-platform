@@ -17,8 +17,7 @@ public class Simulado {
     public Simulado() {
     }
 
-    public Simulado(int id, int alunoMatricula, int nota, int assuntoId, int facilitadorMatricula) {
-        this.id = new SimpleIntegerProperty(id);
+    public Simulado(int alunoMatricula, int nota, int assuntoId, int facilitadorMatricula) {
         this.alunoMatricula = new SimpleIntegerProperty(alunoMatricula);
         this.nota = new SimpleIntegerProperty(nota);
         this.assuntoId = new SimpleIntegerProperty(assuntoId);

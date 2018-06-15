@@ -18,6 +18,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import model.*;
 
+import java.lang.reflect.Array;
 import java.time.ZoneId;
 import java.util.*;
 
@@ -184,6 +185,8 @@ public class PainelCadastrarController {
 
     private Dao dao;
 
+    private ArrayList<Pergunta> perguntasDoSimulado;
+
     public PainelCadastrarController() {
         dao = new Dao();
     }
@@ -335,6 +338,25 @@ public class PainelCadastrarController {
         String alunoSimulado = alunoSimuladoCombo.getValue();
         String assuntoSimulado = assuntoSimuladoCombo.getValue();
 
+        Aluno aluno = dao.buscar(Aluno.class, "nome", alunoSimulado);
+        Assunto assunto = dao.buscar(Assunto.class, "nome", assuntoSimulado);
+
+        Disciplina disciplina = dao.buscar(Disciplina.class, "id", assunto.getDisciplinaId());
+        ArrayList<GrupoDeDisciplinas> gruposDeDisciplinas = dao.listarComFiltro(GrupoDeDisciplinas.class,
+                "disciplinaId", disciplina.getId());
+
+        int index = new Random().nextInt(gruposDeDisciplinas.size());
+        GrupoDeDisciplinas grupo = gruposDeDisciplinas.get(index);
+
+        Simulado simulado = dao.inserir(new Simulado(aluno.getMatricula(), -1,
+                assunto.getId(), grupo.getFacilitadorMatricula()));
+
+        for(Pergunta p : perguntasDoSimulado) {
+            dao.inserir(new PerguntaDoSimulado(simulado.getId(), p.getId()));
+            dao.inserir(new RespostaDoSimulado(simulado.getId(), p.getRespostaId()));
+        }
+
+        perguntasDoSimulado.clear();
     }
 
     public void CadastrarDuvida() {
@@ -597,20 +619,14 @@ public class PainelCadastrarController {
     }
 
     public void gerarSimulado(ActionEvent actionEvent) {
-        ArrayList<Integer> idsDasPerguntasDisponiveis = dao.buscarChaves(Pergunta.class);
-        ArrayList<Integer> idsDasPerguntasUsadas = new ArrayList<>();
-
-        Random random = new Random();
         Assunto assunto = dao.buscar(Assunto.class, "nome", assuntoSimuladoCombo.getValue());
+        ArrayList<Integer> idsDasPerguntasDisponiveis = dao.buscarChaves(Pergunta.class, "assuntoId", assunto.getId());
 
-        while(idsDasPerguntasUsadas.size() <= 10) {
-            int id = random.nextInt(Collections.max(idsDasPerguntasDisponiveis));
+        perguntasDoSimulado = new ArrayList<>();
+        for(int id : idsDasPerguntasDisponiveis) {
             Pergunta pergunta = dao.buscar(Pergunta.class, "id", id);
-
-            if(!idsDasPerguntasUsadas.contains(id) && pergunta.getAssuntoId() == assunto.getId()) {
-                questoesSimuladoView.getItems().add(pergunta.getTexto());
-                idsDasPerguntasUsadas.add(id);
-            }
+            perguntasDoSimulado.add(pergunta);
+            questoesSimuladoView.getItems().add(pergunta.getTexto());
         }
     }
 

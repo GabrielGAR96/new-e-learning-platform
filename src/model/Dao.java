@@ -119,14 +119,7 @@ public class Dao {
             con = Conexao.getConnection();
             statement = con.prepareStatement("select * from " + tabela.getSimpleName());
             ResultSet rs = statement.executeQuery();
-            while (rs.next()) {
-                dado = tabela.getDeclaredConstructor().newInstance();
-                for (Field field : tabela.getDeclaredFields()) {
-                    Object valor = rs.getObject(field.getName());
-                    fieldSetter(dado, field, valor);
-                }
-                dados.add(dado);
-            }
+            arraySetter(tabela, dados, rs);
         } catch (SQLException | ReflectiveOperationException e) {
             e.printStackTrace();
         } finally {
@@ -145,15 +138,7 @@ public class Dao {
             parametroSetter(valorFiltro);
 
             ResultSet rs = statement.executeQuery();
-
-            while (rs.next()) {
-                dado = tabela.getDeclaredConstructor().newInstance();
-                for (Field field : tabela.getDeclaredFields()) {
-                    Object valor = rs.getObject(field.getName());
-                    fieldSetter(dado, field, valor);
-                }
-                dados.add(dado);
-            }
+            arraySetter(tabela, dados, rs);
         } catch (SQLException | ReflectiveOperationException e) {
             e.printStackTrace();
         } finally {
@@ -162,27 +147,17 @@ public class Dao {
         return dados;
     }
 
-
-    private void parametroSetter(Object valorFiltro) throws SQLException {
-        if (valorFiltro instanceof Integer)
-            statement.setInt(1, (int) valorFiltro);
-        else if (valorFiltro instanceof Double)
-            statement.setDouble(1, (double) valorFiltro);
-        else if (valorFiltro instanceof String)
-            statement.setString(1, (String) valorFiltro);
-    }
-
-    public <T> ArrayList<Integer> buscarChaves(Class<T> tabela) {
+    public <T> ArrayList<Integer> buscarChaves(Class<T> tabela, String keyName, int keyValue) {
+        String campoChave = tabela.getDeclaredFields()[0].getName();
         ArrayList<Integer> chaves = new ArrayList<>();
 
         try {
             con = Conexao.getConnection();
-            statement = con.prepareStatement("select * from " + tabela.getSimpleName(), statement.RETURN_GENERATED_KEYS);
-            ResultSet rs = statement.getGeneratedKeys();
-            int i = 0;
+            statement = con.prepareStatement("select "+ campoChave + " from " + tabela.getSimpleName() + " where " + keyName + " = ?");
+            statement.setInt(1, keyValue);
+            ResultSet rs = statement.executeQuery();
             while (rs.next()) {
-                chaves.add(rs.getInt(i));
-                i++;
+                chaves.add(rs.getInt(campoChave));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -192,6 +167,14 @@ public class Dao {
         return chaves;
     }
 
+    private void parametroSetter(Object valorFiltro) throws SQLException {
+        if (valorFiltro instanceof Integer)
+            statement.setInt(1, (int) valorFiltro);
+        else if (valorFiltro instanceof Double)
+            statement.setDouble(1, (double) valorFiltro);
+        else if (valorFiltro instanceof String)
+            statement.setString(1, (String) valorFiltro);
+    }
 
     private <T> void fieldSetter(T dado, Field field, Object valor) throws IllegalAccessException {
         if (field.getType().equals(IntegerProperty.class)) {
@@ -226,4 +209,15 @@ public class Dao {
         return i; //Retorna quantos parametros foram setados + 1.
     }
 
+    private <T> void arraySetter(Class<T> tabela, ArrayList<T> dados, ResultSet rs) throws SQLException, InstantiationException, IllegalAccessException, java.lang.reflect.InvocationTargetException, NoSuchMethodException {
+        T dado;
+        while (rs.next()) {
+            dado = tabela.getDeclaredConstructor().newInstance();
+            for (Field field : tabela.getDeclaredFields()) {
+                Object valor = rs.getObject(field.getName());
+                fieldSetter(dado, field, valor);
+            }
+            dados.add(dado);
+        }
+    }
 }

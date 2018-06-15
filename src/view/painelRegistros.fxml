@@ -21,7 +21,7 @@
                <FontAwesomeIcon iconName="ARROW_RIGHT" />
             </graphic>
          </JFXButton>
-         <JFXButton fx:id="inscricoesRegistroBtn" layoutX="62.0" layoutY="8.0" onAction="#abrirInscricoes" text="Inscrições">
+         <JFXButton fx:id="inscricoesRegistroBtn" buttonType="RAISED" layoutX="62.0" layoutY="8.0" onAction="#abrirInscricoes" text="Inscrições">
             <graphic>
                <FontAwesomeIcon iconName="EDIT" />
             </graphic>
