@@ -12,12 +12,9 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.BorderPane;
 import model.*;
-
-import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.SortedMap;
 
 public class PainelRegistrosController {
 
@@ -244,7 +241,6 @@ public class PainelRegistrosController {
             Class classeDaTabela = tabelaAtual.getItems().get(0).getClass();
             if (tabelaAtual.getSelectionModel().getSelectedItem() != null) {
                 if (classeDaTabela.equals(Aluno.class)) {
-                    //buttonSetter();
                     Aluno aluno = (Aluno) tabelaAtual.getSelectionModel().getSelectedItem();
                     ArrayList<Inscricao> inscricoes = dao.listarComFiltro(Inscricao.class, "alunoMatricula", aluno.getMatricula());
                     ArrayList<PagamentoAluno> pagamentos = new ArrayList<>();
@@ -252,12 +248,10 @@ public class PainelRegistrosController {
                         pagamentos.addAll(dao.listarComFiltro(PagamentoAluno.class, "inscricaoId", inscricao.getId()));
                     }
                 } else if (classeDaTabela.equals(Inscricao.class)) {
-                    //buttonSetter(false, true, true, true, true, true, true, true);
                     Inscricao selecionada = (Inscricao) tabelaAtual.getSelectionModel().getSelectedItem();
                     ArrayList<PagamentoAluno> pagamentos = dao.listarComFiltro(PagamentoAluno.class, "inscricaoId", selecionada.getId());
                     tabelaAtual = criarTabela(pagamentos, PagamentoAluno.class);
                 } else if (classeDaTabela.equals(Facilitador.class)) {
-                    //buttonSetter(true, true, true, true, true, true, false, false);
                     Facilitador selecionado = (Facilitador) tabelaAtual.getSelectionModel().getSelectedItem();
                     ArrayList<PagamentoFacilitador> pagamentos = dao.listarComFiltro(PagamentoFacilitador.class,
                             "facilitadorMatricula", selecionado.getMatricula());
@@ -534,4 +528,13 @@ public class PainelRegistrosController {
         duvidasRegistroBtn.setStyle("-fx-font-weight: " + du);
     }
 
+    public TableView<?> getTabelaAtual() {
+        return tabelaAtual;
+    }
+
+    public <T> void setTabelaAtual(List<T> lista, Class<T> classe) {
+        TableView<T> tabela = criarTabela(lista, classe);
+        this.tabelaAtual = tabela;
+        painelPrincipal.setCenter(tabelaAtual);
+    }
 }

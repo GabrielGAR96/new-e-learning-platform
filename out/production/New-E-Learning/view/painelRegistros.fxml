@@ -11,16 +11,8 @@
 <BorderPane fx:id="painelPrincipal" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="900.0" style="-fx-background-color: #f9f9f9;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PainelRegistrosController">
    <top>
       <AnchorPane prefHeight="40.0" prefWidth="900.0" style="-fx-background-color: #9c4dcc;" BorderPane.alignment="CENTER">
-         <JFXButton fx:id="backBtn" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" disable="true" layoutY="8.0">
-            <graphic>
-               <FontAwesomeIcon iconName="ARROW_LEFT" />
-            </graphic>
-         </JFXButton>
-         <JFXButton fx:id="forwardBtn" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" disable="true" layoutX="28.0" layoutY="8.0">
-            <graphic>
-               <FontAwesomeIcon iconName="ARROW_RIGHT" />
-            </graphic>
-         </JFXButton>
+         <JFXButton fx:id="backBtn" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" disable="true" layoutY="8.0" />
+         <JFXButton fx:id="forwardBtn" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" disable="true" layoutX="28.0" layoutY="8.0" />
          <JFXButton fx:id="inscricoesRegistroBtn" layoutX="62.0" layoutY="8.0" onAction="#abrirInscricoes" text="Inscrições">
             <graphic>
                <FontAwesomeIcon iconName="EDIT" />
