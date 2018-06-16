@@ -1,6 +1,7 @@
 package controller;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXSnackbar;
 import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -41,7 +42,8 @@ public class PainelLogin {
             painelPrincipal.setTop(null);
             carregarOpcoes(aluno);
         } else {
-            //Validator
+            JFXSnackbar snackBar = new JFXSnackbar(painelPrincipal);
+            snackBar.show("Por favor, insira uma matrícula válida", 2500);
         }
     }
 

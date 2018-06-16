@@ -4,10 +4,8 @@ import com.jfoenix.controls.JFXRadioButton;
 import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.ToggleGroup;
-import javafx.scene.control.skin.ToggleButtonSkin;
 import javafx.scene.layout.VBox;
 import model.*;
 

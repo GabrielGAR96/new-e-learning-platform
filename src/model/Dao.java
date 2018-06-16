@@ -173,6 +173,8 @@ public class Dao {
             statement.setDouble(1, (double) valorFiltro);
         else if (valorFiltro instanceof String)
             statement.setString(1, (String) valorFiltro);
+        else if (valorFiltro instanceof Boolean)
+            statement.setBoolean(1, (Boolean) valorFiltro);
     }
 
     private <T> void fieldSetter(T dado, Field field, Object valor) throws IllegalAccessException {
@@ -184,6 +186,8 @@ public class Dao {
             field.set(dado, new SimpleDoubleProperty((double) valor));
         else if (field.getType().equals(StringProperty.class))
             field.set(dado, new SimpleStringProperty((String) valor));
+        else if (field.getType().equals(BooleanProperty.class))
+            field.set(dado, new SimpleBooleanProperty((boolean) valor));
         else
             field.set(dado, new SimpleObjectProperty<>((Date) valor));
     }
@@ -202,6 +206,8 @@ public class Dao {
                 statement.setDouble(i, ((DoubleProperty) valor).get());
             else if (valor instanceof StringProperty)
                 statement.setString(i, ((StringProperty) valor).get());
+            else if (valor instanceof BooleanProperty)
+                statement.setBoolean(i, ((BooleanProperty) valor).get());
             else if (valor instanceof SimpleObjectProperty)
                 statement.setDate(i, new java.sql.Date(((SimpleObjectProperty<java.util.Date>) valor).get().getTime()));
         }

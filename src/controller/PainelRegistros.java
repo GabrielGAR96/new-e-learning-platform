@@ -427,7 +427,7 @@ public class PainelRegistros {
                     perguntas = dao.listarComFiltro(Pergunta.class, "assuntoId", selecionado.getId());
                 } else if (classeDaTabela.equals(Resposta.class)) {
                     Resposta selecionada = (Resposta) tabelaAtual.getSelectionModel().getSelectedItem();
-                    perguntas = dao.listarComFiltro(Pergunta.class, "respostaId", selecionada.getId());
+                    perguntas = dao.listarComFiltro(Pergunta.class, "id", selecionada.getPerguntaId());
                 } else if (classeDaTabela.equals(Simulado.class)) {
                     Simulado selecionado = (Simulado) tabelaAtual.getSelectionModel().getSelectedItem();
                     ArrayList<PerguntaDoSimulado> perguntasDoSimulado = dao.listarComFiltro(PerguntaDoSimulado.class,
@@ -474,7 +474,7 @@ public class PainelRegistros {
                     }
                 } else if (classeDaTabela.equals(Pergunta.class)) {
                     Pergunta selecionada = (Pergunta) tabelaAtual.getSelectionModel().getSelectedItem();
-                    respostas = dao.listarComFiltro(Resposta.class, "id", selecionada.getRespostaId());
+                    respostas = dao.listarComFiltro(Resposta.class, "perguntaId", selecionada.getId());
                 } else {
                     respostas = dao.listar(Resposta.class);
                 }
@@ -519,7 +519,7 @@ public class PainelRegistros {
                     }
                 } else if (classeDaTabela.equals(Resposta.class)) {
                     Resposta resposta = (Resposta) tabelaAtual.getSelectionModel().getSelectedItem();
-                    ArrayList<RespostaDoSimulado> rds = dao.listarComFiltro(RespostaDoSimulado.class, "perguntaId", resposta.getId());
+                    ArrayList<RespostaDoSimulado> rds = dao.listarComFiltro(RespostaDoSimulado.class, "respostaId", resposta.getId());
                     for(RespostaDoSimulado r : rds) {
                         simulados.addAll(dao.listarComFiltro(Simulado.class, "id", r.getSimuladoId()));
                     }
