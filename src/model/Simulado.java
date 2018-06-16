@@ -1,7 +1,9 @@
 package model;
 
 
+import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
 import java.io.Serializable;
@@ -10,16 +12,16 @@ import java.io.Serializable;
 public class Simulado {
     IntegerProperty id;
     IntegerProperty alunoMatricula;
-    IntegerProperty nota;
+    DoubleProperty nota;
     IntegerProperty assuntoId;
     IntegerProperty facilitadorMatricula;
 
     public Simulado() {
     }
 
-    public Simulado(int alunoMatricula, int nota, int assuntoId, int facilitadorMatricula) {
+    public Simulado(int alunoMatricula, double nota, int assuntoId, int facilitadorMatricula) {
         this.alunoMatricula = new SimpleIntegerProperty(alunoMatricula);
-        this.nota = new SimpleIntegerProperty(nota);
+        this.nota = new SimpleDoubleProperty(nota);
         this.assuntoId = new SimpleIntegerProperty(assuntoId);
         this.facilitadorMatricula = new SimpleIntegerProperty(facilitadorMatricula);
     }
@@ -48,15 +50,15 @@ public class Simulado {
         this.alunoMatricula.set(alunoMatricula);
     }
 
-    public int getNota() {
+    public double getNota() {
         return nota.get();
     }
 
-    public IntegerProperty notaProperty() {
+    public DoubleProperty notaProperty() {
         return nota;
     }
 
-    public void setNota(int nota) {
+    public void setNota(double nota) {
         this.nota.set(nota);
     }
 
