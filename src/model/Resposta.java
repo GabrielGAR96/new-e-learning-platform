@@ -1,32 +1,24 @@
 package model;
 
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import javafx.beans.property.*;
 
 import java.io.Serializable;
 
 public class Resposta {
     IntegerProperty id;
     StringProperty texto;
-    StringProperty tipo;
     IntegerProperty assuntoId;
+    IntegerProperty perguntaId;
+    BooleanProperty correta;
 
     public Resposta() {
     }
 
-    public Resposta(int id, String texto, String tipo, int assuntoId) {
-        this.id = new SimpleIntegerProperty(id);
+    public Resposta(String texto, int assuntoId, int perguntaId, boolean correta) {
         this.texto = new SimpleStringProperty(texto);
-        this.tipo = new SimpleStringProperty(tipo);
         this.assuntoId = new SimpleIntegerProperty(assuntoId);
-    }
-
-    public Resposta(String texto, String tipo, int assuntoId) {
-        this.texto = new SimpleStringProperty(texto);
-        this.tipo = new SimpleStringProperty(tipo);
-        this.assuntoId = new SimpleIntegerProperty(assuntoId);
+        this.perguntaId = new SimpleIntegerProperty(perguntaId);
+        this.correta = new SimpleBooleanProperty(correta);
     }
 
     public int getId() {
@@ -53,18 +45,6 @@ public class Resposta {
         this.texto.set(texto);
     }
 
-    public String getTipo() {
-        return tipo.get();
-    }
-
-    public StringProperty tipoProperty() {
-        return tipo;
-    }
-
-    public void setTipo(String tipo) {
-        this.tipo.set(tipo);
-    }
-
     public int getAssuntoId() {
         return assuntoId.get();
     }
@@ -75,5 +55,29 @@ public class Resposta {
 
     public void setAssuntoId(int assuntoId) {
         this.assuntoId.set(assuntoId);
+    }
+
+    public int getPerguntaId() {
+        return perguntaId.get();
+    }
+
+    public IntegerProperty perguntaIdProperty() {
+        return perguntaId;
+    }
+
+    public void setPerguntaId(int perguntaId) {
+        this.perguntaId.set(perguntaId);
+    }
+
+    public boolean isCorreta() {
+        return correta.get();
+    }
+
+    public BooleanProperty corretaProperty() {
+        return correta;
+    }
+
+    public void setCorreta(boolean correta) {
+        this.correta.set(correta);
     }
 }
