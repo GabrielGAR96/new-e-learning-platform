@@ -348,7 +348,7 @@ public class PainelCadastrar {
             dao.inserir(new PerguntaDoSimulado(simulado.getId(), p.getId()));
             ArrayList<Resposta> respostasDaPergunta = dao.listarComFiltro(Resposta.class, "perguntaId", p.getId());
             for(Resposta r : respostasDaPergunta) {
-                dao.inserir(new RespostaDoSimulado(simulado.getId(), r.getId()));
+                dao.inserir(new RespostaDoSimulado(simulado.getId(), r.getId(), false));
             }
         }
 
