@@ -342,7 +342,7 @@ public class PainelCadastrar {
         int facilitadorMatricula = facilitadorAleatorio(assunto);
 
         Simulado simulado = dao.inserir(new Simulado(aluno.getMatricula(), -1,
-                assunto.getId(), facilitadorMatricula));
+                assunto.getId(), facilitadorMatricula, false, false));
 
         for(Pergunta p : perguntasDoSimulado) {
             dao.inserir(new PerguntaDoSimulado(simulado.getId(), p.getId()));

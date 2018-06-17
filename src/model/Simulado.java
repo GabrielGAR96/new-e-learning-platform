@@ -1,10 +1,7 @@
 package model;
 
 
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.*;
 
 import java.io.Serializable;
 
@@ -15,15 +12,19 @@ public class Simulado {
     DoubleProperty nota;
     IntegerProperty assuntoId;
     IntegerProperty facilitadorMatricula;
+    BooleanProperty respondido;
+    BooleanProperty corrigido;
 
     public Simulado() {
     }
 
-    public Simulado(int alunoMatricula, double nota, int assuntoId, int facilitadorMatricula) {
+    public Simulado(int alunoMatricula, double nota, int assuntoId, int facilitadorMatricula, boolean respondido, boolean corrigido) {
         this.alunoMatricula = new SimpleIntegerProperty(alunoMatricula);
         this.nota = new SimpleDoubleProperty(nota);
         this.assuntoId = new SimpleIntegerProperty(assuntoId);
         this.facilitadorMatricula = new SimpleIntegerProperty(facilitadorMatricula);
+        this.respondido = new SimpleBooleanProperty(respondido);
+        this.corrigido = new SimpleBooleanProperty(corrigido);
     }
 
     public int getId() {
@@ -84,5 +85,29 @@ public class Simulado {
 
     public void setFacilitadorMatricula(int facilitadorMatricula) {
         this.facilitadorMatricula.set(facilitadorMatricula);
+    }
+
+    public boolean isRespondido() {
+        return respondido.get();
+    }
+
+    public BooleanProperty respondidoProperty() {
+        return respondido;
+    }
+
+    public void setRespondido(boolean respondido) {
+        this.respondido.set(respondido);
+    }
+
+    public boolean isCorrigido() {
+        return corrigido.get();
+    }
+
+    public BooleanProperty corrigidoProperty() {
+        return corrigido;
+    }
+
+    public void setCorrigido(boolean corrigido) {
+        this.corrigido.set(corrigido);
     }
 }
