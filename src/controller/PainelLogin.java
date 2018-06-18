@@ -6,6 +6,8 @@ import com.jfoenix.controls.JFXSnackbar;
 import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
+import javafx.scene.Cursor;
 import javafx.scene.control.Label;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.BorderPane;
@@ -81,6 +83,8 @@ public class PainelLogin {
     private void carregarOpcoes(Aluno aluno) {
         ArrayList<Simulado> simulados = dao.listarComFiltro(Simulado.class, "alunoMatricula", aluno.getMatricula());
         VBox vbox = new VBox();
+        vbox.setPadding(new Insets(10,0,0,0));
+        vbox.setSpacing(10);
 
         for(Simulado simulado : simulados) {
             Assunto assunto = dao.buscar(Assunto.class, "id", simulado.getAssuntoId());
@@ -94,6 +98,7 @@ public class PainelLogin {
                 vbox.getChildren().add(simuladoRespondido);
             } else {
                 JFXButton btn = new JFXButton(nome);
+                btn.setCursor(Cursor.HAND);
                 btn.setOnMouseClicked(e -> {
                     setSimulado(simulado, "aluno");
                 });
@@ -108,6 +113,8 @@ public class PainelLogin {
     private void carregarOpcoes(Facilitador facilitador) {
         ArrayList<Simulado> simulados = dao.listarComFiltro(Simulado.class, "facilitadorMatricula", facilitador.getMatricula());
         VBox vbox = new VBox();
+        vbox.setPadding(new Insets(10,0,0,0));
+        vbox.setSpacing(10);
 
         for(Simulado simulado : simulados) {
             Assunto assunto = dao.buscar(Assunto.class, "id", simulado.getAssuntoId());
@@ -117,6 +124,7 @@ public class PainelLogin {
                 vbox.getChildren().add(simuladoCorrigido);
             } else if(simulado.isRespondido()) {
                 JFXButton btn = new JFXButton(nome);
+                btn.setCursor(Cursor.HAND);
                 btn.setOnMouseClicked(e -> {
                     setSimulado(simulado, "facilitador");
                 });

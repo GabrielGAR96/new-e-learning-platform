@@ -42,7 +42,7 @@ public class RankingTemplate {
             circuloPodium.setFill(Color.web("#c90000"));
             circuloPodium.setStroke(Color.web("#fffb00"));
         } else if (colocacao.equals("2")) {
-            
+
             circuloPodium.setFill(Color.web("#1714a8"));
             circuloPodium.setStroke(Color.web("#b5b5b5"));
         } else if (colocacao.equals("3")) {

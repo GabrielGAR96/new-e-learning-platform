@@ -34,7 +34,8 @@ public class PainelRanking {
     void initialize() throws IOException {
         List<Simulado> simulados = dao.listar(Simulado.class);
 
-        simulados.sort(Comparator.comparing(Simulado::getNota));
+        Comparator<Simulado> simuladoNotaComparator = Comparator.comparing(Simulado::getNota);
+        Collections.sort(simulados, simuladoNotaComparator.reversed());
 
         for (Simulado simulado : simulados) {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/rankingTemplate.fxml"));

@@ -378,7 +378,7 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <JFXComboBox fx:id="alunoSimuladoCombo" focusColor="#6a1b9a" labelFloat="true" prefHeight="25.0" prefWidth="250.0" promptText="Aluno" GridPane.halignment="CENTER" />
+                  <JFXComboBox fx:id="alunoSimuladoCombo" focusColor="#6a1b9a" labelFloat="true" onAction="#alunoSelecionadoSimulado" prefHeight="25.0" prefWidth="250.0" promptText="Aluno" GridPane.halignment="CENTER" />
                   <JFXComboBox fx:id="disciplinaSimuladoCombo" focusColor="#6a1b9a" labelFloat="true" onAction="#disciplinaSelecionadaSimulado" prefHeight="25.0" prefWidth="250.0" promptText="Disciplina" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                      <GridPane.margin>
                         <Insets bottom="30.0" />
@@ -389,7 +389,7 @@
                         <Insets bottom="35.0" right="10.0" top="10.0" />
                      </GridPane.margin>
                   </JFXListView>
-                  <JFXComboBox fx:id="assuntoSimuladoCombo" focusColor="#6a1b9a" labelFloat="true" prefHeight="25.0" prefWidth="250.0" promptText="Assunto" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                  <JFXComboBox fx:id="assuntoSimuladoCombo" focusColor="#6a1b9a" labelFloat="true" onAction="#assuntoSelecionadoSimulado" prefHeight="25.0" prefWidth="250.0" promptText="Assunto" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                      <GridPane.margin>
                         <Insets bottom="30.0" />
                      </GridPane.margin>

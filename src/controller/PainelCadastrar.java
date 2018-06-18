@@ -352,6 +352,7 @@ public class PainelCadastrar {
             }
         }
 
+        questoesSimuladoView.getItems().clear();
         perguntasDoSimulado.clear();
     }
 
@@ -609,6 +610,7 @@ public class PainelCadastrar {
 
     public void disciplinaSelecionadaSimulado(ActionEvent actionEvent) {
         assuntoToComboBox(disciplinaSimuladoCombo, assuntoSimuladoCombo);
+        questoesSimuladoView.getItems().clear();
     }
 
     private void assuntoToComboBox(JFXComboBox<String> disciplinaSimuladoCombo, JFXComboBox<String> assuntoSimuladoCombo) {
@@ -644,4 +646,11 @@ public class PainelCadastrar {
     }
 
 
+    public void alunoSelecionadoSimulado(ActionEvent actionEvent) {
+        questoesSimuladoView.getItems().clear();
+    }
+
+    public void assuntoSelecionadoSimulado(ActionEvent actionEvent) {
+        questoesSimuladoView.getItems().clear();
+    }
 }

@@ -89,7 +89,7 @@
                   <Font name="Georgia" size="15.0" />
                </font>
             </JFXTextField>
-            <JFXButton contentDisplay="GRAPHIC_ONLY" layoutX="400.0" layoutY="32.0" onAction="#pesquisar">
+            <JFXButton fx:id="pesquisarBtn" contentDisplay="GRAPHIC_ONLY" layoutX="400.0" layoutY="32.0" onAction="#pesquisar">
                <graphic>
                   <FontAwesomeIcon fill="#c7c7c7" iconName="SEARCH" size="2em" />
                </graphic>
