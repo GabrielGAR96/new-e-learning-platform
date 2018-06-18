@@ -69,27 +69,23 @@ public class PainelPrincipal {
         painelSecundario.setCenter(bp);
     }
 
-    public void pesquisar(KeyEvent keyEvent) {
-        if (keyEvent.getCode() == KeyCode.ENTER && painelRegistros != null) {
+    public void pesquisar(javafx.event.ActionEvent actionEvent) {
+        TableView<?> tabelaRegistroAtual = painelRegistros.getTabelaAtual();
+        Class classeDaTabela = tabelaRegistroAtual.getItems().get(0).getClass();
+        String textoPesquisa = pesquisarField.getText();
 
-            TableView<?> tabelaRegistroAtual = painelRegistros.getTabelaAtual();
-            Class classeDaTabela = tabelaRegistroAtual.getItems().get(0).getClass();
-            String textoPesquisa = pesquisarField.getText();
+        if (tabelaRegistroAtual != null) {
+            if (textoPesquisa.isEmpty()) {
+                painelRegistros.setTabelaAtual(dao.listar(classeDaTabela), classeDaTabela);
+            } else {
+                int indexSeparador = textoPesquisa.indexOf(":");
+                String nomeFiltro = textoPesquisa.substring(0, indexSeparador).trim();
+                String filtro = textoPesquisa.substring(indexSeparador + 1).trim();
 
-            if (tabelaRegistroAtual != null) {
-                if (textoPesquisa.isEmpty()) {
-                    painelRegistros.setTabelaAtual(dao.listar(classeDaTabela), classeDaTabela);
-                } else {
-                    int indexSeparador = textoPesquisa.indexOf(":");
-                    String nomeFiltro = textoPesquisa.substring(0, indexSeparador).trim();
-                    String filtro = textoPesquisa.substring(indexSeparador + 1).trim();
-
-                    painelRegistros.setTabelaAtual(dao.listarComFiltro(classeDaTabela, nomeFiltro, filtro), classeDaTabela);
-                }
-
+                painelRegistros.setTabelaAtual(dao.listarComFiltro(classeDaTabela, nomeFiltro, filtro), classeDaTabela);
             }
+
         }
     }
-
 
 }

@@ -2,6 +2,7 @@ package controller;
 
 import com.jfoenix.controls.JFXListView;
 import com.jfoenix.controls.JFXRadioButton;
+import com.jfoenix.controls.JFXSnackbar;
 import com.jfoenix.controls.JFXTextArea;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
@@ -10,8 +11,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import model.*;
-
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class PainelSimulado {
@@ -164,7 +163,7 @@ public class PainelSimulado {
                 if(pergunta.getTipo().equals("sub")) {
                     ToggleGroup correcaoDaQuestaoSubjetiva = correcoesDasQuestoesSubjetivas.get(indiceDeQuestaoSubjetiva);
                     JFXRadioButton opcaoSelecionada = (JFXRadioButton) correcaoDaQuestaoSubjetiva.getSelectedToggle();
-                    if(opcaoSelecionada.getText().equals("correta")) {
+                    if(opcaoSelecionada.getText().equals("Correta")) {
                         questoesCertas++;
                     }
                 }
@@ -176,6 +175,9 @@ public class PainelSimulado {
             dao.alterar(simuladoAtual, simuladoAtual.getId());
             setSimuladoAtual(simuladoAtual); //Alterações no BD requerem update do simulado.
         }
+
+        JFXSnackbar snackBar = new JFXSnackbar(painelPrincipal);
+        snackBar.show("Simulado enviado!", 2500);
     }
 
     private void setNota(int questoesCertas) {
@@ -234,8 +236,8 @@ public class PainelSimulado {
         respostaDaPergunta.getItems().add(resposta.getTexto());
         conteudoDoPainel.getChildren().add(respostaDaPergunta);
 
-        JFXRadioButton correto = new JFXRadioButton("correta");
-        JFXRadioButton incorreto = new JFXRadioButton("incorreta");
+        JFXRadioButton correto = new JFXRadioButton("Correta");
+        JFXRadioButton incorreto = new JFXRadioButton("Incorreta");
         correto.setSelectedColor(Color.web("#6a1b9a"));
         incorreto.setSelectedColor(Color.web("#6a1b9a"));
         correto.setToggleGroup(correcaoDaQuestao);

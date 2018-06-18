@@ -84,12 +84,16 @@
             <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="14.0" pickOnBounds="true" preserveRatio="true">
                <Image url="@../img/logo.jpg" />
             </ImageView>
-            <JFXTextField fx:id="pesquisarField" focusColor="#6a1b9a" layoutX="161.0" layoutY="38.0" onKeyPressed="#pesquisar" prefHeight="25.0" prefWidth="282.0" promptText="Pesquisar" style="-jfx-label-float: true;" unFocusColor="BLACK">
+            <JFXTextField fx:id="pesquisarField" focusColor="#6a1b9a" layoutX="161.0" layoutY="38.0" prefHeight="25.0" prefWidth="282.0" promptText="Pesquisar" style="-jfx-label-float: true;" unFocusColor="BLACK">
                <font>
                   <Font name="Georgia" size="15.0" />
                </font>
             </JFXTextField>
-            <FontAwesomeIcon fill="#c7c7c7" iconName="SEARCH" layoutX="420.0" layoutY="58.0" size="2em" />
+            <JFXButton contentDisplay="GRAPHIC_ONLY" layoutX="400.0" layoutY="32.0" onAction="#pesquisar">
+               <graphic>
+                  <FontAwesomeIcon fill="#c7c7c7" iconName="SEARCH" size="2em" />
+               </graphic>
+            </JFXButton>
          </AnchorPane>
       </top>
    </BorderPane>
