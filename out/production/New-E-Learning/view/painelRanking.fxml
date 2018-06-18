@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXListView?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
+
+
+<BorderPane fx:id="painelPrincipal" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="900.0" style="-fx-background-color: #6a1b9a;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PainelRanking">
+   <top>
+      <Label text="RANKING" textFill="WHITE" BorderPane.alignment="CENTER">
+         <graphic>
+            <FontAwesomeIcon fill="WHITE" iconName="STAR" />
+         </graphic>
+         <font>
+            <Font name="System Bold" size="25.0" />
+         </font>
+      </Label>
+   </top>
+   <center>
+      <JFXListView fx:id="rankingView" BorderPane.alignment="CENTER" />
+   </center>
+</BorderPane>

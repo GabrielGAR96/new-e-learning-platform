@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="55.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.RankingTemplate">
+   <children>
+      <HBox alignment="CENTER_LEFT" prefHeight="55.0" prefWidth="577.0" spacing="10.0">
+         <children>
+            <StackPane prefHeight="50.0" prefWidth="50.0">
+               <children>
+                  <Circle fx:id="circuloPodium" fill="#c90000" radius="25.0" stroke="#fffb00" strokeLineCap="ROUND" strokeType="INSIDE" strokeWidth="2.0">
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </Circle>
+                  <Label fx:id="colocacao" text="1" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="25.0" />
+                     </font>
+                  </Label>
+               </children>
+            </StackPane>
+            <FontAwesomeIcon iconName="USER" size="4em" />
+            <Label fx:id="nome" text="Joaquim Silva">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER_RIGHT" prefHeight="50.0" prefWidth="323.0">
+         <children>
+            <VBox alignment="CENTER" prefHeight="55.0" prefWidth="145.0">
+               <children>
+                  <Label fx:id="assuntoSimulado" text="Banco de Dados" />
+                  <Label fx:id="notaSimulado" text="10">
+                     <font>
+                        <Font name="System Bold Italic" size="20.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
+            <VBox alignment="CENTER" prefHeight="55.0" prefWidth="98.0">
+               <children>
+                  <Label text="PMG:">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="pmg" text="8.8" />
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+   </children>
+</HBox>

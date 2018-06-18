@@ -28,7 +28,7 @@ public class PainelPrincipal {
     private JFXButton registrosBtn;
 
     @FXML
-    private JFXButton avaliacaoBtn;
+    private JFXButton rankingBtn;
 
     @FXML
     private JFXTextField pesquisarField;
@@ -41,11 +41,6 @@ public class PainelPrincipal {
         dao = new Dao();
     }
 
-    @FXML
-    void abrirPainelCadastrar(ActionEvent event) {
-
-    }
-
     public void abrirPainelCadastrar(javafx.event.ActionEvent actionEvent) throws IOException {
         BorderPane bp = FXMLLoader.load(getClass().getResource("../view/painelCadastrar.fxml"));
         painelSecundario.setCenter(bp);
@@ -55,6 +50,14 @@ public class PainelPrincipal {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/painelRegistros.fxml"));
         BorderPane bp = fxmlLoader.load();
         painelRegistros = fxmlLoader.getController();
+
+        painelSecundario.setCenter(bp);
+    }
+
+    public void abrirPainelRanking(javafx.event.ActionEvent actionEvent) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/painelRanking.fxml"));
+        BorderPane bp = fxmlLoader.load();
+        PainelRanking painelRanking = fxmlLoader.getController();
 
         painelSecundario.setCenter(bp);
     }
