@@ -31,7 +31,7 @@
                         <ToggleGroup fx:id="matriculaToggle" />
                      </toggleGroup>
                   </JFXRadioButton>
-                  <JFXRadioButton fx:id="professorRadioBtn" style="-jfx-selected-color: #6a1b9a;" text="Professor" toggleGroup="$matriculaToggle" />
+                  <JFXRadioButton fx:id="professorRadioBtn" style="-jfx-selected-color: #6a1b9a;" text="Facilitador" toggleGroup="$matriculaToggle" />
                </children>
             </HBox>
             <JFXButton fx:id="loginBtn" onAction="#loginSelection" text="Login" textFill="#6a1b9a">

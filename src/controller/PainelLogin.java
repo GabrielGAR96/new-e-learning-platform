@@ -54,14 +54,22 @@ public class PainelLogin {
 
     }
 
-    private void login(Object user) {
-        if(user != null) {
+    private void login(Facilitador facilitador) {
+        if(facilitador != null) {
             painelPrincipal.setCenter(null);
             painelPrincipal.setTop(null);
-            if(user instanceof Aluno)
-                carregarOpcoes((Aluno) user);
-            else
-                carregarOpcoes((Facilitador) user);
+            carregarOpcoes(facilitador);
+        } else {
+            JFXSnackbar snackBar = new JFXSnackbar(painelPrincipal);
+            snackBar.show("Por favor, insira uma matrícula válida", 2500);
+        }
+    }
+
+    private void login(Aluno aluno) {
+        if(aluno != null) {
+            painelPrincipal.setCenter(null);
+            painelPrincipal.setTop(null);
+            carregarOpcoes(aluno);
         } else {
             JFXSnackbar snackBar = new JFXSnackbar(painelPrincipal);
             snackBar.show("Por favor, insira uma matrícula válida", 2500);
@@ -76,12 +84,12 @@ public class PainelLogin {
         for(Simulado simulado : simulados) {
             Assunto assunto = dao.buscar(Assunto.class, "id", simulado.getAssuntoId());
             String nome = Integer.toString(simulado.getId()) + " : " + assunto.getNome();
-            if(simulado.isRespondido()) {
-                Label simuladoRespondido = new Label(nome + " (Aguarde a correção)");
-                vbox.getChildren().add(simuladoRespondido);
-            } else if(simulado.isCorrigido()) {
+            if(simulado.isCorrigido()) {
                 Label simuladoCorrigido = new Label(nome + " | Nota: " + simulado.getNota());
                 vbox.getChildren().add(simuladoCorrigido);
+            } else if(simulado.isRespondido()) {
+                Label simuladoRespondido = new Label(nome + " (Aguarde a correção)");
+                vbox.getChildren().add(simuladoRespondido);
             } else {
                 JFXButton btn = new JFXButton(nome);
                 btn.setOnMouseClicked(e -> {
@@ -102,15 +110,15 @@ public class PainelLogin {
         for(Simulado simulado : simulados) {
             Assunto assunto = dao.buscar(Assunto.class, "id", simulado.getAssuntoId());
             String nome = Integer.toString(simulado.getId()) + " : " + assunto.getNome();
-            if(simulado.isRespondido()) {
+            if(simulado.isCorrigido()) {
+                Label simuladoCorrigido = new Label(nome + "(Corrigido)");
+                vbox.getChildren().add(simuladoCorrigido);
+            } else if(simulado.isRespondido()) {
                 JFXButton btn = new JFXButton(nome);
                 btn.setOnMouseClicked(e -> {
                     setSimulado(simulado, "facilitador");
                 });
                 vbox.getChildren().add(btn);
-            } else if(simulado.isCorrigido()) {
-                Label simuladoCorrigido = new Label(nome + "(Corrigido)");
-                vbox.getChildren().add(simuladoCorrigido);
             } else {
                 Label simuladoIndisponivel = new Label(nome + "(Não respondido)");
                 vbox.getChildren().add(simuladoIndisponivel);
@@ -126,11 +134,12 @@ public class PainelLogin {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/painelSimulado.fxml"));
             painelPai.setCenter(fxmlLoader.load());
 
-            PainelSimulado psc = fxmlLoader.getController();
+            PainelSimulado painelSimulado = fxmlLoader.getController();
+            painelSimulado.setSimuladoAtual(simulado);
             if(alunoOuFacilitador.equals("aluno"))
-                psc.carregarSimuladoAluno(simulado);
+                painelSimulado.carregarSimuladoAluno();
             else
-                psc.carregarSimuladoFacilitador(simulado);
+                painelSimulado.carregarSimuladoFacilitador();
 
         } catch (IOException e) {
             e.printStackTrace();
