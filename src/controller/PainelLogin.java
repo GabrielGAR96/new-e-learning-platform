@@ -13,6 +13,7 @@ import javafx.scene.layout.VBox;
 import model.*;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class PainelLogin {
@@ -85,7 +86,8 @@ public class PainelLogin {
             Assunto assunto = dao.buscar(Assunto.class, "id", simulado.getAssuntoId());
             String nome = Integer.toString(simulado.getId()) + " : " + assunto.getNome();
             if(simulado.isCorrigido()) {
-                Label simuladoCorrigido = new Label(nome + " | Nota: " + simulado.getNota());
+                DecimalFormat df = new DecimalFormat("#.##");
+                Label simuladoCorrigido = new Label(nome + " | Nota: " + df.format(simulado.getNota()));
                 vbox.getChildren().add(simuladoCorrigido);
             } else if(simulado.isRespondido()) {
                 Label simuladoRespondido = new Label(nome + " (Aguarde a correção)");

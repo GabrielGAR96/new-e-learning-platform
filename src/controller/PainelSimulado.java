@@ -180,16 +180,10 @@ public class PainelSimulado {
 
     private void setNota(int questoesCertas) {
         double nota;
-
         int totalDeQuestoes = perguntasDoSimulado.size();
-
-        DecimalFormat df = new DecimalFormat("#.##");
-        nota = Double.parseDouble(df.format((questoesCertas / totalDeQuestoes) * 10));
-
+        nota = ((double) questoesCertas / totalDeQuestoes) * 10;
         simuladoAtual.setNota(nota);
-
         simuladoAtual.setCorrigido(true);
-
     }
 
     private Resposta getRespostaSelecionada(Pergunta pergunta) {
