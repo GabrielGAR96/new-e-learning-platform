@@ -11,7 +11,7 @@
 
 <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="55.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.RankingTemplate">
    <children>
-      <HBox alignment="CENTER_LEFT" prefHeight="55.0" prefWidth="577.0" spacing="10.0">
+      <HBox alignment="CENTER_LEFT" prefHeight="55.0" prefWidth="449.0" spacing="10.0">
          <children>
             <StackPane prefHeight="50.0" prefWidth="50.0">
                <children>
@@ -35,11 +35,12 @@
             </Label>
          </children>
       </HBox>
-      <HBox alignment="CENTER_RIGHT" prefHeight="50.0" prefWidth="323.0">
+      <HBox alignment="CENTER_RIGHT" prefHeight="57.0" prefWidth="402.0">
          <children>
-            <VBox alignment="CENTER" prefHeight="55.0" prefWidth="145.0">
+            <VBox alignment="CENTER" prefHeight="57.0" prefWidth="304.0">
                <children>
-                  <Label fx:id="assuntoSimulado" text="Banco de Dados" />
+                  <Label fx:id="disciplinaSimulado" text="Label" />
+                  <Label fx:id="assuntoSimulado" text="Banco de Dados" textFill="#7c7b7b" />
                   <Label fx:id="notaSimulado" text="10">
                      <font>
                         <Font name="System Bold Italic" size="20.0" />

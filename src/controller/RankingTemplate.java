@@ -4,7 +4,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import model.Dao;
 
 public class RankingTemplate {
 
@@ -13,6 +12,9 @@ public class RankingTemplate {
 
     @FXML
     private Label nome;
+
+    @FXML
+    private Label disciplinaSimulado;
 
     @FXML
     private Label assuntoSimulado;
@@ -31,9 +33,10 @@ public class RankingTemplate {
 
     }
 
-    public void setInfo(String colocacao, String nome, String assuntoSimulado, String notaSimulado, String pmg) {
+    public void setInfo(String colocacao, String nome, String disciplinaSimulado, String assuntoSimulado, String notaSimulado, String pmg) {
         this.colocacao.setText(colocacao);
         this.nome.setText(nome);
+        this.disciplinaSimulado.setText(disciplinaSimulado);
         this.assuntoSimulado.setText(assuntoSimulado);
         this.notaSimulado.setText(notaSimulado);
         this.pmg.setText(pmg);

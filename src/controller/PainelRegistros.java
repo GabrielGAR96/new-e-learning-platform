@@ -30,9 +30,6 @@ public class PainelRegistros {
     private BorderPane painelPrincipal;
 
     @FXML
-    private ComboBox<?> colunasRegistroBtn;
-
-    @FXML
     private JFXButton inscricoesRegistroBtn;
 
     @FXML
@@ -49,12 +46,6 @@ public class PainelRegistros {
 
     @FXML
     private JFXButton respostasRegistroBtn;
-
-    @FXML
-    private JFXButton alunosRegistroBtn;
-
-    @FXML
-    private JFXButton facilitadoresRegistroBtn;
 
     @FXML
     private JFXButton simuladosRegistroBtn;
@@ -579,8 +570,13 @@ public class PainelRegistros {
     }
 
     public <T> void setTabelaAtual(List<T> lista, Class<T> classe) {
-        TableView<T> tabela = criarTabela(lista, classe);
-        this.tabelaAtual = tabela;
-        painelPrincipal.setCenter(tabelaAtual);
+        if(!lista.isEmpty()) {
+            TableView<T> tabela = criarTabela(lista, classe);
+            this.tabelaAtual = tabela;
+            painelPrincipal.setCenter(tabelaAtual);
+        } else {
+            JFXSnackbar snackBar = new JFXSnackbar(painelPrincipal);
+            snackBar.show("Nenhum resultado encontrado", 2000);
+        }
     }
 }

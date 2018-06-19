@@ -26,9 +26,6 @@ public class PainelCadastrar {
     private BorderPane painelPai;
 
     @FXML
-    private JFXTabPane paneCadastros;
-
-    @FXML
     private Tab alunoTab;
 
     @FXML
@@ -66,9 +63,6 @@ public class PainelCadastrar {
 
     @FXML
     private JFXTextField assuntoDisciplinaField;
-
-    @FXML
-    private JFXButton adicionarAssuntoDisciplinaBtn;
 
     @FXML
     private Tab assuntoTab;
@@ -146,9 +140,6 @@ public class PainelCadastrar {
     private JFXComboBox<String> facilitadorDuvidaCombo;
 
     @FXML
-    private Tab gerarSimuladoTab;
-
-    @FXML
     private JFXComboBox<String> alunoSimuladoCombo;
 
     @FXML
@@ -159,12 +150,6 @@ public class PainelCadastrar {
 
     @FXML
     private JFXComboBox<String> assuntoSimuladoCombo;
-
-    @FXML
-    private JFXButton gerarSimuladoBtn;
-
-    @FXML
-    private JFXButton finalizarCadastroBtn;
 
     @FXML
     private Label valorPagamentoLabel;

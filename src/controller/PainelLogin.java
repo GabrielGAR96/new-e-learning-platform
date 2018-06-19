@@ -27,13 +27,7 @@ public class PainelLogin {
     private JFXTextField matriculaField;
 
     @FXML
-    private JFXButton loginBtn;
-
-    @FXML
     private JFXRadioButton alunoRadioBtn;
-
-    @FXML
-    private JFXRadioButton professorRadioBtn;
 
     @FXML
     private ToggleGroup matriculaToggle;

@@ -107,7 +107,12 @@ public class PainelSimulado {
 
                 ToggleGroup correcaoDaQuestao = new ToggleGroup();
 
-                Resposta respostaEnviadaPeloAluno = dao.buscar(Resposta.class, "perguntaId", pergunta.getId());
+                Resposta respostaEnviadaPeloAluno = new Resposta();
+                for(Resposta respostaDaPergunta : respostasDoSimulado) {
+                    if(respostaDaPergunta.getPerguntaId() == pergunta.getId()) {
+                        respostaEnviadaPeloAluno = respostaDaPergunta;
+                    }
+                }
 
                 adicionarRespostaSubjetivaParaCorrecao(respostaEnviadaPeloAluno, correcaoDaQuestao, conteudoDoPainel);
 

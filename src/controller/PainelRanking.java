@@ -6,19 +6,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import model.Aluno;
-import model.Assunto;
-import model.Dao;
-import model.Simulado;
+import model.*;
 
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.*;
 
 public class PainelRanking {
-
-    @FXML
-    private BorderPane painelPrincipal;
 
     @FXML
     private JFXListView<HBox> rankingView;
@@ -53,10 +47,11 @@ public class PainelRanking {
         String colocacaoDoAluno = String.valueOf(simulados.indexOf(simulado) + 1);
         Aluno aluno = dao.buscar(Aluno.class, "matricula", simulado.getAlunoMatricula());
         Assunto assunto = dao.buscar(Assunto.class, "id", simulado.getAssuntoId());
+        Disciplina disciplina = dao.buscar(Disciplina.class, "id", assunto.getDisciplinaId());
         DecimalFormat df = new DecimalFormat("#.##");
         String nota = df.format(simulado.getNota());
         String pmg = getPmg(aluno);
-        rankingTemplateController.setInfo(colocacaoDoAluno, aluno.getNome(), assunto.getNome(), nota, pmg);
+        rankingTemplateController.setInfo(colocacaoDoAluno, aluno.getNome(), disciplina.getNome(), assunto.getNome(), nota, pmg);
     }
 
     private String getPmg(Aluno aluno) {

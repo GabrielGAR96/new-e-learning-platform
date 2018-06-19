@@ -16,19 +16,7 @@ import java.io.IOException;
 public class PainelPrincipal {
 
     @FXML
-    private BorderPane painelPrimario;
-
-    @FXML
     private BorderPane painelSecundario;
-
-    @FXML
-    private JFXButton cadastrarBtn;
-
-    @FXML
-    private JFXButton registrosBtn;
-
-    @FXML
-    private JFXButton rankingBtn;
 
     @FXML
     private JFXTextField pesquisarField;
